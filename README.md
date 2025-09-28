@@ -1,30 +1,83 @@
-AI Research
+# Idea Execution Framework
 
-AI as a personal assistant for following use cases:
-1. Przygotowanie ogłoszenia sprzedaży mojego starego samochodu i wystawienie go na portalach sprzedaży samochodów 1.a. Odbieranie telefonów od potencjalnych kupców, odpowiadania na pytania i umawianie oglądania 2. Agent that is responsible for developing and maintaining libraries on github using other coding agents like codex. 3. Agent that will take care of investing my money 4. Agent który pomoże mi w odpowiedzeniu na pozew o zniesławienie. Poprowadzi projekt przygotowania odpowiedzi przez zebranie materiałów ode mnie, przygotowanie sobie struktury projektu i tworzenie odpowiedzi.
+## Vision
+Make executing ideas with an AI efficient and transparent, with plans, decisions, artifacts, and learnings versioned and human‑auditable. The Lead Agent collaborates with the human to clarify the idea and drive execution in small, observable steps. Human involvement is minimized by phase: high during early idea elaboration, lower during planning/prototyping, and as low as possible during execution within agreed scope. Specialized agents may be involved when helpful, but are not required for small projects.
 
-Common things for all these use cases:
-* Requirements can be gathered and project can be done in form of a git project (shared project state/blackboard)
-* Common memory/blackboard as git repo
-* Everything that AI system learns is stored in project
-* AI system put the plan/next steps into the rep
-* AI systems help to build a vision with human and store in project repo
-* bigger projects may require additional agents beside me and co-architect/planner agent (1st level agent). E.g. in software project additional coding agent that got work from 1srt level agent
-* Agent that works in a loop and make the vision come true asking me when vision is not clear or there are high level decision to take.
-* I/human provides the vision and clarifications for co-architect agent (1st level agent)
+Related concepts:
+ - AI powered Tiny Teams
+   - https://tinyteams.xyz/
+   - https://www.latent.space/p/tiny
 
-Notes:
-Github repo as shared project state. Agent level is putting plan into repo and delegate work based on spec in git repo.
-Repo is the way to have all agent in synch. 
-Beside project memory would be good to have interaction memory. Agent that learns based on interaction with human. There is something like tsdsdshat in claude flow
+## Core Principles
+- Git repo as shared project state/blackboard.
+- Persist all plans, decisions, artifacts, and learnings in the repo.
+- Agents always publish next steps and rationale into the repo.
+- Human provides the vision and makes high-level decisions; the Lead Agent (level-1) collaborates and may delegate when beneficial.
+- Memory is in repo: both working artifacts and distilled interaction learnings live as files here.
+- Repo is the single source of truth and synchronization medium; plans and specs live here and drive delegation.
 
-TODO for AI system:
+## Operating Model
+Roles
+- Human: sets idea, constraints, core principles, requirements, approves major decisions, provides clarifications
+- Lead Agent (L1): a critical partner who helps think through and clarify the idea, expands high-level ideas into actionable detail, turns ideas into plans, executes tasks, and keeps the repo in sync; may involve specialized agents if needed.
+- Specialized Agents (L2+, optional): coding, ops, research, etc.
 
+## Iteration rhythm
+- Updates to the repo happen whenever useful (often after meaningful exchanges) and at least once per focused work cycle to keep the repo the single source of truth.
+- Phases are flexible and can overlap:
+	- Phase A – Idea Elaboration (high human involvement): Human states goal/idea; L1 probes, challenges, and expands; fast back-and-forth in README; capture assumptions and decisions.
+    - Phase B – Planning & Prototyping (moderate human involvement): L1 drafts approaches, proposes tasks, executes small spikes; human reviews key choices; frequent but lighter check-ins.
+    - Phase C – Execution (low human involvement): L1 works autonomously within agreed scope; updates repo regularly; escalates only for major decisions or boundary changes.
 
-TODO for Human:
-* Research with AI https://github.com/ruvnet/claude-flow
-* Difference between neural module and Memory system in claude-flow
-* How agents work in Codex/Claude CLI
-* Check "Badania nad AI i pamięcią" chat
-* Check "AI w edukacji dzieci"
-* Read about "Legal assistance"
+## Repository Structure
+Start README-first. Add folders only when the project grows; keep the repo the single source of truth.
+
+- README.md
+	- vision
+	- core principles
+	- operating model
+	- repository structure
+	- interaction memory
+	- iteration rhythm
+	- TODOs (Lead Agent, Human)
+	- roadmap
+	- decision notes (template)
+	- learnings (template)
+
+## Interaction Memory
+Interaction memory captures distilled insights from conversations and actions so future steps improve. It is part of the repo memory and should be lightweight and human-auditable.
+- Minimal fields:
+	- Date/Context
+	- Insight (what we learned or decided and why)
+	- Outcome (what changed)
+- Keep next steps in the TODO sections, not here. Start inline in README under a “Learnings” subsection; extract to `memory/interaction-log.md` only when it grows.
+
+## TODO – Lead Agent
+- Deep research: other frameworks similar to the one that is described here
+- Research memory approaches (Claude Flow and others) and propose a simple initial method here (maybe alternative to our approach with "Decision Notes" and "Learnings" in readme)
+
+## TODO – Human
+- Define/refine the vision iteratively, perform researches with the Lead Agent (you’re using Copilot as L1 for now).
+- Research with AI https://github.com/ruvnet/claude-flow
+    - Clarify the difference between the "neural module" and "Memory system" in Claude Flow.
+- Review how multi-agent features work in Codex/Claude CLI; identify patterns to reuse.
+- Check notes in chat: "Badania nad AI i pamięcią".
+- Think what should be the structure of the projects that will be used to execute ideas according to the Idea Execution Framework
+
+## Roadmap
+- Phase 1: Execute Phase A for "Idea Execution Framework" (this repo is the pilot) till Phase B or till Phase 2 below.
+- Phase 2: When the framework feels solid, start a second project executed according to it.
+
+---
+
+## Decision Notes (template)
+- Date: YYYY-MM-DD
+- Context:
+- Decision:
+- Alternatives considered:
+- Rationale:
+
+## Learnings (template)
+- Date/Context:
+- Insight:
+- Outcome:
