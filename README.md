@@ -37,6 +37,8 @@ Start README-first. Add folders only when the project grows; keep the repo the s
 	- roadmap
 	- decision notes (template)
 	- learnings (template)
+- related-frameworks.md (research on similar approaches)
+- spec-kit-comparison.md (detailed comparison with GitHub Spec Kit)
 
 ## Interaction Memory
 Interaction memory captures distilled insights from conversations and actions so future steps improve. It is part of the repo memory and should be lightweight and human-auditable.
@@ -47,8 +49,10 @@ Interaction memory captures distilled insights from conversations and actions so
 - Keep next steps in the TODO sections, not here. Start inline in README under a “Learnings” subsection; extract to `interaction-log.md` only when it grows.
 
 ## TODO – Lead Agent
-- Deep research: other frameworks similar to the one that is described here
+- ~~Deep research: other frameworks similar to the one that is described here~~ ✅ See `related-frameworks.md` and `spec-kit-comparison.md`
 - Research memory approaches (Claude Flow and others) and propose a simple initial method here (maybe alternative to our approach with "Decision Notes" and "Learnings" in readme)
+- Consider incorporating lightweight constitutional principles based on Spec Kit analysis
+- Evaluate structured clarification workflows for Phase A (Idea Elaboration)
 
 ## TODO – Human
 - Define/refine the vision iteratively, perform researches with the Lead Agent (using Copilot as L1 for now).
@@ -75,3 +79,16 @@ Interaction memory captures distilled insights from conversations and actions so
 - Date/Context:
 - Insight:
 - Outcome:
+
+### 2025-01-03 - GitHub Spec Kit Comparison Analysis
+**Context**: Analyzed GitHub Spec Kit's Specification-Driven Development approach to compare with our Idea Execution Framework.
+
+**Insight**: GitHub Spec Kit provides complementary rather than competing methodology. Key differences:
+- **Formality**: Spec Kit uses formal templates and constitutional governance vs our lightweight README-first approach
+- **Structure**: Spec Kit has rigid phase gates and validation checkpoints vs our flexible overlapping phases  
+- **Governance**: Spec Kit enforces immutable constitutional principles vs our guidelines-based approach
+- **Tooling**: Spec Kit provides comprehensive CLI and template ecosystem vs our minimal tooling requirements
+
+Both share core values: repo-centricity, human-AI collaboration, iterative refinement, and documentation as code.
+
+**Outcome**: Created comprehensive comparison analysis in `spec-kit-comparison.md`. Added Spec Kit to `related-frameworks.md`. Identified potential hybrid approaches and learning opportunities for both simple and complex projects.

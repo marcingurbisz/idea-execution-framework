@@ -2,6 +2,7 @@
 ## Related frameworks (research)
 A quick map of nearby ecosystems and how they differ from this README-first, git-as-ledger approach:
 
+- **GitHub Spec Kit** – Specification-Driven Development (SDD): "specifications become executable" with structured workflows from PRDs to implementation. Strong templating and constitutional governance. Shares repo-centricity but focuses more on formal specification structures than our lightweight README-first approach. https://github.com/github/spec-kit
 - MetaGPT – "software company in a box": opinionated roles and SOPs for multi-agent software creation. Strong for end-to-end scaffolding; heavier than we need. https://github.com/FoundationAgents/MetaGPT
 - AutoGen – conversational multi-agent framework: flexible agent chats and tool calls; requires you to encode process/state. We keep process in the repo. https://microsoft.github.io/autogen/
 - CrewAI – Crews (autonomy) + Flows (event-driven control): fast, standalone Python framework; great for orchestration, but introduces runtime/state infra beyond git. https://github.com/crewAIInc/crewAI
@@ -12,9 +13,11 @@ A quick map of nearby ecosystems and how they differ from this README-first, git
 - GPT-Engineer – prompt-to-code CLI; simple, repo-oriented but single-agent. We share the repo-first ethos without the CLI lock-in. https://github.com/AntonOsika/gpt-engineer
 
 Where this framework fits
-- Bias to simplicity: git repo is the blackboard, plan, and memory; agents publish decisions and next steps into files.
-- Tools are optional: we can compose with any of the above later (e.g., use LangGraph for durability) without changing the repo contract.
-- Start collaborative, then automate: prioritize L1–human clarity; adopt multi-agent orchestration only when it clearly reduces human load.
+- **Bias to simplicity**: git repo is the blackboard, plan, and memory; agents publish decisions and next steps into files.
+- **README-first growth**: Start lightweight with natural conversation, add structure only when project complexity demands it (vs formal specification-driven approaches like Spec Kit).
+- **Conversational collaboration**: Prioritize natural human-AI dialogue patterns over rigid workflow templates.
+- **Tools are optional**: we can compose with any of the above later (e.g., use LangGraph for durability, adopt Spec Kit templates for complex projects) without changing the repo contract.
+- **Start collaborative, then automate**: prioritize L1–human clarity; adopt multi-agent orchestration only when it clearly reduces human load.
 
 What we borrow / avoid
 - Borrow: role clarity and delegation (MetaGPT, CrewAI), explicit decision records (LangGraph eval/observability mindset), lightweight handoffs (Swarm/Agents SDK).
