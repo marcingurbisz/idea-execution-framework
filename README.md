@@ -1,17 +1,11 @@
 # Idea Execution Framework
 
 ## Vision
-Make executing ideas with an AI efficient and transparent, with plans, decisions, artifacts, and learnings versioned and human‑auditable. The Lead Agent collaborates with the human to clarify the idea and drive execution in small, observable steps. Human involvement is minimized by phase: high during early idea elaboration, lower during planning/prototyping, and as low as possible during execution within agreed scope. Specialized agents may be involved when helpful, but are not required for small projects.
-
-Related concepts:
- - AI powered Tiny Teams
-   - https://tinyteams.xyz/
-   - https://www.latent.space/p/tiny
+Make executing ideas with an AI efficient and transparent, with plans, decisions, artifacts, and learnings versioned and human‑auditable. The Lead Agent collaborates with the human to clarify the idea and drive execution in observable steps. Human involvement is minimized by phase: high during early idea elaboration, lower during planning/prototyping, and as low as possible during execution within agreed scope. Specialized agents may be involved when helpful, but are not required for small projects.
 
 ## Core Principles
 - Git repo as shared project state/blackboard.
 - Persist all plans, decisions, artifacts, and learnings in the repo.
-- Agents always publish next steps and rationale into the repo.
 - Human provides the vision and makes high-level decisions; the Lead Agent (level-1) collaborates and may delegate when beneficial.
 - Memory is in repo: both working artifacts and distilled interaction learnings live as files here.
 - Repo is the single source of truth and synchronization medium; plans and specs live here and drive delegation.
@@ -26,7 +20,7 @@ Roles
 - Updates to the repo happen whenever useful (often after meaningful exchanges) and at least once per focused work cycle to keep the repo the single source of truth.
 - Phases are flexible and can overlap:
 	- Phase A – Idea Elaboration (high human involvement): Human states goal/idea; L1 probes, challenges, and expands; fast back-and-forth in README; capture assumptions and decisions.
-    - Phase B – Planning & Prototyping (moderate human involvement): L1 drafts approaches, proposes tasks, executes small spikes; human reviews key choices; frequent but lighter check-ins.
+    - Phase B – Planning & Prototyping (moderate human involvement): L1 drafts approaches, proposes tasks, executes small spikes; human reviews key choices.
     - Phase C – Execution (low human involvement): L1 works autonomously within agreed scope; updates repo regularly; escalates only for major decisions or boundary changes.
 
 ## Repository Structure
@@ -50,18 +44,18 @@ Interaction memory captures distilled insights from conversations and actions so
 	- Date/Context
 	- Insight (what we learned or decided and why)
 	- Outcome (what changed)
-- Keep next steps in the TODO sections, not here. Start inline in README under a “Learnings” subsection; extract to `memory/interaction-log.md` only when it grows.
+- Keep next steps in the TODO sections, not here. Start inline in README under a “Learnings” subsection; extract to `interaction-log.md` only when it grows.
 
 ## TODO – Lead Agent
 - Deep research: other frameworks similar to the one that is described here
 - Research memory approaches (Claude Flow and others) and propose a simple initial method here (maybe alternative to our approach with "Decision Notes" and "Learnings" in readme)
 
 ## TODO – Human
-- Define/refine the vision iteratively, perform researches with the Lead Agent (you’re using Copilot as L1 for now).
+- Define/refine the vision iteratively, perform researches with the Lead Agent (using Copilot as L1 for now).
 - Research with AI https://github.com/ruvnet/claude-flow
     - Clarify the difference between the "neural module" and "Memory system" in Claude Flow.
 - Review how multi-agent features work in Codex/Claude CLI; identify patterns to reuse.
-- Check notes in chat: "Badania nad AI i pamięcią".
+- Check research chat: "Badania nad AI i pamięcią".
 - Think what should be the structure of the projects that will be used to execute ideas according to the Idea Execution Framework
 
 ## Roadmap
