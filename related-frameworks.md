@@ -10,6 +10,7 @@ A quick map of nearby ecosystems and how they differ from this README-first, git
 - AutoGPT (Platform) – build/deploy/manage continuous agents with UI, blocks, marketplace. Powerful, platform-centric; beyond our lightweight goals. https://github.com/Significant-Gravitas/AutoGPT
 - OpenHands (ex-OpenDevin) – full developer agent platform (terminal, files, browser). Great for coding automation; heavier runtime than our README-first pilot. https://github.com/All-Hands-AI/OpenHands
 - GPT-Engineer – prompt-to-code CLI; simple, repo-oriented but single-agent. We share the repo-first ethos without the CLI lock-in. https://github.com/AntonOsika/gpt-engineer
+- GitHub Spec Kit – spec authoring templates and review rituals for feature planning. Valuable for richer design docs, but focuses on pre-execution specs rather than repo-as-blackboard execution. https://github.com/github/spec-kit
 
 Where this framework fits
 - Bias to simplicity: git repo is the blackboard, plan, and memory; agents publish decisions and next steps into files.

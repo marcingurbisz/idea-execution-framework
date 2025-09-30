@@ -47,7 +47,7 @@ Interaction memory captures distilled insights from conversations and actions so
 - Keep next steps in the TODO sections, not here. Start inline in README under a “Learnings” subsection; extract to `interaction-log.md` only when it grows.
 
 ## TODO – Lead Agent
-- Deep research: other frameworks similar to the one that is described here
+- Deep research: other frameworks similar to the one that is described here (tracking in `related-frameworks.md` and `comparisons/github-spec-kit.md`)
 - Research memory approaches (Claude Flow and others) and propose a simple initial method here (maybe alternative to our approach with "Decision Notes" and "Learnings" in readme)
 
 ## TODO – Human
