@@ -24,7 +24,7 @@ Roles
     - Phase C – Execution (low human involvement): L1 works autonomously within agreed scope; updates repo regularly; escalates only for major decisions or boundary changes.
 
 ## Repository Structure
-Start README-first. Add folders only when the project grows; keep the repo the single source of truth.
+Start README-first. Add additional files and folders only when the project grows; keep the repo the single source of truth.
 
 - README.md
 	- vision
@@ -44,7 +44,7 @@ Interaction memory captures distilled insights from conversations and actions so
 	- Date/Context
 	- Insight (what we learned or decided and why)
 	- Outcome (what changed)
-- Keep next steps in the TODO sections, not here. Start inline in README under a “Learnings” subsection; extract to `interaction-log.md` only when it grows.
+- Keep next steps in the TODO sections, not here. Start inline in README under a “Learnings” subsection.
 
 ## TODO – Lead Agent
 - Deep research: other frameworks similar to the one that is described here (tracking in `related-frameworks.md` and `comparisons/github-spec-kit.md`)
