@@ -62,6 +62,12 @@ Start README-first. Add additional files and folders only when the project grows
 
 Memory approach: we keep Decisions, Learnings, and an Interaction Log inline here first to maximize transparency and minimize overhead. When those sections grow, we’ll split them into `DECISIONS.md`, `LEARNINGS.md`, and `LOG.md`. Retrieval isn’t needed right now—we rely on long‑context models over the repo files (or the whole repo when practical). Summarization may help with periodic roll‑ups later, but it’s intentionally deferred for now.
 
+## Decisions
+*Template: Date – [Context/Question] → Decision: [What was decided]. Rationale: [Why]. Impact: [What this affects].*
+
+## Learnings
+*Template: Date – [What happened/was tried] → Learning: [What we discovered]. Application: [How this changes our approach].*
+
 ## Interaction Log
 - 2025-09-30 – Designed the high-level L1 Agent work loop and added a Mermaid diagram under “Iteration rhythm”. Outcome: keep the loop intentionally high-level, rely on LLM judgment for “cannot handle,” and cap cycles to x (default 5); README updated accordingly.
 - 2025-09-30 – Research on agent frameworks and memory approaches. Outcome: adopted the simple memory policy above; detailed comparison captured in the [related-frameworks.md](related-frameworks.md).
@@ -70,12 +76,9 @@ Memory approach: we keep Decisions, Learnings, and an Interaction Log inline her
 - ???
 
 ## TODO – Human
-- Define/refine the vision iteratively, perform researches with the Lead Agent (using Copilot as L1 for now).
-- Research with AI https://github.com/ruvnet/claude-flow
-    - Clarify the difference between the "neural module" and "Memory system" in Claude Flow.
-- Review how multi-agent features work in Codex/Claude CLI; identify patterns to reuse.
-- Check research chat: "Badania nad AI i pamięcią".
-- Think what should be the structure of the projects that will be used to execute ideas according to the Idea Execution Framework
+- Review if framework is ready for Phase B (Planning & Prototyping)
+  - Think what should be the structure of the projects that will be used to execute ideas according to the Idea Execution Framework
+- Consider applying framework to a second small project for additional validation
 
 ## Roadmap
 - Phase 1: Execute Phase A for "Idea Execution Framework" (this repo is the pilot) till Phase B or till Phase 2 below.
