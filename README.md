@@ -1,28 +1,44 @@
 # Idea Execution Framework
 
 ## Vision
-Make executing ideas with an AI efficient and transparent, with plans, decisions, artifacts, and learnings versioned and human‑auditable. The Lead Agent collaborates with the human to clarify the idea and drive execution in observable steps. Human involvement is minimized by phase: high during early idea elaboration, lower during planning/prototyping, and as low as possible during execution within agreed scope. Specialized agents may be involved when helpful, but are not required for small projects.
+Make executing ideas with an AI efficient and transparent, with plans, decisions, artifacts, and learnings versioned and human‑auditable. The AI Agent collaborates with the human to clarify the idea and drive execution in observable steps.
+
+Maybe for some ideas human involvement can be minimized in later phases. For example: 
+* high involvment during early idea elaboration
+* lower during planning/prototypin
+* low during execution within agreed scope
+
+But this may depend on the idea.
 
 ## Core Principles
 - Git repo as shared project state/blackboard.
 - Persist all plans, decisions, artifacts, and learnings in the repo.
-- Human provides the vision and makes high-level decisions; the Lead Agent (level-1) collaborates and may delegate when beneficial.
+- Human provides the vision and makes high-level decisions, AI Agent collaborates.
 - Memory is in repo: both working artifacts and distilled interaction learnings live as files here.
 - Repo is the single source of truth and synchronization medium; plans and specs live here and drive delegation.
+- Skills explains to Agent how to perform certain types of tasks (see next chapter)
+
+## Skills
+
+| Skill Name                        | Description                                                                                 |
+|-----------------------------------|---------------------------------------------------------------------------------------------|
+| Browser usage | Enables agents to use a real browser |
+| Exection of task at given time              | Use github action that call codex cli with a task to do |
+| Email  | |
 
 ### Operating Model
 
 ## Roles
 - Human: sets idea, constraints, core principles, requirements, approves major decisions, provides clarifications
-- Lead Agent (L1): a critical partner who helps think through and clarify the idea, expands high-level ideas into actionable detail, turns ideas into plans, executes tasks, and keeps the repo in sync; may involve specialized agents if needed.
-- Specialized Agents (L2+, optional): coding, ops, research, etc.
+- AI Agent: a critical partner who helps think through and clarify the idea, expands high-level ideas into actionable detail, turns ideas into plans, executes tasks, and keeps the repo in sync.
+- At certain points, tasks may be executed in parallel by different agents, potentially using different LLM models or CLIs, each with their own context or specialization (e.g., coding, ops, research).
 
 ## Iteration rhythm
 - Updates to the repo happen whenever useful (often after meaningful exchanges) and at least once per focused work cycle to keep the repo the single source of truth.
 - Phases are flexible and can overlap:
-	- Phase A – Idea Elaboration (high human involvement): Human states goal/idea; L1 probes, challenges, and expands; fast back-and-forth in README; capture assumptions and decisions.
-    - Phase B – Planning & Prototyping (moderate human involvement): L1 drafts approaches, proposes tasks, executes small spikes; human reviews key choices.
-    - Phase C – Execution (low human involvement): L1 works autonomously within agreed scope; updates repo regularly; escalates only for major decisions or boundary changes.
+	- Phase A – Idea Elaboration (high human involvement): Human states goal/idea; AI Agent probes, challenges, and expands; fast back-and-forth in README; capture assumptions and decisions.
+    - Phase B – Planning & Prototyping (moderate human involvement): Agent drafts approaches, proposes tasks, executes small spikes; human reviews key choices.
+    - Phase C – Execution (low human involvement): Agent works autonomously within agreed scope; updates repo regularly; escalates only for major decisions or boundary changes.
 
 ### L1 Agent work loop
 
@@ -52,6 +68,7 @@ Start README-first. Add additional files and folders only when the project grows
 - README.md
 	- vision
 	- core principles
+	- skills
 	- operating model
 	- repository structure & memory
 	- iteration rhythm
@@ -69,11 +86,10 @@ Memory approach: we keep Decisions, Learnings, and an Interaction Log inline her
 *Template: Date – [What happened/was tried] → Learning: [What we discovered]. Application: [How this changes our approach].*
 
 ## Interaction Log
-- 2025-09-30 – Designed the high-level L1 Agent work loop and added a Mermaid diagram under “Iteration rhythm”. Outcome: keep the loop intentionally high-level, rely on LLM judgment for “cannot handle,” and cap cycles to x (default 5); README updated accordingly.
-- 2025-09-30 – Research on agent frameworks and memory approaches. Outcome: adopted the simple memory policy above; detailed comparison captured in the [related-frameworks.md](related-frameworks.md).
+- 2025-09-30 – Designed the high-level Agent work loop and added a Mermaid diagram under “Iteration rhythm”. Outcome: keep the loop intentionally high-level, rely on LLM judgment for “cannot handle,” and cap cycles to x (default 5); README updated accordingly.
 
 ## TODO – Lead Agent
-- ???
+- How to give browser to agent?
 
 ## TODO – Human
 - Review if framework is ready for Phase B (Planning & Prototyping)

@@ -1,0 +1,21 @@
+{
+  "name": "llm-automation",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-playwright.playwright",
+        "GitHub.vscode-pull-request-github",
+        "bierner.markdown-mermaid"
+      ]
+    }
+  },
+  "postCreateCommand": "npm ci || true",
+  "postStartCommand": "npx playwright install --with-deps || true"
+}
