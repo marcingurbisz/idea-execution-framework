@@ -18,20 +18,24 @@ But this may depend on the idea.
 - Repo is the single source of truth and synchronization medium; plans and specs live here and drive delegation.
 - Skills explains to Agent how to perform certain types of tasks (see next chapter)
 
-## Skills
-
-| Skill Name                        | Description                                                                                 |
-|-----------------------------------|---------------------------------------------------------------------------------------------|
-| Browser usage | Enables agents to use a real browser |
-| Exection of task at given time              | Use github action that call codex cli with a task to do |
-| Email  | |
-
 ### Operating Model
 
 ## Roles
 - Human: sets idea, constraints, core principles, requirements, approves major decisions, provides clarifications
 - AI Agent: a critical partner who helps think through and clarify the idea, expands high-level ideas into actionable detail, turns ideas into plans, executes tasks, and keeps the repo in sync.
 - At certain points, tasks may be executed in parallel by different agents, potentially using different LLM models or CLIs, each with their own context or specialization (e.g., coding, ops, research).
+
+## Agent 
+
+Agent is started from the IDE extension (e.g. Github copilot) or CLI (Codex, Claude Code or Github) from [devcontainer](.devcontainer/devcontainer.json)
+
+### Skills
+
+| Skill Name                        | Description                                                                                 |
+|-----------------------------------|---------------------------------------------------------------------------------------------|
+| Browser usage | When agent needs real browser to do a task it use playwright mcp (later try try conver mcp to cli) |
+| Exection of task at given time              | Use github action that call agent CLI with a task to do |
+| Email  | TODO |
 
 ## Iteration rhythm
 - Updates to the repo happen whenever useful (often after meaningful exchanges) and at least once per focused work cycle to keep the repo the single source of truth.
@@ -40,7 +44,7 @@ But this may depend on the idea.
     - Phase B – Planning & Prototyping (moderate human involvement): Agent drafts approaches, proposes tasks, executes small spikes; human reviews key choices.
     - Phase C – Execution (low human involvement): Agent works autonomously within agreed scope; updates repo regularly; escalates only for major decisions or boundary changes.
 
-### L1 Agent work loop
+### Agent work loop
 
 ```mermaid
 flowchart TD
