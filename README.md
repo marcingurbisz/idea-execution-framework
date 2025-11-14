@@ -35,7 +35,43 @@ Agent is started from the IDE extension (e.g. Github copilot) or CLI (Codex, Cla
 |-----------------------------------|---------------------------------------------------------------------------------------------|
 | Browser usage | When agent needs real browser to do a task it use playwright mcp (later try try conver mcp to cli) |
 | Exection of task at given time              | Use github action that call agent CLI with a task to do |
-| Email  | TODO |
+| Email  | Draft, queue, and send emails via auditable Markdown specs synced to the repo |
+
+#### Email Skill
+
+- **Intent:** Give the agent a controlled way to communicate over email while preserving full transparency and reviewability in the repo.
+- **Lifecycle:**
+	1. Agent creates a Markdown draft in `skills/email/outbox/` named `<timestamp>-<slug>.md` describing recipients, subject, body, attachments, and desired send window.
+	2. Human (or delegated reviewer) optionally edits the draft, then flips `status: ready` when it can be sent; leaving `status: draft` keeps it in review.
+	3. A CLI helper (`npm run email:dispatch` → `scripts/email-dispatch.ts`) or a scheduled GitHub Action reads all `status: ready` drafts, sends them through the configured provider, and writes delivery metadata back into each file.
+	4. Successfully sent drafts move to `skills/email/sent/`; failures stay in the outbox with `status: error` and an appended `error_log` block for debugging.
+- **Spec format:**
+
+	```yaml
+	to:
+		- person@example.com
+	cc: []
+	bcc: []
+	subject: Weekly update
+	body: |
+		Hello Team,
+
+		Here is the latest status...
+	attachments:
+		- path: artifacts/report.pdf
+			include_inline: false
+	status: draft
+	earliest_send: 2025-10-01T09:00:00Z
+	dispatched_at: null
+	provider_message_id: null
+	error_log: []
+	```
+- **Configuration:** Secrets live outside the repo (e.g., `.env` injected into the devcontainer, GitHub Actions secrets). Required vars: `EMAIL_PROVIDER` (smtp|sendgrid|ses), connection settings, default sender, optional reply-to. The dispatch script loads these at runtime; drafts never contain credentials.
+- **Audit trail:** Every email has a Markdown spec, status changes are tracked via git history, and the dispatch script appends delivery metadata instead of mutating silently. This keeps an inspectable chain for compliance and playback.
+- **Usage guidelines:**
+	- Keep bodies short and link to repo artifacts when possible instead of pasting long content.
+	- Escalate to the human before sending messages that introduce scope, budget, or legal commitments.
+	- For recurring updates, clone the latest sent spec, adjust, and bump the timestamp to retain consistency.
 
 ## Iteration rhythm
 - Updates to the repo happen whenever useful (often after meaningful exchanges) and at least once per focused work cycle to keep the repo the single source of truth.

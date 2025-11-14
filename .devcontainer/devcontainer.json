@@ -11,7 +11,7 @@
     "vscode": {
       "extensions": [
         "ms-playwright.playwright",
-        "GitHub.vscode-pull-request-github",
+        "GitHub.vsc ode-pull-request-github",
         "bierner.markdown-mermaid"
       ]
     }
