@@ -18,8 +18,6 @@ But this may depend on the idea.
 - Repo is the single source of truth and synchronization medium; plans and specs live here and drive delegation.
 - Skills explains to Agent how to perform certain types of tasks (see next chapter)
 
-### Operating Model
-
 ## Roles
 - Human: sets idea, constraints, core principles, requirements, approves major decisions, provides clarifications
 - AI Agent: a critical partner who helps think through and clarify the idea, expands high-level ideas into actionable detail, turns ideas into plans, executes tasks, and keeps the repo in sync.
@@ -81,25 +79,15 @@ Start README-first. Add additional files and folders only when the project grows
 	- decision notes (template)
 	- learnings (template)
 
-Memory approach: we keep Decisions, Learnings, and an Interaction Log inline here first to maximize transparency and minimize overhead. When those sections grow, we’ll split them into `DECISIONS.md`, `LEARNINGS.md`, and `LOG.md`. Retrieval isn’t needed right now—we rely on long‑context models over the repo files (or the whole repo when practical). Summarization may help with periodic roll‑ups later, but it’s intentionally deferred for now.
+Memory approach: we keep Decisions, Learnings, Interaction Log, and Agent TODO in the repo as dedicated files under `memory/` to make the loop operational and auditable.
 
-## Decisions
-*Template: Date – [Context/Question] → Decision: [What was decided]. Rationale: [Why]. Impact: [What this affects].*
+- memory/
+	- [DECISIONS.md](memory/DECISIONS.md)
+	- [LEARNINGS.md](memory/LEARNINGS.md)
+	- [LOG.md](memory/LOG.md)
+	- [TODO.md](memory/TODO.md)
+- pilots/
+	- [flowlite.md](pilots/flowlite.md)
 
-## Learnings
-*Template: Date – [What happened/was tried] → Learning: [What we discovered]. Application: [How this changes our approach].*
-
-## Interaction Log
-- 2025-09-30 – Designed the high-level Agent work loop and added a Mermaid diagram under “Iteration rhythm”. Outcome: keep the loop intentionally high-level, rely on LLM judgment for “cannot handle,” and cap cycles to x (default 5); README updated accordingly.
-
-## TODO – Lead Agent
-- How to give browser to agent?
-
-## TODO – Human
-- Review if framework is ready for Phase B (Planning & Prototyping)
-  - Think what should be the structure of the projects that will be used to execute ideas according to the Idea Execution Framework
-- Consider applying framework to a second small project for additional validation
-
-## Roadmap
-- Phase 1: Execute Phase A for "Idea Execution Framework" (this repo is the pilot) till Phase B or till Phase 2 below.
-- Phase 2: When the framework feels solid, start a second project executed according to it.
+## Memory
+See `memory/` (Decisions, Learnings, Interaction Log, and Agent TODO).
