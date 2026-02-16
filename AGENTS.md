@@ -40,6 +40,10 @@ Keep memory in-repo as:
 - `memory/LOG.md`
 - `memory/TODO.md`
 
+Project docs (especially `README.md`) are also part of memory: they define the current intent, constraints, and how-to-run guidance.
+
+Before starting a work cycle in a project, read the full `memory/` contents (at least once per session) so execution is grounded in current decisions, learnings, and priorities.
+
 Update memory when:
 - a decision affects future work,
 - a learning generalizes beyond the immediate change,
