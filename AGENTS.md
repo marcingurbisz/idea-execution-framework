@@ -26,12 +26,16 @@ flowchart TD
     C -->|Finished or cannot handle| E[Update memory]
     C -->|Needs clarification| H[Ask Human]
     B -->|Needs clarification| H
-    E --> G{Cycles < x?}
+    E --> Z[Commit]
+    Z --> G{Cycles < x}
     G -->|Yes| B
     G -->|No| I[Human review]
 ```
 
-Default cycle cap: x = 5.
+There may be more other agents working on the same filesystem at the same time so: 
+* mark the task you've picked so others know
+* commit only your own work
+
 
 ### Memory
 Keep memory in-repo as:
@@ -47,3 +51,5 @@ Update memory when:
 - a decision affects future work,
 - a learning generalizes beyond the immediate change,
 - a work cycle completes or changes direction.
+
+
