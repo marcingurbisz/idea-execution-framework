@@ -21,20 +21,16 @@ This file is intended to be shared across projects that use IEF.
 
 ```mermaid
 flowchart TD
-    A@{ shape: circle, label: "Start" } --> B[Pick task]
-    B --> C[Work on task]
-    C -->|Finished or cannot handle| E[Update memory]
+    A@{ shape: circle, label: "Start" } --> B[Pick task from TODO]
+    B --> C[Work on task from TODO]
+    C -->|Finished| E[Update memory]
     C -->|Needs clarification| H[Ask Human]
     B -->|Needs clarification| H
-    E --> Z["Commit + Increment cycle count"]
-    Z --> X{Cycles < x?}
-    X -->|No| I[Human review]
-    X -->|Yes| G{More work?}
+    E --> Z["Commit"]
+    Z --> G{More work?}
     G -->|Yes| B
     G -->|No| I[Human review]
 ```
-
-When prompted "Run the agent work loop with x=3 cycles" the loop must stop after `x` cycles even if there is more work.
 
 Multiple agents may work in the same filesystem at the same time, so:
 - Mark the task you picked in `memory/TODO.md` so others know.
@@ -54,5 +50,4 @@ Update memory when:
 - a decision affects future work,
 - a learning generalizes beyond the immediate change,
 - a work cycle completes or changes direction.
-
 
