@@ -21,31 +21,34 @@ This file is intended to be shared across projects that use IEF.
 
 ```mermaid
 flowchart TD
-    A@{ shape: circle, label: "Start" } --> B[Pick  task]
+    A@{ shape: circle, label: "Start" } --> B[Pick task]
     B --> C[Work on task]
     C -->|Finished or cannot handle| E[Update memory]
     C -->|Needs clarification| H[Ask Human]
     B -->|Needs clarification| H
-    E --> Z[Commit]
-    Z --> G{Cycles < x}
+    E --> Z["Commit + Increment cycle count"]
+    Z --> X{Cycles < x?}
+    X -->|No| I[Human review]
+    X -->|Yes| G{More work?}
     G -->|Yes| B
     G -->|No| I[Human review]
 ```
 
-There may be more other agents working on the same filesystem at the same time so: 
-* mark the task you've picked so others know
-* commit only your own work
+When prompted "Run the agent work loop with x=3 cycles" the loop must stop after `x` cycles even if there is more work.
 
+Multiple agents may work in the same filesystem at the same time, so:
+- Mark the task you picked in `memory/TODO.md` so others know.
+- Commit only your own work.
 
 ### Memory
 Keep memory in-repo as:
-- `README.md`- define the current intent, constraints, and how-to-run guidance.
-- `memory/DECISIONS.md`
-- `memory/LEARNINGS.md`
-- `memory/LOG.md`
-- `memory/TODO.md`
+- `README.md` - define the current intent, constraints, and how-to-run guidance.
+- `memory/DECISIONS.md`- durable choices and constraints (include brief rationale and trade-offs).
+- `memory/LEARNINGS.md` - reusable discoveries ("what surprised us", pitfalls, patterns).
+- `memory/LOG.md` - timestamped progress notes and handoffs (what you did, where, what’s next).
+- `memory/TODO.md` - prioritized next actions
 
-Before starting a work cycle in a project, read the full memory contents (at least once per session) so execution is grounded in current README.md, decisions, learnings, and priorities.
+Before starting a work cycle in a project, read the full memory contents (at least once per session) so execution is grounded in the current `README.md`, decisions, learnings, and priorities.
 
 Update memory when:
 - a decision affects future work,
