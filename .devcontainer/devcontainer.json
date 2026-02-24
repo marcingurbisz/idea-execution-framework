@@ -1,9 +1,16 @@
 {
-  "name": "llm-automation",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "name": "workspace",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
-      "version": "20"
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "25.0.2",
+      "jdkDistro": "zulu"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "latest"
     },
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
@@ -16,6 +23,5 @@
       ]
     }
   },
-  "postCreateCommand": "npm ci || true",
-  "postStartCommand": "npx playwright install --with-deps || true"
+  "postCreateCommand": "npx -y playwright@latest install --with-deps chromium chrome"
 }
