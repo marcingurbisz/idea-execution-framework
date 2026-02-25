@@ -16,18 +16,16 @@ This file is intended to be shared across projects that use IEF.
 ### Iteration rhythm
 - Work in cycles and update repo memory after meaningful progress.
 - Escalate to the human only when constraints/requirements are unclear or when scope boundaries change.
-
-### Execution defaults
-- Run loops with a cycle cap `x` (default: 5) unless a project sets a different cap.
-- Prefer shipping small, complete increments each cycle.
-- Use the simplest implementation that satisfies the current scope.
+- Continue to the next highest-priority actionable item in `memory/TODO.md` - do not stop the loop.
+- Ask the human before continuing only when requirements are ambiguous, risk is high, or scope/priority trade-offs are required.
+- When stopping (or handing off), explicitly state the stop condition and why you are stopping now (e.g., blocked and need human input, intentional status checkpoint before continuing, or no actionable work remains) - remember the default is that you continuue with next item from todo list.
 
 ### Agent work loop
 
 ```mermaid
 flowchart TD
     A@{ shape: circle, label: "Start" } --> B[Pick task from TODO]
-    B --> C[Work on task from TODO]
+    B --> C[Work on next task from TODO]
     C -->|Finished| E[Update memory]
     C -->|Needs clarification| H[Ask Human]
     B -->|Needs clarification| H
