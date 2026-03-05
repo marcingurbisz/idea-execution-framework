@@ -17,6 +17,7 @@ This file is intended to be shared across projects that use IEF.
 - Work in cycles and update repo memory after meaningful progress.
 - Escalate to the human only when constraints/requirements are unclear or when scope boundaries change.
 - Continue to the next highest-priority actionable item in `memory/TODO.md` - do not stop the loop.
+- Hard gate between TODO items: after finishing one TODO, do these in order before starting the next TODO: 1) mark it done in `memory/TODO.md`, 2) commit immediately
 - Ask the human before continuing only when requirements are ambiguous, risk is high, or scope/priority trade-offs are required.
 - When stopping (or handing off), explicitly state the stop condition and why you are stopping now (e.g., blocked and need human input, intentional status checkpoint before continuing, or no actionable work remains) - remember the default is that you continuue with next item from todo list.
 
@@ -37,15 +38,28 @@ flowchart TD
 
 Multiple agents may work in the same filesystem at the same time, so:
 - Mark the task you picked in `memory/TODO.md` so others know.
+- Keep commit granularity aligned to TODO completion (one commit per completed TODO whenever feasible).
 - Commit only your own work.
 
 ### Memory
 Keep memory in-repo as:
 - `README.md` - define the current intent, constraints, and how-to-run guidance.
-- `memory/LEARNINGS.md` - reusable discoveries ("what surprised us", pitfalls, patterns).
-- `memory/LOG.md` - timestamped progress notes and handoffs (what you did, where, what’s next).
+- `memory/LOG.md` - timestamped progress notes and handoffs (what you did); include learnings inline per entry when relevant.
 - `memory/TODO.md` - prioritized next actions
 
-Before starting a work cycle in a project, read the full memory contents (at least once per session) so execution is grounded in the current `README.md`, learnings, and priorities.
+`memory/LOG.md` template:
+
+```markdown
+# Interaction Log
+
+Template:
+- Date – [Short description of item].
+    - Outcome: [What was done].
+    - Learning (optional): [What was discovered].
+
+## Entries
+```
+
+Before starting a work cycle in a project, read the full memory contents (at least once per session) so execution is grounded in the current `README.md`, log, and priorities.
 
 When you work on a task, update memory whenever reasonable (for example, after finishing a meaningful part) and at least once per work loop.

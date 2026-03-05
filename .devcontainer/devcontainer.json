@@ -17,10 +17,16 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-playwright.playwright",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
         "GitHub.vscode-pull-request-github",
         "bierner.markdown-mermaid"
-      ]
+      ],
+      "settings": {
+        "chat.agent.enabled": true,
+        "chat.tools.global.autoApprove": true,
+        "chat.agent.maxRequests": 1000
+      }
     }
   },
   "postCreateCommand": "npx -y playwright@latest install --with-deps chromium chrome"

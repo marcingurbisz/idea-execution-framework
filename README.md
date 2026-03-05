@@ -13,5 +13,27 @@ Human involvement can change with project phases. For example:
 Start the agent from an IDE extension (e.g. GitHub Copilot) or a CLI (e.g. Codex, Claude Code, GitHub) inside the provided [devcontainer](.devcontainer/devcontainer.json).
 
 ## How to use
-- See agent instructions: [AGENTS.md](AGENTS.md)
-- Prompt "Run the agent work loop with x=3 cycles"
+- Add [AGENTS.md](AGENTS.md) to your workspace or copy to your existing one
+- Prompt "Extecute the IEF loop" or similar
+
+## Workspace-level setup (how I use it)
+
+I keep `idea-execution-framework` as one folder inside a larger multi-project workspace and open the whole workspace as a single VS Code devcontainer.
+
+Recommended layout:
+
+```text
+workspace/
+	.devcontainer -> ./idea-execution-framework/.devcontainer
+	AGENTS.md -> ./idea-execution-framework/AGENTS.md
+	idea-execution-framework/
+	projectA/
+	projectB/
+	...
+```
+
+How this is used:
+- Open `workspace/` in VS Code.
+- Reopen in container from the workspace root (the root `.devcontainer` symlink points to this repository's devcontainer config).
+- Run tasks from `workspace/` root.
+- Because `AGENTS.md` is at workspace root (symlink), Copilot includes these instructions in every prompt across all projects in that workspace.
