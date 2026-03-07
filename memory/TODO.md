@@ -1,3 +1,4 @@
+- [DONE 2026-03-07] Improve README vision and summarize AGENTS.md
 - [DONE 2026-03-07] Update README usage guidance and working rhythm
 # Prepare for picking up
 - Implement oracle (see ...)
