@@ -64,5 +64,5 @@ workspace/
 How this is used:
 - Open `workspace/` in VS Code.
 - Reopen in container from the workspace root (the root `.devcontainer` symlink points to this repository's devcontainer config).
-- Run tasks from `workspace/` root.
 - Because `AGENTS.md` is at workspace root (symlink), Copilot includes these instructions in every prompt across all projects in that workspace.
+- Prompt "Extecute the IEF loop in projectA repo" to have IEF loop executed on specific project.
