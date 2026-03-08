@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-08 – OpenClaw skills review for IEF.
+  - Outcome: Added `memory/OpenClawSkillsReview.md`, summarizing OpenClaw's skills model and extracting the parts most worth adapting to IEF: markdown-first skill folders, repo-vs-global precedence, eligibility gating, compact prompt injection, and explicit trust boundaries.
+  - Learning: The highest-leverage idea is to treat skills as structured reusable instructions living in Git, not as a heavyweight plugin marketplace.
+
 - 2026-03-08 – Steipete repository review for IEF.
   - Outcome: Reviewed Peter Steinberger's public GitHub repositories, created `memory/SteipeteRepoReview.md`, and ranked the repos most relevant to IEF concepts such as repo memory, browser automation, reusable agent docs, skills, remote automation, and collaboration loops.
   - Learning: The strongest reusable ideas are session/checkpoint artifacts, portable shared agent instructions/helpers, and opt-in automation adapters rather than one monolithic agent system.

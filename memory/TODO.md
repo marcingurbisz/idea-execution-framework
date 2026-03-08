@@ -1,7 +1,9 @@
-## [DONE 2026-03-08] Review https://github.com/steipete projects 
+## Research
+
+## [DONE 2026-03-08] Review https://github.com/steipete projects
 and prepare summary document with info which project could be helpful in IEF context and why.
 
-## Review openclaw approach to skills and skills itself
+## [DONE 2026-03-08] Review openclaw approach to skills and skills itself
 prepare summary document with stuff interesting in IEF context
 
 ## [DONE 2026-03-08] Reuse oracle idea from Peter Steinberger
