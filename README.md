@@ -3,7 +3,7 @@
 ## Vision
 IEF is a lightweight way of working where the Git repository becomes a shared memory between the human and the AI agent.
 
-The goal is to make idea execution efficient, transparent, restartable, and auditable: plans, decisions, artifacts, progress, and learnings are all kept in the repo instead of being scattered across chat history.
+The goal is to make idea execution efficient, transparent, restartable, and auditable: plans, decisions, artifacts, progress, and learnings are all kept in the repo instead of being scattered across chat history and short-lived context.
 
 In practice, the human provides the idea, priorities, constraints, and reviews; the agent turns that into concrete plans, TODO items, implementation steps, repo updates, and commits.
 
@@ -16,17 +16,22 @@ In practice, the human provides the idea, priorities, constraints, and reviews; 
 
 ### Agent
 
-Start the agent from an IDE extension (e.g. GitHub Copilot) or a CLI (e.g. Codex, Claude Code, GitHub) inside the provided [devcontainer](.devcontainer/devcontainer.json).
+Start the agent from an IDE extension (e.g. GitHub Copilot) or a CLI (e.g. Codex, Claude Code, GitHub). The provided [devcontainer](.devcontainer/devcontainer.json) is optional but recommended when you want a reproducible toolchain, editor setup, and safer automation defaults.
 
 Note: I currently use GitHub Copilot in agent mode with GPT-5.4 (March 7, 2026)
 
 ## How to use
-- Add [AGENTS.md](AGENTS.md) to your workspace or copy to your existing one
-- Prompt the agent to prepare repo memory according to the structure defined in [AGENTS.md](AGENTS.md): `README.md`, `memory/LOG.md`, and `memory/TODO.md`
-- For a new project, start with the initial idea and ask the agent to prepare the initial README and initial TODO items
-- For an existing project without a README, ask the agent to analyze the project and prepare the README plus the memory files
-- For an existing project, you can also describe the current idea/goal and ask the agent to generate or refresh the TODO list before execution
-- Prompt "Extecute the IEF loop" to start agent work on TODO items
+1. Put [AGENTS.md](AGENTS.md) in the workspace so the agent always receives the operating instructions.
+2. Ask the agent to prepare or refresh repo memory defined by [AGENTS.md](AGENTS.md): `README.md`, `memory/LOG.md`, and `memory/TODO.md`.
+3. Give the current idea, constraints, or review feedback.
+4. Ask the agent to update the TODO list if priorities changed.
+5. Prompt "Execute the IEF loop" to have the agent work through the next TODO items.
+
+### Memory layout
+
+IEF keeps `README.md` at repo root and stores execution memory under `memory/`.
+
+This is intentional: the root stays focused on project intent and entry points, while `memory/` can grow with TODOs, logs, plans, and supporting notes without cluttering the top level.
 
 Example prompts:
 - New project:
@@ -36,11 +41,11 @@ Example prompts:
 - Existing project with a new idea:
 	- "Based on this idea: ... analyze the current project, update the README if needed, and generate a prioritized TODO list."
 - Execution:
-	- "Extecute the IEF loop"
+	- "Execute the IEF loop"
 
 ## Typical collaboration rhythm
 
-- I prepare or refine the TODO list and prompt "Extecute the IEF loop"
+- I prepare or refine the TODO list and prompt "Execute the IEF loop"
 - After the loop is executed, I review the results and define the next TODO items
 - During a normal work day, I usually review the night loop execution in the morning, define new TODOs, and start the loop again
 - Then I do the same again in the evening: review results, prepare new TODOs, and restart the loop
@@ -65,4 +70,4 @@ How this is used:
 - Open `workspace/` in VS Code.
 - Reopen in container from the workspace root (the root `.devcontainer` symlink points to this repository's devcontainer config).
 - Because `AGENTS.md` is at workspace root (symlink), Copilot includes these instructions in every prompt across all projects in that workspace.
-- Prompt "Extecute the IEF loop in projectA repo" to have IEF loop executed on specific project.
+- Prompt "Execute the IEF loop in projectA repo" to have IEF loop executed on specific project.
