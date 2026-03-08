@@ -1,4 +1,4 @@
-## Review https://github.com/steipete projects 
+## [DONE 2026-03-08] Review https://github.com/steipete projects 
 and prepare summary document with info which project could be helpful in IEF context and why.
 
 ## Review openclaw approach to skills and skills itself

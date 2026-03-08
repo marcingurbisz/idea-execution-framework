@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-08 – Steipete repository review for IEF.
+  - Outcome: Reviewed Peter Steinberger's public GitHub repositories, created `memory/SteipeteRepoReview.md`, and ranked the repos most relevant to IEF concepts such as repo memory, browser automation, reusable agent docs, skills, remote automation, and collaboration loops.
+  - Learning: The strongest reusable ideas are session/checkpoint artifacts, portable shared agent instructions/helpers, and opt-in automation adapters rather than one monolithic agent system.
+
 - 2026-03-08 – Oracle browser adaptation plan.
   - Outcome: Reviewed Peter Steinberger's Oracle concept and documented an IEF-specific plan in `memory/OracleBrowserAutomationPlan.md`, focused on repo-local session artifacts and browser-first escalation using ChatGPT Plus first and Claude Pro second.
   - Learning: The main reusable value is Oracle's session + browser + provider-adapter architecture; IEF does not need the full product surface to get the core unlock.
