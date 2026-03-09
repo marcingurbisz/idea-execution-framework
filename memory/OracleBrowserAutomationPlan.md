@@ -64,7 +64,7 @@ Keep a durable session record with at least:
 - short summary for quick inspection
 - reattach hints for browser-backed runs
 
-For IEF, session artifacts should remain easy to link from `memory/LOG.md` and future TODO items.
+For IEF, session artifacts should remain easy to link from `LOG.md` and future TODO items.
 
 ### 3. Browser runtime lifecycle
 
@@ -134,7 +134,7 @@ Build the smallest useful path first:
 - persistent Chrome profile with manual login
 - prompt bundling with inline files first, upload fallback second
 - save response markdown to repo-local session folder
-- log the session into `memory/LOG.md`
+- log the session into `LOG.md`
 
 Why first: Oracle already demonstrates that ChatGPT browser automation is the most mature reusable path.
 

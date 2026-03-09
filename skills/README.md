@@ -1,6 +1,6 @@
 # IEF skills
 
-`skills/` is the place for reusable capability instructions that sit between the broad operating contract in `AGENTS.md` and the task-specific state kept under `memory/`.
+`skills/` is the place for reusable capability instructions that sit between the broad operating contract in `AGENTS.md` and the repo-specific operating state captured in `README.md`, `LOG.md`, `TODO.md`, and supporting artifacts under `memory/`.
 
 ## Purpose
 
@@ -16,7 +16,8 @@ Use a skill when you want a focused, repeatable instruction pack for a specific 
 
 - `AGENTS.md` — broad agent operating contract
 - `README.md` — project intent and entry points
-- `memory/` — plans, logs, research, and execution artifacts
+- `LOG.md` / `TODO.md` — active execution state
+- `memory/` — research, plans, session artifacts, and other extended memory files
 - `skills/` — reusable capability instructions
 
 ## Lightweight convention
@@ -45,7 +46,7 @@ Notes:
 - keep skills human-readable and Git-friendly
 - prefer markdown over opaque config formats
 - keep instructions specific enough to be reusable, but not so narrow that they only fit one task
-- if a skill materially shapes the execution of a task, record that in `memory/LOG.md`
+- if a skill materially shapes the execution of a task, record that in `LOG.md`
 
 ## Scope and precedence
 

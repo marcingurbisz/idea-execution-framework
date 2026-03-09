@@ -275,7 +275,7 @@ Even if IEF never builds a full runtime, a small pre-pass that filters skills by
 
 ### 4. Log skill usage in repo memory
 
-A nice IEF-specific extension would be to record when a skill materially shaped execution, for example in `memory/LOG.md`.
+A nice IEF-specific extension would be to record when a skill materially shaped execution, for example in `LOG.md`.
 
 That would make the repo memory more explanatory over time.
 

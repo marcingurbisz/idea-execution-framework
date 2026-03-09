@@ -11,7 +11,7 @@ In practice, the human provides the idea, priorities, constraints, and reviews; 
 - the core principles of IEF
 - the human and agent roles
 - the execution loop and TODO/commit rhythm
-- the required memory structure: `README.md`, `memory/LOG.md`, and `memory/TODO.md`
+- the required repo control files: `README.md`, `LOG.md`, and `TODO.md`
 - optional reusable capability instructions via `skills/`
 - when the agent should continue, stop, escalate, and hand off
 
@@ -23,7 +23,7 @@ Note: I currently use GitHub Copilot in agent mode with GPT-5.4 (March 7, 2026)
 
 ## How to use
 1. Put [AGENTS.md](AGENTS.md) in the workspace so the agent always receives the operating instructions.
-2. Ask the agent to prepare or refresh repo memory defined by [AGENTS.md](AGENTS.md): `README.md`, `memory/LOG.md`, and `memory/TODO.md`.
+2. Ask the agent to prepare or refresh the repo control files defined by [AGENTS.md](AGENTS.md): `README.md`, `LOG.md`, and `TODO.md`.
 3. Give the current idea, constraints, or review feedback.
 4. Add or refine repo-local skills under `skills/` when a capability should be reusable across multiple tasks.
 5. Ask the agent to update the TODO list if priorities changed.
@@ -31,9 +31,15 @@ Note: I currently use GitHub Copilot in agent mode with GPT-5.4 (March 7, 2026)
 
 ### Memory layout
 
-IEF keeps `README.md` at repo root and stores execution memory under `memory/`.
+IEF keeps the main control-plane files at repo root:
 
-This is intentional: the root stays focused on project intent and entry points, while `memory/` can grow with TODOs, logs, plans, and supporting notes without cluttering the top level.
+- `README.md`
+- `LOG.md`
+- `TODO.md`
+
+Supporting artifacts live under `memory/`.
+
+This is intentional: the root exposes the current operating state immediately, while `memory/` can grow with plans, research, session outputs, and other extended notes without hiding the active queue and handoff trail one level down.
 
 ### Optional skills
 

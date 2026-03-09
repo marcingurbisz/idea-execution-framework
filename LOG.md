@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-09 – Moved TODO and LOG to repo root.
+  - Outcome: Promoted `LOG.md` and `TODO.md` to the repo root, updated `AGENTS.md`, `README.md`, and related skill/research references, and reserved `memory/` for supporting notes, research, and session artifacts.
+  - Learning: `README.md`, `LOG.md`, and `TODO.md` work better as a visible repo control plane, while `memory/` works better as the backing store for larger execution artifacts.
+
 - 2026-03-09 – Always-on memory agent pattern review for IEF.
   - Outcome: Added `memory/AlwaysOnMemoryAgentReview.md`, summarizing the Google always-on memory agent as a three-loop pattern (capture, consolidate, query), explaining how IEF can adapt it as a repo-native workflow, and clarifying that the concept can be reused without API keys but not as cleanly as a true unattended service.
   - Learning: The most important reusable idea is not “automatic summary generation,” but a durable ingestion-plus-consolidation layer that turns many inputs into queryable project memory.
