@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-09 – Always-on memory agent pattern review for IEF.
+  - Outcome: Added `memory/AlwaysOnMemoryAgentReview.md`, summarizing the Google always-on memory agent as a three-loop pattern (capture, consolidate, query), explaining how IEF can adapt it as a repo-native workflow, and clarifying that the concept can be reused without API keys but not as cleanly as a true unattended service.
+  - Learning: The most important reusable idea is not “automatic summary generation,” but a durable ingestion-plus-consolidation layer that turns many inputs into queryable project memory.
+
 - 2026-03-09 – Oracle integration foundations executed.
   - Outcome: Added the first repo-level Oracle integration artifacts: `skills/README.md`, `skills/oracle-consult/SKILL.md`, Oracle request/session templates, `memory/oracle-sessions/README.md`, `memory/OracleWrapperSpec.md`, and README guidance so Oracle is now represented as a concrete reusable IEF workflow.
   - Learning: The smallest useful Oracle integration in IEF is not runtime code first; it is a reusable skill plus a durable artifact contract that makes future automation safe and predictable.

@@ -9,10 +9,10 @@ turn the existing Oracle research into a concrete implementation roadmap for IEF
 ## [DONE 2026-03-09] Execute first Oracle integration steps
 apply the roadmap in-repo, starting with the smallest useful integration artifacts.
 
-## Check https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/agents/always-on-memory-agent
+## [DONE 2026-03-09] Check https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/agents/always-on-memory-agent
 How we could use it in IEF? Can it or the idea be used without API keys but with agent doing Ingestion and Consolidation? How this is different from summarization process that most chats and agent platforms do?
 
-## TODO and LOG location - part2
+## [IN PROGRESS 2026-03-09] TODO and LOG location - part2
 I'm still not convince that keeping them under memory is the best place. Readme is also memory. Maybe put it close to readme and reserve memory/ for other things like researches and memory based on concepts like "always-on-memory-agent".
 
 ## New project
