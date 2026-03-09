@@ -12,6 +12,7 @@ In practice, the human provides the idea, priorities, constraints, and reviews; 
 - the human and agent roles
 - the execution loop and TODO/commit rhythm
 - the required memory structure: `README.md`, `memory/LOG.md`, and `memory/TODO.md`
+- optional reusable capability instructions via `skills/`
 - when the agent should continue, stop, escalate, and hand off
 
 ### Agent
@@ -24,14 +25,34 @@ Note: I currently use GitHub Copilot in agent mode with GPT-5.4 (March 7, 2026)
 1. Put [AGENTS.md](AGENTS.md) in the workspace so the agent always receives the operating instructions.
 2. Ask the agent to prepare or refresh repo memory defined by [AGENTS.md](AGENTS.md): `README.md`, `memory/LOG.md`, and `memory/TODO.md`.
 3. Give the current idea, constraints, or review feedback.
-4. Ask the agent to update the TODO list if priorities changed.
-5. Prompt "Execute the IEF loop" to have the agent work through the next TODO items.
+4. Add or refine repo-local skills under `skills/` when a capability should be reusable across multiple tasks.
+5. Ask the agent to update the TODO list if priorities changed.
+6. Prompt "Execute the IEF loop" to have the agent work through the next TODO items.
 
 ### Memory layout
 
 IEF keeps `README.md` at repo root and stores execution memory under `memory/`.
 
 This is intentional: the root stays focused on project intent and entry points, while `memory/` can grow with TODOs, logs, plans, and supporting notes without cluttering the top level.
+
+### Optional skills
+
+IEF can also keep reusable capability instructions under `skills/`.
+
+Use this when a workflow should be taught once and reused many times, for example:
+
+- Oracle escalation
+- repository review
+- release prep
+- project-specific operational routines
+
+Current convention:
+
+- `skills/<name>/SKILL.md` is the required entry point
+- supporting templates/checklists can live beside it
+- `AGENTS.md` stays broad, while `skills/` stays focused and task-shaped
+
+See [skills/README.md](skills/README.md) for the lightweight convention and [skills/oracle-consult/SKILL.md](skills/oracle-consult/SKILL.md) for the first concrete example.
 
 Example prompts:
 - New project:

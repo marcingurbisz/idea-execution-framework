@@ -6,7 +6,7 @@ research what additional cost API-mode Oracle introduces beyond a ChatGPT Plus s
 ## [DONE 2026-03-09] Plan next Oracle integration steps
 turn the existing Oracle research into a concrete implementation roadmap for IEF.
 
-## [IN PROGRESS 2026-03-09] Execute first Oracle integration steps
+## [DONE 2026-03-09] Execute first Oracle integration steps
 apply the roadmap in-repo, starting with the smallest useful integration artifacts.
 
 ## Check https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/agents/always-on-memory-agent

@@ -1,0 +1,57 @@
+# IEF skills
+
+`skills/` is the place for reusable capability instructions that sit between the broad operating contract in `AGENTS.md` and the task-specific state kept under `memory/`.
+
+## Purpose
+
+Use a skill when you want a focused, repeatable instruction pack for a specific kind of work, for example:
+
+- repository review
+- Oracle escalation
+- release review
+- documentation refresh
+- project-specific workflows
+
+## Relationship to other repo files
+
+- `AGENTS.md` — broad agent operating contract
+- `README.md` — project intent and entry points
+- `memory/` — plans, logs, research, and execution artifacts
+- `skills/` — reusable capability instructions
+
+## Lightweight convention
+
+The first IEF convention is intentionally simple:
+
+- one folder per skill: `skills/<skill-name>/`
+- required file: `SKILL.md`
+- optional supporting files: templates, examples, checklists, references
+
+Suggested frontmatter fields for `SKILL.md`:
+
+```yaml
+---
+name: example-skill
+description: Short description of what the skill teaches the agent to do.
+requires:
+  bins: [git]
+  env: []
+  os: []
+---
+```
+
+Notes:
+
+- keep skills human-readable and Git-friendly
+- prefer markdown over opaque config formats
+- keep instructions specific enough to be reusable, but not so narrow that they only fit one task
+- if a skill materially shapes the execution of a task, record that in `memory/LOG.md`
+
+## Scope and precedence
+
+Current repo-level convention:
+
+- repo-local skills live under `skills/`
+- future personal/global reuse can follow the `~/.ief/skills` convention discussed in `memory/OpenClawSkillsReview.md`
+
+For now, the important thing is to establish the repo-local format and workflow.

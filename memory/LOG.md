@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-09 – Oracle integration foundations executed.
+  - Outcome: Added the first repo-level Oracle integration artifacts: `skills/README.md`, `skills/oracle-consult/SKILL.md`, Oracle request/session templates, `memory/oracle-sessions/README.md`, `memory/OracleWrapperSpec.md`, and README guidance so Oracle is now represented as a concrete reusable IEF workflow.
+  - Learning: The smallest useful Oracle integration in IEF is not runtime code first; it is a reusable skill plus a durable artifact contract that makes future automation safe and predictable.
+
 - 2026-03-09 – Oracle integration roadmap.
   - Outcome: Added `memory/OracleIntegrationRoadmap.md`, converting the earlier Oracle research into phased integration work for IEF and identifying the immediate in-repo steps: add `skills/`, define an Oracle skill, standardize session artifacts, and update the README.
   - Learning: For IEF, the right first move is to make Oracle a first-class repo workflow before attempting to build a dedicated runtime wrapper.
