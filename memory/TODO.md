@@ -1,3 +1,14 @@
+## Oracle integration
+
+## [DONE 2026-03-09] Check Oracle API cost vs ChatGPT Plus
+research what additional cost API-mode Oracle introduces beyond a ChatGPT Plus subscription and document the practical cost trade-offs.
+
+## [IN PROGRESS 2026-03-09] Plan next Oracle integration steps
+turn the existing Oracle research into a concrete implementation roadmap for IEF.
+
+## Execute first Oracle integration steps
+apply the roadmap in-repo, starting with the smallest useful integration artifacts.
+
 ## Check https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/agents/always-on-memory-agent
 How we could use it in IEF? Can it or the idea be used without API keys but with agent doing Ingestion and Consolidation? How this is different from summarization process that most chats and agent platforms do?
 

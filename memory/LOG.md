@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-09 – Oracle API cost review vs ChatGPT Plus.
+  - Outcome: Added `memory/OracleApiCostNotes.md` documenting the current billing split between ChatGPT Plus and the OpenAI API, plus practical Oracle cost examples for `gpt-5.4`, `gpt-5.4-pro`, and `gpt-5-mini`.
+  - Learning: For IEF, browser-first Oracle integration is not only simpler for users with ChatGPT Plus, but usually much cheaper than defaulting to Pro/API runs.
+
 - 2026-03-08 – OpenClaw skills review for IEF.
   - Outcome: Added `memory/OpenClawSkillsReview.md`, summarizing OpenClaw's skills model and extracting the parts most worth adapting to IEF: markdown-first skill folders, repo-vs-global precedence, eligibility gating, compact prompt injection, and explicit trust boundaries.
   - Learning: The highest-leverage idea is to treat skills as structured reusable instructions living in Git, not as a heavyweight plugin marketplace.
