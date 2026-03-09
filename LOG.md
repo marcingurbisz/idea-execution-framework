@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-09 – Created always-on agents lab project.
+  - Outcome: Created `/workspaces/workplace/always-on-agents-lab` with an initial `README.md`, `LOG.md`, `TODO.md`, a pointer `AGENTS.md`, and `memory/RemoteAccessAndAgentSetupReview.md` capturing the first recommendation: prefer `code-server` + `tmux` + repo memory as the main always-on agent surface, use Oracle-style remote browser services for browser-backed escalation, and treat Guacamole/Kasm as full-desktop fallbacks.
+  - Learning: For long-running coding agents, the most practical “connect from anywhere” architecture is usually browser-native code access plus persistent terminal sessions, not a browser-streamed desktop as the primary workspace.
+
 - 2026-03-09 – Moved TODO and LOG to repo root.
   - Outcome: Promoted `LOG.md` and `TODO.md` to the repo root, updated `AGENTS.md`, `README.md`, and related skill/research references, and reserved `memory/` for supporting notes, research, and session artifacts.
   - Learning: `README.md`, `LOG.md`, and `TODO.md` work better as a visible repo control plane, while `memory/` works better as the backing store for larger execution artifacts.

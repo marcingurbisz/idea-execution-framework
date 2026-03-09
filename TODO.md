@@ -15,7 +15,7 @@ How we could use it in IEF? Can it or the idea be used without API keys but with
 ## [DONE 2026-03-09] TODO and LOG location - part2
 I'm still not convince that keeping them under memory is the best place. Readme is also memory. Maybe put it close to readme and reserve memory/ for other things like researches and memory based on concepts like "always-on-memory-agent".
 
-## New project
+## [DONE 2026-03-09] New project
 Create a new project under workspace for finding best setup for having agents always on. E.g. I can run graphical session from my laptop "localy" where I have my agents running. But I want also be able to connect to it from other computer when I'm not at home. Best it would be if I can connect using web browser without installing anything. I tried RustDesk from webbroser but it was a little bit lagish.
 How Peter Steinberg setup looks like in this respect?
 Similar setup with linux?
