@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-09 – Oracle integration roadmap.
+  - Outcome: Added `memory/OracleIntegrationRoadmap.md`, converting the earlier Oracle research into phased integration work for IEF and identifying the immediate in-repo steps: add `skills/`, define an Oracle skill, standardize session artifacts, and update the README.
+  - Learning: For IEF, the right first move is to make Oracle a first-class repo workflow before attempting to build a dedicated runtime wrapper.
+
 - 2026-03-09 – Oracle API cost review vs ChatGPT Plus.
   - Outcome: Added `memory/OracleApiCostNotes.md` documenting the current billing split between ChatGPT Plus and the OpenAI API, plus practical Oracle cost examples for `gpt-5.4`, `gpt-5.4-pro`, and `gpt-5-mini`.
   - Learning: For IEF, browser-first Oracle integration is not only simpler for users with ChatGPT Plus, but usually much cheaper than defaulting to Pro/API runs.
