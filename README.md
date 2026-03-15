@@ -28,34 +28,9 @@ Note: I currently use GitHub Copilot in agent mode with GPT-5.4 (March 7, 2026)
 
 ### Memory layout
 
-IEF keeps the main control-plane files at repo root:
+See [AGENTS.md](AGENTS.md) for the authoritative description of the repo control plane and memory layout.
 
-- `README.md`
-- `LOG.md`
-- `TODO.md`
-
-Supporting artifacts live under `memory/`.
-
-This is intentional: the root exposes the current operating state immediately, while `memory/` can grow with plans, research, session outputs, and other extended notes without hiding the active queue and handoff trail one level down.
-
-### Optional skills
-
-IEF can also keep reusable capability instructions under `skills/`.
-
-Use this when a workflow should be taught once and reused many times, for example:
-
-- Oracle escalation
-- repository review
-- release prep
-- project-specific operational routines
-
-Current convention:
-
-- `skills/<name>/SKILL.md` is the required entry point
-- supporting templates/checklists can live beside it
-- `AGENTS.md` stays broad, while `skills/` stays focused and task-shaped
-
-See [skills/README.md](skills/README.md) for the lightweight convention and [skills/oracle-consult/SKILL.md](skills/oracle-consult/SKILL.md) for the first concrete example.
+In short: `README.md`, `LOG.md`, and `TODO.md` stay at repo root; supporting artifacts live under `memory/`; and larger task-specific markdown files can optionally live under `todo/`.
 
 Example prompts:
 - New project:

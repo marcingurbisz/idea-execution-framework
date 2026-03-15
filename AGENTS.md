@@ -41,14 +41,23 @@ Multiple agents may work in the same filesystem at the same time, so:
 - Keep commit granularity aligned to TODO completion (one commit per completed TODO whenever feasible).
 - Commit only your own work.
 
-### Memory
-Keep repo control files as:
+### Repo control plane and memory layout
+
+Keep repo control files at the root as:
 - `README.md` - define the current intent, constraints, and how-to-run guidance.
 - `LOG.md` - timestamped progress notes and handoffs (what you did); include learnings inline per entry when relevant.
 - `TODO.md` - prioritized next actions
 
 Keep supporting memory artifacts under:
 - `memory/` - plans, research notes, session artifacts, and other extended memory files
+
+Optional extended task tracking is also allowed under:
+- `todo/` - one markdown file per larger task, optionally grouped into subfolders such as `doing-now/`, `doing-today/`, or parked buckets
+
+Rules:
+- `TODO.md` remains the top-level queue/dashboard even when `todo/` exists
+- `LOG.md` remains the high-level chronological handoff log
+- `todo/` is for larger task-local notes, acceptance criteria, or embedded mini-logs when the work benefits from more structure
 
 `LOG.md` template:
 

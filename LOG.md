@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-15 – Simplified README and skills layout guidance.
+  - Outcome: Updated `AGENTS.md` to be the single authoritative source for control-plane and memory layout, simplified `README.md` to point there instead of repeating the same structure, and trimmed `skills/README.md` to reference `AGENTS.md` rather than duplicating layout details.
+  - Learning: For IEF, the structure is easiest to maintain when `AGENTS.md` owns the operational contract and the other docs only point back to it where possible.
+
 - 2026-03-15 – Reviewed TODO and LOG workflow options.
   - Outcome: Added `memory/TodoAndLogWorkflow.md`, recommending a hybrid model: keep `TODO.md` and `LOG.md` separate at the top level, but allow an optional `todo/` directory with one markdown file per larger task and optional task-local logs.
   - Learning: The scalable compromise is not one giant combined TODO+LOG file, but a short root queue plus richer per-task files when the work justifies them.
