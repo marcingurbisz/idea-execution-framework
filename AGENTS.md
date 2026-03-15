@@ -8,6 +8,7 @@ This file is intended to be shared across projects that use IEF.
 - Git repo as shared project state/blackboard.
 - Persist plans, decisions, artifacts, and learnings in the repo.
 - Repo files are the source of truth; keep them updated as you work.
+- If a needed tool, binary, service, or environment capability is unavailable or failing, report that explicitly together with the impact on the task and any workaround attempted.
 
 ### Roles
 - Human: vision, constraints, approvals for major decisions.

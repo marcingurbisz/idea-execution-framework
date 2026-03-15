@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-15 – Added explicit tool-problem reporting guidance.
+  - Outcome: Updated `AGENTS.md` to require agents to report missing or failing tools, binaries, services, or environment capabilities together with the impact on the task and any workaround attempted.
+  - Learning: Silent tool failure hides important execution constraints; IEF works better when environment limitations are surfaced as first-class project context.
+
 - 2026-03-15 – Simplified README and skills layout guidance.
   - Outcome: Updated `AGENTS.md` to be the single authoritative source for control-plane and memory layout, simplified `README.md` to point there instead of repeating the same structure, and trimmed `skills/README.md` to reference `AGENTS.md` rather than duplicating layout details.
   - Learning: For IEF, the structure is easiest to maintain when `AGENTS.md` owns the operational contract and the other docs only point back to it where possible.

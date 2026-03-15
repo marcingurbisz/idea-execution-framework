@@ -8,9 +8,9 @@
   * "Relationship to other repo files" / "Memory layout" - I think we should have description of control-plane files/memory layout in once place. I think best in AGENTS.md and ife/skill/README.md and ife/README.md should just refer to it.
   * "Optional skills" as chapter in README.md is to much. I think it is enough that we've mentioned them in Vision chapter.
 
-## [IN PROGRESS 2026-03-15] Add to AGENTS.MD instruction that agent should report problems with invoking tools e.g. wanted to use rg in terminal but it was not available with information about the impact of this missing tool.
+## [DONE 2026-03-15] Add to AGENTS.MD instruction that agent should report problems with invoking tools e.g. wanted to use rg in terminal but it was not available with information about the impact of this missing tool.
 
-## Work on feedback for Oracle
+## [IN PROGRESS 2026-03-15] Work on feedback for Oracle
 * "Reuse the architecture, not the whole product surface" - why not use steipete/oracle as it is? Or other option ife-oracle calls steipete/oracle? What are pros and cons of each 3 approaches? Wait I see in SKILL.md that actually steipete/oracle is in use so you've changed the mind and decided to use steipete/oracle?
 * If there is no provider for Claude.ai browser approach then let's keep it out of scope for now. Probably I will never got into it. More probable is is that we will switch to API calls.
 * AnAnswer to open questions from md file:
