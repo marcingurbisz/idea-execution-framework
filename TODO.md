@@ -1,10 +1,10 @@
 ## [DONE 2026-03-15] Add MIT licensing information to IEF repo
 
-## [IN PROGRESS 2026-03-15] TODOs and LOGs
+## [DONE 2026-03-15] TODOs and LOGs
 * Combine TODO with LOGS? - I think it makes sense to have logs under TODO items. Especially for Human this is easier to review than two separate files.
 * I opt for supporting also alternative style of TODOs - each todo in separate md file under todo directory. IFE todos I would keep as they are now but at work I ended up with todo items as md files which contains quite some text and are also structured in subfolders like "doing now", "doing today", "near-term parked", "mid-term parked". What do you think? Maybe also allow for mix?
 
-## ife/skill/README.md and ife/README.md improvements
+## [IN PROGRESS 2026-03-15] ife/skill/README.md and ife/README.md improvements
   * "Relationship to other repo files" / "Memory layout" - I think we should have description of control-plane files/memory layout in once place. I think best in AGENTS.md and ife/skill/README.md and ife/README.md should just refer to it.
   * "Optional skills" as chapter in README.md is to much. I think it is enough that we've mentioned them in Vision chapter.
 

@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-15 – Reviewed TODO and LOG workflow options.
+  - Outcome: Added `memory/TodoAndLogWorkflow.md`, recommending a hybrid model: keep `TODO.md` and `LOG.md` separate at the top level, but allow an optional `todo/` directory with one markdown file per larger task and optional task-local logs.
+  - Learning: The scalable compromise is not one giant combined TODO+LOG file, but a short root queue plus richer per-task files when the work justifies them.
+
 - 2026-03-15 – Added MIT licensing to IEF.
   - Outcome: Added an MIT [LICENSE](LICENSE) file and linked it from the README so the repository now has an explicit default reuse license.
   - Learning: For a framework repo like IEF, making the license explicit early removes ambiguity for later reuse of docs, skills, and reference implementations.
