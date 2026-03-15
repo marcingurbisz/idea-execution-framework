@@ -4,13 +4,7 @@
 
 ## Purpose
 
-Use a skill when you want a focused, repeatable instruction pack for a specific kind of work, for example:
-
-- repository review
-- Oracle escalation
-- release review
-- documentation refresh
-- project-specific workflows
+Use a skill when you want a focused, repeatable instruction pack for a specific kind of work.
 
 ## Relationship to other repo files
 
@@ -47,12 +41,3 @@ Notes:
 - prefer markdown over opaque config formats
 - keep instructions specific enough to be reusable, but not so narrow that they only fit one task
 - if a skill materially shapes the execution of a task, record that in `LOG.md`
-
-## Scope and precedence
-
-Current repo-level convention:
-
-- repo-local skills live under `skills/`
-- future personal/global reuse can follow the `~/.ief/skills` convention discussed in `memory/OpenClawSkillsReview.md`
-
-For now, the important thing is to establish the repo-local format and workflow.

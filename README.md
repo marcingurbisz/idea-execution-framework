@@ -1,7 +1,7 @@
 # Idea Execution Framework
 
 ## Vision
-IEF is a lightweight way of working where the Git repository becomes a shared memory between the human and the AI agent.
+IEF is a way of working where the Git repository becomes a shared memory between the human and the AI agent.
 
 The goal is to make idea execution efficient, transparent, restartable, and auditable: plans, decisions, artifacts, progress, and learnings are all kept in the repo instead of being scattered across chat history and short-lived context.
 
@@ -23,11 +23,8 @@ Note: I currently use GitHub Copilot in agent mode with GPT-5.4 (March 7, 2026)
 
 ## How to use
 1. Put [AGENTS.md](AGENTS.md) in the workspace so the agent always receives the operating instructions.
-2. Ask the agent to prepare or refresh the repo control files defined by [AGENTS.md](AGENTS.md): `README.md`, `LOG.md`, and `TODO.md`.
-3. Give the current idea, constraints, or review feedback.
-4. Add or refine repo-local skills under `skills/` when a capability should be reusable across multiple tasks.
-5. Ask the agent to update the TODO list if priorities changed.
-6. Prompt "Execute the IEF loop" to have the agent work through the next TODO items.
+2. Ask the agent to prepare or refresh the repo control files defined by [AGENTS.md](AGENTS.md): `README.md`, `LOG.md`, and `TODO.md`. Add the idea, constraints, todos, refer to existing sources (if exists).
+3. Prompt "Execute the IEF loop" to have the agent work through the TODO items.
 
 ### Memory layout
 

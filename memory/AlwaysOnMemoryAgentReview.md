@@ -1,5 +1,19 @@
 # Always-on memory agent review for IEF
 
+## TODO
+* Work on feedback and questions below
+
+## Feedback and questions
+* Do they have example prompts for the consolidation? 
+* Why SQLLite and not row text files? SQLLite keeps structured text or something more?
+* I wonder if for IFE better would be periodic summarization or consolidation. Or maybe both can be used in different cases. By consolidation I mean keeping old memories untouched instead replacing them as in summarization.
+* I think I will go for explicit task/human triggered consolidation/summarization for now e.g. item on todo list marked as periodic (Mode C)
+* Should consolidation/summarization work on diff from previous consolidation or on whole repo. I think both should be the input.
+* Is there something similar (consolidation or summarization) in openclaw?
+* Better name for the whole topic than Always on memory agent?
+* In general I agree with your conclusions and ideas for moving forward.
+* I wonder what to do with this file. I think it requires more of a summarization then consolidation
+
 ## Scope
 
 Reviewed the public example at `GoogleCloudPlatform/generative-ai/gemini/agents/always-on-memory-agent`.
