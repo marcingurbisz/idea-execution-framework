@@ -17,7 +17,7 @@ Guidance:
 
 - keep one folder per Oracle run
 - prefer durable, human-readable artifacts
-- log meaningful runs in `LOG.md`
+- log meaningful runs under the relevant TODO item or its linked task file
 - update `TODO.md` when the result changes the plan
 
 See [../../skills/oracle-consult/SESSION_LAYOUT.md](../../skills/oracle-consult/SESSION_LAYOUT.md) for the detailed convention.

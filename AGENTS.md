@@ -18,7 +18,7 @@ This file is intended to be shared across projects that use IEF.
 - Work in cycles and update repo memory after meaningful progress.
 - Escalate to the human only when constraints/requirements are unclear or when scope boundaries change.
 - Continue to the next highest-priority actionable item in `TODO.md` - do not stop the loop.
-- Hard gate between TODO items: after finishing one TODO, do these in order before starting the next TODO: 1) mark it done in `TODO.md`, 2) commit immediately
+- Hard gate between TODO items: after finishing one TODO, do these in order before starting the next TODO: 1) update the execution log under that TODO item or its dedicated task file, 2) mark it done in `TODO.md`, 3) commit immediately
 - Ask the human before continuing only when requirements are ambiguous, risk is high, or scope/priority trade-offs are required.
 - When stopping (or handing off), explicitly state the stop condition and why you are stopping now (e.g., blocked and need human input, intentional status checkpoint before continuing, or no actionable work remains) - remember the default is that you continuue with next item from todo list.
 
@@ -46,33 +46,34 @@ Multiple agents may work in the same filesystem at the same time, so:
 
 Keep repo control files at the root as:
 - `README.md` - define the current intent, constraints, and how-to-run guidance.
-- `LOG.md` - timestamped progress notes and handoffs (what you did); include learnings inline per entry when relevant.
-- `TODO.md` - prioritized next actions
+- `TODO.md` - prioritized next actions plus the execution log for each item, either inline or by linking to a dedicated task file
 
 Keep supporting memory artifacts under:
 - `memory/` - plans, research notes, session artifacts, and other extended memory files
 
 Optional extended task tracking is also allowed under:
-- `todo/` - one markdown file per larger task, optionally grouped into subfolders such as `doing-now/`, `doing-today/`, or parked buckets
+- `todo/` - one markdown file per larger task or topic, optionally grouped into subfolders such as `doing-now/`, `doing-today/`, or parked buckets
+
+Optional legacy archive:
+- `LOG.md` - historical archive for repos that previously used a separate chronological log
 
 Rules:
 - `TODO.md` remains the top-level queue/dashboard even when `todo/` exists
-- `LOG.md` remains the high-level chronological handoff log
-- `todo/` is for larger task-local notes, acceptance criteria, or embedded mini-logs when the work benefits from more structure
+- each task keeps its own execution log either directly under the item in `TODO.md` or in its linked file under `todo/`
+- `todo/` is for larger task-local notes, acceptance criteria, or embedded logs when the work benefits from more structure
+- `LOG.md` is optional and should only be used as a legacy archive or migration aid, not as the default place for new execution notes
 
-`LOG.md` template:
+Recommended `TODO.md` item shape:
 
 ```markdown
-# Interaction Log
+## [IN PROGRESS 2026-03-15] Example task
+Short task description or a pointer to `todo/.../*.md`.
 
-Template:
-- Date – [Short description of item].
-    - Outcome: [What was done].
-    - Learning (optional): [What was discovered].
-
-## Entries
+### Log
+- 2026-03-15 - Started the task.
+- 2026-03-15 - Outcome: [What changed]. Learning: [What was discovered].
 ```
 
-Before starting a work cycle in a project, read the full memory contents (at least once per session) so execution is grounded in the current `README.md`, `LOG.md`, `TODO.md`, and relevant supporting artifacts under `memory/`.
+Before starting a work cycle in a project, read the full memory contents (at least once per session) so execution is grounded in the current `README.md`, `TODO.md`, any linked task files under `todo/`, and relevant supporting artifacts under `memory/`.
 
-When you work on a task, update memory whenever reasonable (for example, after finishing a meaningful part) and at least once per work loop.
+When you work on a task, update its TODO-local execution log whenever reasonable (for example, after finishing a meaningful part) and at least once per work loop.

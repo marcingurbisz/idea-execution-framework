@@ -11,7 +11,8 @@ In practice, the human provides the idea, priorities, constraints, and reviews; 
 - the core principles of IEF
 - the human and agent roles
 - the execution loop and TODO/commit rhythm
-- the required repo control files: `README.md`, `LOG.md`, and `TODO.md`
+- the required repo control files: `README.md` and `TODO.md`
+- optional richer task files under `todo/`
 - optional reusable capability instructions via `skills/`
 - when the agent should continue, stop, escalate, and hand off
 
@@ -23,14 +24,14 @@ Note: I currently use GitHub Copilot in agent mode with GPT-5.4 (March 7, 2026)
 
 ## How to use
 1. Put [AGENTS.md](AGENTS.md) in the workspace so the agent always receives the operating instructions.
-2. Ask the agent to prepare or refresh the repo control files defined by [AGENTS.md](AGENTS.md): `README.md`, `LOG.md`, and `TODO.md`. Add the idea, constraints, todos, refer to existing sources (if exists).
+2. Ask the agent to prepare or refresh the repo control files defined by [AGENTS.md](AGENTS.md): `README.md`, `TODO.md`, and optional `todo/` task files when useful. Add the idea, constraints, todos, refer to existing sources (if exists).
 3. Prompt "Execute the IEF loop" to have the agent work through the TODO items.
 
 ### Memory layout
 
 See [AGENTS.md](AGENTS.md) for the authoritative description of the repo control plane and memory layout.
 
-In short: `README.md`, `LOG.md`, and `TODO.md` stay at repo root; supporting artifacts live under `memory/`; and larger task-specific markdown files can optionally live under `todo/`.
+In short: `README.md` and `TODO.md` stay at repo root; each TODO item keeps its own execution log inline or via a linked file under `todo/`; supporting artifacts live under `memory/`; and an older `LOG.md` can remain only as a historical archive when needed.
 
 Example prompts:
 - New project:

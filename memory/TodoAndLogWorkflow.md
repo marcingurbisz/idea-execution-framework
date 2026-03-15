@@ -1,58 +1,50 @@
-# TODO and LOG workflow options for IEF
+# TODO-local logging workflow for IEF
 
 ## Question
 
-How should IEF handle task tracking and progress logging as the framework grows?
+How should IEF handle task tracking and progress logging as the framework grows now that the preferred review style is to see logs under the TODO item itself?
 
 Specific subquestions:
 
-1. should `TODO.md` and `LOG.md` be merged?
-2. should IEF support richer task layouts such as one markdown file per todo under a `todo/` directory?
-3. can both styles coexist?
+1. should logs live under the TODO item by default?
+2. should IEF support richer task layouts such as one markdown file per todo/topic under a `todo/` directory?
+3. what, if any, role should `LOG.md` still have?
 
 ## Short answer
 
-- **Do not fully merge** `TODO.md` and `LOG.md`.
-- **Do support** an optional richer `todo/` directory.
-- **Yes, allow a mixed model**.
+- **Yes**: logs should live under the relevant TODO item by default.
+- **Yes**: support an optional richer `todo/` directory.
+- **Keep `LOG.md` only as a legacy archive**, not as the default place for new progress notes.
 
-## Why not fully merge TODO and LOG?
+## Decision
 
-A single file sounds simpler at first, but it mixes two different views:
+The default IEF model should now be:
 
-- **queue state** — what should happen next
-- **execution history** — what already happened
+- `TODO.md` is the top-level queue and dashboard
+- each TODO item keeps its own execution log
+- a larger task can move into `todo/.../*.md`, and the root TODO item points there
+- `memory/` holds supporting research, plans, and session artifacts
+- `LOG.md` is optional historical baggage only, for repos that already used it
 
-Those views are both important, but they optimize for different reading patterns.
+This matches the human review preference better and keeps the task story in one place.
 
-### What `TODO.md` is good at
+## Why this is better
 
-- fast scanning
-- prioritization
-- marking in progress / done
-- showing the current queue
+### Pros
 
-### What `LOG.md` is good at
+- easier human review because status and history stay together
+- each task keeps its own context, decisions, and outcomes together
+- small tasks stay simple in `TODO.md`
+- larger tasks can grow into a dedicated task file without changing the overall model
+- less duplication between queue state and history
 
-- chronological handoff
-- explaining why something changed
-- showing learning and decisions over time
-- supporting restart after interruptions
+### Cons and trade-offs
 
-If both are merged into one file globally, the active queue becomes harder to scan and the history becomes noisier.
+- the repo loses one clean global chronological timeline by default
+- agents must follow links to `todo/.../*.md` when a task has moved out of the root file
+- very long `TODO.md` files can still become noisy if finished tasks are never trimmed or moved
 
-## Better recommendation: hybrid, not full merge
-
-Keep:
-
-- `TODO.md` as the queue / dashboard
-- `LOG.md` as the chronological handoff log
-
-But allow **task-local logs** for larger items.
-
-That gives the user the readability benefit they want without losing the clean top-level control plane.
-
-## Recommended model
+## Recommended structure
 
 ## Level 1 — simple/default mode
 
@@ -60,10 +52,18 @@ Use this for small repos and lightweight work:
 
 - `README.md`
 - `TODO.md`
-- `LOG.md`
 - `memory/`
 
-This stays the default IEF example because it is easy to teach and easy to start with.
+Example inline item:
+
+```markdown
+## [DONE 2026-03-15] Refine memory layout
+Decided to move progress logging under the task itself.
+
+### Log
+- 2026-03-15 - Compared separate `LOG.md` against task-local logging.
+- 2026-03-15 - Updated the framework docs to make TODO-local logging the default.
+```
 
 ## Level 2 — extended task mode
 
@@ -73,7 +73,6 @@ When tasks become larger, allow an optional `todo/` directory:
 repo/
   README.md
   TODO.md
-  LOG.md
   todo/
     doing-now/
       2026-03-15-refine-memory-layout.md
@@ -89,7 +88,7 @@ Each task file can contain:
 - task description
 - acceptance criteria
 - notes / findings
-- embedded mini-log
+- embedded task log
 - links to commits or related artifacts
 
 ## Recommended relationship between root TODO and task files
@@ -105,33 +104,13 @@ See `todo/doing-now/2026-03-15-refine-memory-layout.md`
 
 This keeps the root queue short while allowing richer task detail elsewhere.
 
-## Should logs live inside task files too?
+## What `LOG.md` should mean now
 
-**Yes, optionally.**
+If a repo already has a `LOG.md`, keep it only as:
 
-Recommended rule:
-
-- keep `LOG.md` for cross-task chronological handoff
-- allow task-local progress notes inside `todo/.../*.md` when a task is large or multi-step
-
-That means IEF supports both:
-
-- **global log** for the overall repo story
-- **local log** inside the task file for detailed execution notes
-
-## Mixed model recommendation
-
-The best IEF stance is:
-
-- support the current simple mode as the default
-- support richer file-per-task mode as an advanced option
-- allow mixing the two when useful
-
-Examples:
-
-- small tasks live only in `TODO.md`
-- large tasks get a dedicated file under `todo/`
-- important repo-wide outcomes still go to `LOG.md`
+- a historical archive
+- a migration aid while moving to TODO-local logs
+- an optional index file if a project has a very specific need for one
 
 ## Why this fits IEF well
 
@@ -141,29 +120,19 @@ So the framework should standardize the **roles** of files more than one exact d
 
 - control plane
 - queue
-- handoff log
+- task-local log
 - extended task artifacts
 - supporting memory
 
 That is more flexible and closer to real project usage.
 
-## Proposed framework wording
-
-IEF should describe:
-
-- a **default lightweight layout**
-- an **optional extended task layout**
-- a rule that `TODO.md` stays the top-level queue even when task files exist
-
 ## Plain-language conclusion
 
-IEF should **not** replace `TODO.md` with one giant combined TODO+LOG file.
+IEF should default to **logs under the TODO item**.
 
-Instead, it should support this progression:
+That item can live either:
 
-1. simple root `TODO.md` + `LOG.md`
-2. optional `todo/` directory with one file per larger task
-3. optional task-local logs inside those files
-4. keep `LOG.md` as the high-level chronological handoff log
+1. directly in `TODO.md`
+2. in a separate markdown file under `todo/`
 
-That gives both simplicity and scalability.
+That gives the human a much easier review surface without losing the option to scale into richer task files.

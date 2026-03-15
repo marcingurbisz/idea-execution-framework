@@ -42,4 +42,4 @@ Use this for the IEF agent's interpretation of the answer, follow-up choices, or
 
 ## Logging rule
 
-Whenever an Oracle session materially affects the work, add a matching entry to `LOG.md` and mention the session folder.
+Whenever an Oracle session materially affects the work, add a matching note under the relevant TODO item or its linked task file and mention the session folder.

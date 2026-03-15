@@ -1,3 +1,16 @@
+## [DONE 2026-03-15] Switch IEF to TODO-local logging
+Decision: keep execution notes under the relevant TODO item, either inline in `TODO.md` or in a linked `todo/.../*.md` file.
+
+### Log
+- 2026-03-15 - Updated `AGENTS.md`, `README.md`, `skills/README.md`, and the Oracle session guidance so new work logs live with the task rather than in a separate required `LOG.md`.
+- 2026-03-15 - Reworked `memory/TodoAndLogWorkflow.md` to make TODO-local logs the default model and kept `LOG.md` only as a historical archive.
+
+## [DONE 2026-03-15] Suggest alternative names for IEF
+See `memory/IefNamingIdeas.md`.
+
+### Log
+- 2026-03-15 - Added both explicit names and more product-style names closer to the naming style used in Peter Steinberger projects.
+
 ## [DONE 2026-03-15] Add MIT licensing information to IEF repo
 
 ## [DONE 2026-03-15] TODOs and LOGs

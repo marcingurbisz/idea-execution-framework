@@ -57,7 +57,7 @@ See `SESSION_LAYOUT.md` and `REQUEST_TEMPLATE.md` in this skill folder.
 4. Choose browser mode first if ChatGPT Plus is enough.
 5. Run Oracle or prepare a `--render --copy` fallback.
 6. Save the response into `response.md`.
-7. Record the escalation in `LOG.md`.
+7. Record the escalation under the relevant TODO item or its linked task file.
 8. Update `TODO.md` if the Oracle result changes the plan.
 
 ## Browser-first command pattern

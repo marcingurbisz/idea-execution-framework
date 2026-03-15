@@ -1,5 +1,9 @@
 # Interaction Log
 
+This file is a historical archive from before IEF switched to TODO-local logging on 2026-03-15.
+
+New execution notes should be recorded under the relevant item in `TODO.md` or in its linked file under `todo/`.
+
 Template:
 - Date – [Short description of item].
   - Outcome: [What was done].

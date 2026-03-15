@@ -14,7 +14,7 @@ In short:
 
 - `AGENTS.md` defines the broad contract
 - `skills/` adds reusable focused capability instructions
-- the active queue, handoff log, and supporting memory stay in the repo structures described in `AGENTS.md`
+- the active queue, task logs, and supporting memory stay in the repo structures described in `AGENTS.md`
 
 ## Lightweight convention
 
@@ -42,4 +42,4 @@ Notes:
 - keep skills human-readable and Git-friendly
 - prefer markdown over opaque config formats
 - keep instructions specific enough to be reusable, but not so narrow that they only fit one task
-- if a skill materially shapes the execution of a task, record that in `LOG.md`
+- if a skill materially shapes the execution of a task, record that under the relevant TODO item or its linked task file

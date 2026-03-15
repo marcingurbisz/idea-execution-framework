@@ -39,7 +39,7 @@ Suggested IEF prompts:
 
 #### Query prompt
 
-"Answer from repo memory only. Use `README.md`, `LOG.md`, `TODO.md`, relevant memory cards, and recent consolidations. Cite the files that support the answer."
+"Answer from repo memory only. Use `README.md`, `TODO.md`, linked task files under `todo/` when relevant, relevant memory cards, recent consolidations, and `LOG.md` only as historical archive if needed. Cite the files that support the answer."
 
 ### Why SQLite instead of raw text files?
 
@@ -117,7 +117,7 @@ It should be **delta plus stable context**, not just one or the other.
 Recommended input set for an IEF consolidation run:
 
 1. items added or changed since the last consolidation
-2. current `README.md`, `LOG.md`, and `TODO.md`
+2. current `README.md`, `TODO.md`, and any linked in-progress task files under `todo/`
 3. the most recent one or two consolidation notes
 4. any specifically relevant long-lived memory files
 

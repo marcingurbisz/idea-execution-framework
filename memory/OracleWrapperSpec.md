@@ -150,7 +150,7 @@ Recommended defaults:
 
 When `ief-oracle ask` produces a meaningful result, the IEF loop should still:
 
-- add a concise entry to `LOG.md`
+- add a concise note under the relevant TODO item or linked task file
 - update `TODO.md` if the Oracle result changes next actions
 
 The wrapper should help with artifact creation, but should not replace the normal IEF memory loop.
