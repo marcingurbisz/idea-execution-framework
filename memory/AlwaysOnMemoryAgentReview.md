@@ -1,319 +1,296 @@
-# Always-on memory agent review for IEF
+# Repo memory refinement review for IEF
 
-## TODO
-* Work on feedback and questions below
+This is a summarized follow-up to the earlier review of `GoogleCloudPlatform/generative-ai/gemini/agents/always-on-memory-agent`.
 
-## Feedback and questions
-* Do they have example prompts for the consolidation? 
-* Why SQLLite and not row text files? SQLLite keeps structured text or something more?
-* I wonder if for IFE better would be periodic summarization or consolidation. Or maybe both can be used in different cases. By consolidation I mean keeping old memories untouched instead replacing them as in summarization.
-* I think I will go for explicit task/human triggered consolidation/summarization for now e.g. item on todo list marked as periodic (Mode C)
-* Should consolidation/summarization work on diff from previous consolidation or on whole repo. I think both should be the input.
-* Is there something similar (consolidation or summarization) in openclaw?
-* Better name for the whole topic than Always on memory agent?
-* In general I agree with your conclusions and ideas for moving forward.
-* I wonder what to do with this file. I think it requires more of a summarization then consolidation
+For IEF, the better umbrella term is **repo memory refinement loop** rather than “always-on memory agent” because the useful pattern is not the daemon itself. The useful pattern is:
 
-## Scope
+1. capture raw inputs durably
+2. refine them into structured memory
+3. consolidate them into higher-level notes
+4. answer future questions from that memory layer
 
-Reviewed the public example at `GoogleCloudPlatform/generative-ai/gemini/agents/always-on-memory-agent`.
+## Short answers to the follow-up questions
 
-Question for IEF:
+### Do they have example prompts for consolidation?
 
-- what is the valuable pattern here?
-- how could it be adapted to IEF?
-- can the idea work without API keys?
-- how is it different from normal chat summarization?
+Yes. The Google example keeps the runtime trigger prompt very small:
 
-## What the example actually is
+> `Consolidate unconsolidated memories. Find connections and patterns.`
 
-The Google example is not just “chat with memory.” It is a small memory system with four distinct pieces:
+The real behavior comes from the consolidation agent instruction, which says to:
 
-1. **continuous ingestion**
-   - watches an inbox folder and also accepts HTTP ingestion
-   - supports text, images, audio, video, and PDFs
-   - extracts structured memory fields such as summary, entities, topics, importance, and source
-2. **persistent storage**
-   - keeps memories in SQLite
-   - stores both raw text and processed memory fields
-   - tracks whether a memory was already consolidated
-3. **periodic consolidation**
-   - every 30 minutes by default, it revisits unconsolidated memories
-   - finds connections across them
-   - writes higher-level summaries and insights
-4. **query layer**
-   - answers questions from the stored memories plus consolidation history
-   - cites the underlying memory items
+1. read unconsolidated memories
+2. stop if there are fewer than two
+3. find connections and patterns
+4. create a synthesized summary and one key insight
+5. store `source_ids`, `summary`, `insight`, and `connections`
 
-Conceptually, it is closer to a tiny background knowledge refinery than to ordinary chat memory.
+For IEF, explicit prompt templates would be more useful than copying that prompt literally.
 
-## Architecture pattern worth stealing
+Suggested IEF prompts:
 
-The most reusable part for IEF is the **three-loop model**:
+#### Consolidation prompt
 
-### 1. Capture loop
+"Read the recent repo memory inputs and produce a new consolidation note. Preserve source artifacts. Identify recurring themes, contradictions, important changes, open questions, and recommended next actions. Cite the source files you used."
 
-New information enters a durable inbox instead of living only in chat scrollback.
+#### Summarization prompt
 
-Examples:
+"Summarize this single artifact or work cycle for handoff. Do not merge or overwrite older memory. Capture decisions, progress, blockers, and immediate next actions. Cite the source files you used."
 
-- raw notes
-- copied URLs
-- screenshots
-- meeting transcripts
-- “remember this” task fragments
+#### Query prompt
 
-### 2. Consolidation loop
+"Answer from repo memory only. Use `README.md`, `LOG.md`, `TODO.md`, relevant memory cards, and recent consolidations. Cite the files that support the answer."
 
-The system periodically reprocesses recent items and produces higher-level artifacts:
+### Why SQLite instead of raw text files?
 
-- merged summaries
-- patterns
-- links between items
-- “what changed?” notes
-- “what matters now?” notes
+In the Google example, SQLite is used because the system needs frequent reads and updates against structured records:
 
-### 3. Query loop
-
-Later work does not depend only on the latest summary. It can query the accumulated memory layer.
-
-This fits IEF very well because IEF already treats the repo as a durable shared blackboard.
-
-## What IEF should borrow
-
-IEF does **not** need to copy the Google stack itself.
-
-It should borrow these ideas instead:
-
-### Durable inbox
-
-IEF currently stores decisions and plans well, but it has no first-class “unprocessed input queue.”
-
-Useful addition:
-
-- `memory/inbox/` for raw captures
-
-Examples of contents:
-
-- `*.md` research notes
-- copied problem statements
-- pasted external model outputs
-- screenshots or PDFs to be interpreted later
-
-### Structured memory cards
-
-Instead of leaving everything as raw text, IEF could standardize extracted memory artifacts.
-
-Example fields:
-
-- source
-- raw input reference
-- short summary
-- entities / systems / repos
-- themes / topics
+- raw text
+- summary
+- entities
+- topics
 - importance
-- open questions
-- related items
+- source
+- created timestamp
+- `consolidated` flag
+- connections to other memory items
+- separate consolidation history
+- processed-file tracking
 
-### Consolidation artifacts
+So SQLite is mostly acting as a small mutable state store with a simple schema.
 
-This is the strongest idea in the example.
+It is not storing something fundamentally richer than text. Much of the structure is still text or JSON serialized into text columns. The value is convenient updates and queries.
 
-IEF already has TODO and LOG, but it could also keep periodic consolidation artifacts such as:
+For IEF, the better starting point is different:
 
-- weekly insight notes
-- cross-project pattern notes
-- merged research summaries
-- dependency / risk digests
-- “things worth escalating” notes
+- keep Markdown/text files as the canonical source of truth
+- keep them reviewable and git-friendly
+- add a derived index later only if retrieval or bookkeeping becomes painful
 
-Good candidate layout:
+So the answer is:
 
-- `memory/consolidations/`
+- **Google example:** SQLite makes sense
+- **IEF v1:** raw repo files should remain primary
+- **IEF later:** optional derived SQLite/index layer could help, but should not replace repo memory files
 
-### Queryable repo memory
+### Summarization or consolidation?
 
-The example separates “memory creation” from “answering questions over memory.”
+IEF should use **both**, but for different jobs.
 
-IEF can do the same even without a dedicated app server:
+#### Use summarization when:
 
-- ask an agent to answer from `README.md`, `LOG.md`, `TODO.md`, research notes, and consolidation notes
-- require the answer to cite repo artifacts, not only improvise from local context
+- compressing one session, file, or artifact
+- writing a handoff
+- reducing reading cost for humans
+- preserving the main thread of a single work cycle
+
+#### Use consolidation when:
+
+- combining multiple inputs without deleting them
+- finding cross-cutting patterns
+- comparing notes over time
+- surfacing contradictions and repeated themes
+- producing “what matters now?” or “what changed?” notes
+
+Recommended default for IEF:
+
+- **summarization** for handoffs and single-thread compression
+- **consolidation** for durable memory refinement
+
+### Is explicit human/task-triggered Mode C a good first step?
+
+Yes. This is the right first implementation for IEF.
+
+Mode C keeps the pattern while avoiding premature daemon complexity:
+
+- a TODO item or human request triggers the run
+- the agent ingests and/or consolidates repo memory
+- the result is written back into the repo
+- the work is committed like any other IEF loop output
+
+That fits IEF better than a hidden background service.
+
+### Should the input be the diff or the whole repo?
+
+It should be **delta plus stable context**, not just one or the other.
+
+Recommended input set for an IEF consolidation run:
+
+1. items added or changed since the last consolidation
+2. current `README.md`, `LOG.md`, and `TODO.md`
+3. the most recent one or two consolidation notes
+4. any specifically relevant long-lived memory files
+
+So:
+
+- **diff only** is too narrow
+- **whole repo every time** is too expensive and noisy
+- **delta + selected stable context** is the best default
+
+### Is there something similar in OpenClaw?
+
+Yes, in spirit, but not in the same form.
+
+OpenClaw already has:
+
+- durable Markdown memory files such as `memory/YYYY-MM-DD.md` and `MEMORY.md`
+- a silent **pre-compaction memory flush** that reminds the model to write durable notes before auto-compaction
+- session compaction that persists summaries into session transcripts
+- separate research notes exploring a richer offline memory system with Markdown as canonical storage plus a derived index and reflection/recall tools
+
+So OpenClaw is similar in that it treats memory as something durable and actively maintained.
+
+It is different in that:
+
+- it is more workspace- and session-centric
+- it prefers Markdown as source of truth
+- it couples memory maintenance to session/compaction flow rather than to a separate inbox-plus-consolidation daemon
+
+The closest IEF takeaway is: **repo-native memory plus explicit reflection beats chat-only memory**.
+
+### Better name than “always-on memory agent”?
+
+Recommended IEF term: **repo memory refinement loop**.
+
+Why this name:
+
+- “repo” matches IEF’s source of truth
+- “memory” keeps the core idea
+- “refinement” includes both summarization and consolidation
+- “loop” fits IEF’s operational style better than “agent” or “daemon”
+
+### What should happen to this file?
+
+It should be summarized, not endlessly extended.
+
+That is what this version does: it keeps the core conclusions, answers the follow-up questions, and drops the unresolved TODO header.
+
+## What is valuable in the Google example?
+
+The most reusable part is the **capture → consolidate → query** pattern.
+
+The example is not valuable because it uses Gemini, ADK, or SQLite specifically.
+It is valuable because it separates three concerns that many agent workflows blur together:
+
+1. **capture** — new inputs enter a durable store
+2. **refine** — inputs are turned into structured memory
+3. **query** — later questions are answered from accumulated memory, not only the current chat
+
+Conceptually, it is closer to a small background knowledge refinery than to ordinary chat memory.
 
 ## Recommended IEF adaptation
 
 ### Smallest useful version
 
-Add a lightweight memory-layer convention inside IEF:
+Add a lightweight repo-native memory refinement layer:
 
-1. `memory/inbox/` — raw unprocessed captures
-2. `memory/cards/` — extracted durable memory items
-3. `memory/consolidations/` — periodic higher-level syntheses
-4. a skill that teaches agents when to ingest vs consolidate vs query
+1. `memory/inbox/` — raw captures
+2. `memory/cards/` — extracted memory items
+3. `memory/consolidations/` — periodic synthesis notes
+4. a reusable skill for when to ingest, summarize, consolidate, or answer from memory
 
-This would make IEF better at handling long-running research and multi-session projects.
+### Recommended workflow
 
-### Operational workflow
+#### Capture
 
-#### Ingestion
+Put raw material into `memory/inbox/`:
 
-An agent periodically checks `memory/inbox/` and turns raw items into structured memory cards.
+- rough research notes
+- copied problem statements
+- pasted model outputs
+- screenshots or PDFs to interpret later
 
-#### Consolidation
+#### Refine
 
-On a schedule or after enough new items accumulate, an agent reviews recent cards and writes:
+Turn raw items into cards with fields such as:
 
-- clusters
+- source
+- short summary
+- systems/repos/entities involved
+- themes
+- importance
+- open questions
+- related items
+
+#### Consolidate
+
+When enough change has accumulated, create a note that records:
+
 - repeated themes
 - contradictions
-- next-step suggestions
+- cross-project connections
+- risks and escalation candidates
+- “what matters now?”
 
 #### Query
 
-When a human asks “what do we know?” or “what matters now?”, the agent uses:
+When asked later, answer from:
 
-- current project README
-- TODO / LOG
-- structured cards
-- consolidation artifacts
+- `README.md`
+- `LOG.md`
+- `TODO.md`
+- memory cards
+- consolidation notes
 
-That is more robust than answering from the current chat alone.
+and require citations to repo artifacts.
 
 ## Can this work without API keys?
 
-## Short answer
+### Short answer
 
-**The exact Google implementation: no.**
+- **The exact Google implementation:** no
+- **The underlying IEF pattern:** yes
 
-It explicitly expects a Gemini API key and is built around programmatic model calls.
+The Google example assumes programmatic model access.
 
-**The underlying idea: yes, partially.**
+IEF can still adopt the workflow without API keys through browser-based or human-triggered runs, but it will be less autonomous.
 
-IEF can reuse the pattern without API keys, but the no-key version is less autonomous and less reliable.
+### Practical modes
 
-## Practical modes
+#### Mode A — unattended service with API key
 
-### Mode A — true always-on service with API key
+Best for real always-on maintenance.
 
-This is the cleanest version.
+#### Mode B — browser-first maintenance on a signed-in machine
 
-- background process ingests automatically
-- scheduled consolidation runs unattended
-- query API is always available
-- best fit for 24/7 memory maintenance
+Works for stronger automation without committing to API-first operation.
 
-### Mode B — browser-first / subscription-first memory maintenance without API key
+#### Mode C — explicit human/task-triggered refinement
 
-This can work if a signed-in browser agent or IDE agent periodically does the work and writes artifacts back into the repo.
+Best first step for IEF.
 
-Examples:
+Recommended progression:
 
-- Oracle-style browser escalation processes inbox items
-- a scheduled agent loop ingests raw captures into repo memory
-- a human-triggered nightly “consolidate memory” run updates the artifacts
+1. Mode C first
+2. browser-assisted Mode B if needed
+3. true service/daemon only when clearly justified
 
-What works well:
+## Difference from normal chat summarization
 
-- ingestion and consolidation as explicit tasks
-- durable repo artifacts
-- lower direct API spend if the user already has a subscription plan
-
-What does **not** work as well:
-
-- unattended 24/7 operation
-- reliable background processing on a headless machine
-- clean machine-to-machine integration
-
-### Mode C — human-assisted consolidation without API key
-
-This is the cheapest and simplest path.
-
-- raw inputs accumulate in repo folders
-- the agent is asked periodically to ingest and consolidate them
-- results are committed into repo memory
-
-This is not truly “always on,” but it preserves the important idea: memory is continuously refined over time, not only summarized once.
-
-## Bottom line on API keys
-
-Without API keys, IEF can absolutely adopt **ingestion + consolidation as a workflow**.
-
-Without API keys, IEF probably should **not** aim first for a fully unattended daemon like the Google example.
-
-For IEF, the most realistic progression is:
-
-1. human-triggered or scheduled repo-based ingestion/consolidation
-2. browser-assisted automation on a signed-in machine
-3. full unattended service only when API-mode is worth the cost
-
-## How this differs from normal chat summarization
-
-This is the most important distinction.
-
-| Ordinary summarization | Always-on memory pattern |
+| Ordinary summarization | Repo memory refinement |
 |---|---|
 | compresses one conversation | accumulates knowledge across many inputs |
-| usually overwrites detail | preserves raw items plus processed artifacts |
-| mostly linear | adds cross-links between separate items |
-| triggered by context pressure | triggered as an intentional maintenance loop |
-| summary is often ephemeral | memory artifacts are durable and queryable |
-| weak provenance | can cite concrete memory items and consolidations |
-| little or no background processing | explicit ingestion and consolidation stages |
+| often replaces detail | preserves sources and adds higher-level notes |
+| mostly linear | cross-links separate artifacts |
+| usually triggered by context pressure | triggered as deliberate maintenance |
+| often ephemeral | durable and queryable in the repo |
+| weak provenance | can cite concrete artifacts |
 
 In plain language:
 
-- summarization says “here is a shorter version of what just happened”
-- memory consolidation says “here is what these many inputs mean together, what connects them, and what should influence future work”
+- summarization says: “here is a shorter version of what just happened”
+- consolidation/refinement says: “here is what these many inputs mean together and what should shape future work”
 
-Most chat products do the first.
+## Final recommendation for IEF
 
-The interesting part of the Google example is that it tries to do the second.
+Do not build a daemon first.
 
-## Why this matters for IEF
+Start with a **repo memory refinement loop**:
 
-IEF already solves part of the persistence problem by keeping repo artifacts.
-
-The gap is that repo memory today is mostly:
-
-- manually curated
-- document-oriented
-- project-level
-
-The always-on memory idea adds a missing middle layer:
-
-- raw capture
-- structured extraction
-- periodic consolidation
-- later query over the refined memory set
-
-That would make IEF better for:
-
-- longer research threads
-- multi-project workspaces
-- repeated context switching
-- nightly or weekly agent maintenance loops
-
-## Recommended next steps for IEF
-
-1. add a lightweight `memory/inbox/` convention
-2. define a memory-card template for extracted items
+1. add `memory/inbox/`
+2. define a memory-card template
 3. define a consolidation-note template
-4. add a reusable skill for “ingest / consolidate / answer from memory”
-5. only later decide whether a wrapper or daemon is justified
+4. add a skill for ingest/summarize/consolidate/query behavior
+5. run it explicitly from TODO items or human requests
 
-## Plain-language conclusion
-
-The Google example is valuable for IEF mainly as a **workflow pattern**, not as a dependency choice.
-
-The best reusable idea is:
-
-- keep an inbox of raw material
-- transform it into structured memory
-- periodically consolidate it into higher-level insights
-- answer later from the durable memory layer instead of from chat alone
-
-That idea works in IEF even without API keys.
-
-What does not transfer cleanly without API keys is the **fully autonomous always-on service**.
-
-For IEF, the right first move is a repo-native memory workflow, not a daemon.
+That keeps the good part of the always-on memory idea while staying aligned with IEF’s repo-native workflow.

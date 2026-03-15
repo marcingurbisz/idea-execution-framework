@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-15 – Summarized the always-on memory review into an IEF-oriented recommendation.
+  - Outcome: Reworked `memory/AlwaysOnMemoryAgentReview.md` into a concise follow-up note, answered the open questions about consolidation prompts, SQLite vs repo files, summarization vs consolidation, Mode C, delta vs whole-repo inputs, OpenClaw similarities, and renamed the concept for IEF as a “repo memory refinement loop”.
+  - Learning: For IEF, the valuable reusable idea is not an always-on daemon but a repo-native refinement loop: capture, summarize or consolidate deliberately, then answer later from durable memory artifacts.
+
 - 2026-03-15 – Resolved Oracle feedback and simplified the current direction.
   - Outcome: Added `memory/OracleCurrentDirection.md` as the concise current Oracle reference, updated the Oracle skill/templates to remove cost-driven guidance, explicitly scoped v1 to ChatGPT browser mode with API fallback, documented that the request/session layout is an IEF convention inspired by Oracle, and clarified that API keys kept in the environment are not automatically hidden from an agent that can execute commands there.
   - Learning: The cleanest v1 stance is to use `@steipete/oracle` directly, keep the repo-local artifact conventions in IEF, and treat a thin `ief-oracle` wrapper as an optimization only if repeated friction appears.

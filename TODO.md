@@ -26,7 +26,7 @@
 * Oracle request template and session layout comes from steipete/oracle or this is our idea?
 * How Oracle with API key works. Were do you put API key? Is it safe and not available to agent?
 
-## [IN PROGRESS 2026-03-15] Work on TODO in idea-execution-framework/memory/AlwaysOnMemoryAgentReview.md
+## [DONE 2026-03-15] Work on TODO in idea-execution-framework/memory/AlwaysOnMemoryAgentReview.md
 
 ## How OpenClaw instance could help/extend IFE?
 Do research and save the results in md file. Can OpenClaw run on ChatGPT Plus or Claude.ai Pro subscription?
