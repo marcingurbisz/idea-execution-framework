@@ -33,7 +33,7 @@ Do research and save the results in md file. Can OpenClaw run on ChatGPT Plus or
 
 ## [DONE 2026-03-15] Use oracle skill to search for openclaw concrete skills that can be beneficial for IEF
 
-## Is there some standard for loading SKILLS by IDE/CLI agents? Maybe this is a good task for Oracle?
+## [DONE 2026-03-15] Is there some standard for loading SKILLS by IDE/CLI agents? Maybe this is a good task for Oracle?
 
 ## [FOR HUMAN] Review workplace/always-on-agents-lab
 

@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-15 – Researched cross-agent standards for skills and instruction files.
+  - Outcome: Added `memory/SkillLoadingStandardsResearch.md`, concluding that there is no universal standard, but there are now two meaningful emerging conventions: `AGENTS.md` for persistent repo instructions and Agent Skills / `SKILL.md` for reusable capability packs. The note also captures OpenClaw’s explicit loading rules and compares Codex, Claude Code, and GitHub Copilot.
+  - Learning: The important design distinction is not “which one file wins,” but “repo instructions vs reusable skills.” IEF should keep `AGENTS.md` for repo behavior and align its reusable skills with the portable Agent Skills subset instead of inventing a private format.
+
 - 2026-03-15 – Researched concrete OpenClaw skills for IEF with an Oracle-style escalation.
   - Outcome: Added `memory/OpenClawConcreteSkillsForIEF.md` with a ranked shortlist of the most relevant concrete OpenClaw skills for IEF (`github`, `skill-creator`, `prose`, `clawhub`, `healthcheck`, `obsidian`) plus secondary candidates, and created `memory/oracle-sessions/2026-03-15-openclaw-concrete-skills/` to record the Oracle request, the blocked execution state, and the fallback notes.
   - Learning: The most useful immediate OpenClaw additions for IEF split into three layers: execution (`github`), skill-authoring discipline (`skill-creator`), and future orchestration (`prose`). Browser-first Oracle was still useful as a framing/workflow tool, but true execution from this container is blocked without browser auth or an API key; additionally, `--copy-markdown` also failed here because `xsel` is missing, so `--render-markdown` was the workable fallback.
