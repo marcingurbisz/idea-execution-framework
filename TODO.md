@@ -1,6 +1,6 @@
-## Add MIT licensing information to IEF repo
+## [DONE 2026-03-15] Add MIT licensing information to IEF repo
 
-## TODOs and LOGs
+## [IN PROGRESS 2026-03-15] TODOs and LOGs
 * Combine TODO with LOGS? - I think it makes sense to have logs under TODO items. Especially for Human this is easier to review than two separate files.
 * I opt for supporting also alternative style of TODOs - each todo in separate md file under todo directory. IFE todos I would keep as they are now but at work I ended up with todo items as md files which contains quite some text and are also structured in subfolders like "doing now", "doing today", "near-term parked", "mid-term parked". What do you think? Maybe also allow for mix?
 

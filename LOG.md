@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-15 – Added MIT licensing to IEF.
+  - Outcome: Added an MIT [LICENSE](LICENSE) file and linked it from the README so the repository now has an explicit default reuse license.
+  - Learning: For a framework repo like IEF, making the license explicit early removes ambiguity for later reuse of docs, skills, and reference implementations.
+
 - 2026-03-09 – Created always-on agents lab project.
   - Outcome: Created `/workspaces/workplace/always-on-agents-lab` with an initial `README.md`, `LOG.md`, `TODO.md`, a pointer `AGENTS.md`, and `memory/RemoteAccessAndAgentSetupReview.md` capturing the first recommendation: prefer `code-server` + `tmux` + repo memory as the main always-on agent surface, use Oracle-style remote browser services for browser-backed escalation, and treat Guacamole/Kasm as full-desktop fallbacks.
   - Learning: For long-running coding agents, the most practical “connect from anywhere” architecture is usually browser-native code access plus persistent terminal sessions, not a browser-streamed desktop as the primary workspace.

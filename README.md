@@ -95,3 +95,7 @@ How this is used:
 - Reopen in container from the workspace root (the root `.devcontainer` symlink points to this repository's devcontainer config).
 - Because `AGENTS.md` is at workspace root (symlink), Copilot includes these instructions in every prompt across all projects in that workspace.
 - Prompt "Execute the IEF loop in projectA repo" to have IEF loop executed on specific project.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
