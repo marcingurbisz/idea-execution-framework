@@ -1,0 +1,12 @@
+{
+  "sessionId": "2026-03-15-openclaw-concrete-skills",
+  "mode": "browser",
+  "provider": "openai",
+  "model": "gpt-5.4",
+  "status": "blocked",
+  "requestedAt": "2026-03-15T13:34:17Z",
+  "completedAt": "2026-03-15T13:34:17Z",
+  "source": "oracle",
+  "transportNotes": "Prepared with @steipete/oracle in browser mode using render fallback. Browser execution could not proceed because no default Chrome/Chromium signed-in cookie database was available from this environment. API fallback was unavailable because OPENAI_API_KEY was unset. Clipboard copy fallback also failed because xsel was missing, so --render-markdown was used.",
+  "workaround": "Local synthesis from OpenClaw repo/docs saved in memory/OpenClawConcreteSkillsForIEF.md"
+}

@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-15 – Researched concrete OpenClaw skills for IEF with an Oracle-style escalation.
+  - Outcome: Added `memory/OpenClawConcreteSkillsForIEF.md` with a ranked shortlist of the most relevant concrete OpenClaw skills for IEF (`github`, `skill-creator`, `prose`, `clawhub`, `healthcheck`, `obsidian`) plus secondary candidates, and created `memory/oracle-sessions/2026-03-15-openclaw-concrete-skills/` to record the Oracle request, the blocked execution state, and the fallback notes.
+  - Learning: The most useful immediate OpenClaw additions for IEF split into three layers: execution (`github`), skill-authoring discipline (`skill-creator`), and future orchestration (`prose`). Browser-first Oracle was still useful as a framing/workflow tool, but true execution from this container is blocked without browser auth or an API key; additionally, `--copy-markdown` also failed here because `xsel` is missing, so `--render-markdown` was the workable fallback.
+
 - 2026-03-15 – Researched how OpenClaw could extend IEF.
   - Outcome: Added `memory/OpenClawForIEF.md`, positioning OpenClaw as a possible always-on control plane around IEF rather than an IDE replacement, summarizing the most relevant capabilities for IEF (remote access, scheduling, multi-agent routing, workspace memory, tool orchestration, and skills), and answering the subscription question: OpenAI Codex OAuth is a supported subscription path, while Anthropic subscription auth is technically possible via setup-token but more caveated than API keys.
   - Learning: OpenClaw becomes attractive for IEF only when reachability, scheduling, and orchestration matter; for the direct repo coding loop, dedicated coding agents remain the better default.
