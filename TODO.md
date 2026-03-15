@@ -28,7 +28,7 @@
 
 ## [DONE 2026-03-15] Work on TODO in idea-execution-framework/memory/AlwaysOnMemoryAgentReview.md
 
-## How OpenClaw instance could help/extend IFE?
+## [DONE 2026-03-15] How OpenClaw instance could help/extend IFE?
 Do research and save the results in md file. Can OpenClaw run on ChatGPT Plus or Claude.ai Pro subscription?
 
 ## Use oracle skill to search for openclaw concrete skills that can be beneficial for IEF

@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-15 – Researched how OpenClaw could extend IEF.
+  - Outcome: Added `memory/OpenClawForIEF.md`, positioning OpenClaw as a possible always-on control plane around IEF rather than an IDE replacement, summarizing the most relevant capabilities for IEF (remote access, scheduling, multi-agent routing, workspace memory, tool orchestration, and skills), and answering the subscription question: OpenAI Codex OAuth is a supported subscription path, while Anthropic subscription auth is technically possible via setup-token but more caveated than API keys.
+  - Learning: OpenClaw becomes attractive for IEF only when reachability, scheduling, and orchestration matter; for the direct repo coding loop, dedicated coding agents remain the better default.
+
 - 2026-03-15 – Summarized the always-on memory review into an IEF-oriented recommendation.
   - Outcome: Reworked `memory/AlwaysOnMemoryAgentReview.md` into a concise follow-up note, answered the open questions about consolidation prompts, SQLite vs repo files, summarization vs consolidation, Mode C, delta vs whole-repo inputs, OpenClaw similarities, and renamed the concept for IEF as a “repo memory refinement loop”.
   - Learning: For IEF, the valuable reusable idea is not an always-on daemon but a repo-native refinement loop: capture, summarize or consolidate deliberately, then answer later from durable memory artifacts.
