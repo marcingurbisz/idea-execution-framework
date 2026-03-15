@@ -33,7 +33,7 @@ Suggested fields:
   "requestedAt": "2026-03-09T12:00:00Z",
   "completedAt": "2026-03-09T12:12:00Z",
   "source": "oracle",
-  "costNotes": "browser-mode via ChatGPT Plus"
+  "transportNotes": "browser-mode via signed-in ChatGPT session"
 }
 ```
 

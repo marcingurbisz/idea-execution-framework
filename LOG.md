@@ -7,6 +7,10 @@ Template:
 
 ## Entries
 
+- 2026-03-15 – Resolved Oracle feedback and simplified the current direction.
+  - Outcome: Added `memory/OracleCurrentDirection.md` as the concise current Oracle reference, updated the Oracle skill/templates to remove cost-driven guidance, explicitly scoped v1 to ChatGPT browser mode with API fallback, documented that the request/session layout is an IEF convention inspired by Oracle, and clarified that API keys kept in the environment are not automatically hidden from an agent that can execute commands there.
+  - Learning: The cleanest v1 stance is to use `@steipete/oracle` directly, keep the repo-local artifact conventions in IEF, and treat a thin `ief-oracle` wrapper as an optimization only if repeated friction appears.
+
 - 2026-03-15 – Added explicit tool-problem reporting guidance.
   - Outcome: Updated `AGENTS.md` to require agents to report missing or failing tools, binaries, services, or environment capabilities together with the impact on the task and any workaround attempted.
   - Learning: Silent tool failure hides important execution constraints; IEF works better when environment limitations are surfaced as first-class project context.

@@ -112,7 +112,7 @@ Recommended first policy:
 
 Reason:
 
-IEF's default target user is likely to already have ChatGPT Plus, and browser mode avoids API billing.
+IEF's default target user is likely to already have ChatGPT Plus, and browser mode keeps the first usable path simpler.
 
 ### `browser`
 
@@ -120,15 +120,14 @@ Recommended defaults:
 
 - manual-login profile reuse
 - repo-local artifacts always on
-- explicit note in metadata that billing is ChatGPT-side, not API-side
+- explicit note in metadata that the run used a signed-in browser session
 
 ### `api`
 
 Recommended defaults:
 
 - prefer `gpt-5.4` over Pro unless explicitly requested
-- include cost notes in `meta.json`
-- preserve the exact model used so billing trade-offs remain auditable
+- preserve the exact model used so execution differences remain auditable
 
 ## Suggested metadata shape
 
@@ -143,7 +142,7 @@ Recommended defaults:
   "requestedAt": "2026-03-09T12:00:00Z",
   "completedAt": "2026-03-09T12:11:00Z",
   "artifactDir": "memory/oracle-sessions/2026-03-09-architecture-review",
-  "costNotes": "browser-mode via ChatGPT Plus"
+  "transportNotes": "browser-mode via signed-in ChatGPT session"
 }
 ```
 

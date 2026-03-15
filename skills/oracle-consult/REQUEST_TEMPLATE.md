@@ -21,7 +21,7 @@ Use this template for `memory/oracle-sessions/<session-id>/request.md`.
 ## Constraints
 - [technical constraint]
 - [product or scope constraint]
-- [cost / reliability preference if relevant]
+- [operational preference if relevant: browser-first, API fallback, etc.]
 
 ## Desired output
 [What kind of answer is needed: recommendation, plan, diff review, root-cause analysis, etc.]

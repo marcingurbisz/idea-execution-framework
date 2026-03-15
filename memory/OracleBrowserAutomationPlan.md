@@ -1,5 +1,7 @@
 # Oracle-style browser automation plan for IEF
 
+> Status: this is an extended source note. For the current simplified v1 direction, see `memory/OracleCurrentDirection.md`.
+
 ## Goal
 
 Reuse the core idea behind [steipete/oracle](https://github.com/steipete/oracle): when the main agent gets stuck, it should be able to hand a prompt plus files to a stronger external model, wait asynchronously, and pull the answer back into the repo workflow.
@@ -7,7 +9,7 @@ Reuse the core idea behind [steipete/oracle](https://github.com/steipete/oracle)
 For IEF, the important constraint is different from Oracle's default path:
 
 - prefer browser automation over API keys
-- target subscriptions you already have: **ChatGPT Plus** and **Claude Pro**
+- target **ChatGPT Plus** first, with **OpenAI API** as the fallback path if browser mode proves too unreliable
 - keep the result easy to run from an agent inside a repo-centric workflow
 
 ## What Oracle already proves
@@ -28,7 +30,7 @@ Oracle is valuable to IEF not because every file should be ported, but because i
 If this turns into code work, these parts of Oracle are the most useful reference points:
 
 - `src/browser/` — Chrome lifecycle, prompt submission, response capture, profile reuse, and reattach patterns
-- `src/browser/providers/` — provider-specific DOM adapters; this is the clearest template for a future Claude web adapter
+- `src/browser/providers/` — provider-specific DOM adapters; this is the clearest template if future non-ChatGPT providers ever become relevant
 - `src/browser/providerDomFlow.ts` — the right abstraction point between shared browser flow and provider-specific DOM behavior
 - `src/cli/dryRun.ts` and browser prompt assembly helpers — useful shape for previewing bundled prompts before launching a browser run
 - session/runtime metadata handling and reattach support — useful for durable long-running runs, especially for "thinking" models
@@ -98,9 +100,9 @@ Each provider should own only its DOM specifics.
 Oracle supports both API and browser engines. For IEF, the first useful version should be explicitly browser-first:
 
 - **ChatGPT Plus** via chatgpt.com
-- **Claude Pro** via claude.ai
+- **OpenAI API** as the fallback path if browser runs are too unreliable or too manual
 
-That keeps the tool aligned with your existing paid subscriptions and avoids API billing/credential management.
+That keeps the first usable path simple while leaving a reliable scripted fallback available.
 
 ### Smaller initial scope
 
@@ -112,7 +114,7 @@ Oracle is a full product. IEF only needs the subset that unlocks escalation:
 - reattach to a live browser run
 - optionally restart a failed/timed-out session
 
-TUI, multi-provider fan-out, cost estimation, and polished distribution can wait.
+TUI, multi-provider fan-out, and polished distribution can wait.
 
 ### Repo-native output
 
@@ -149,16 +151,14 @@ Add:
 
 Why second: this is what turns a neat demo into something an agent can depend on.
 
-### Phase 3 — Claude Pro adapter
+### Phase 3 — API-mode fallback
 
-Add a second browser provider with the same interface:
+Add a more reliable scripted fallback path:
 
-- dedicated persistent profile
-- Claude-specific prompt box and attachment handling
-- response capture
-- optional project selection if Claude Projects become relevant
-
-Important: keep Claude isolated behind its own adapter so DOM drift does not affect ChatGPT runs.
+- documented `--engine api` usage
+- repo-local artifact capture that matches browser runs
+- explicit notes on when API mode is preferable to browser mode
+- the same session/log/TODO conventions as browser runs
 
 ### Phase 4 — agent integration
 
@@ -170,7 +170,7 @@ Inputs:
 
 - question / task
 - optional file globs
-- preferred provider: `chatgpt` | `claude` | `auto`
+- preferred provider: `chatgpt` | `api` | `auto`
 - priority / patience mode
 
 Outputs:
@@ -199,21 +199,20 @@ Main risks:
 - anti-bot or login interruptions
 - attachment UX changes
 
-### Claude Pro
+### OpenAI API fallback
 
-Worth adding, but second.
+Worth documenting, but after the browser path is comfortable.
 
 Why:
 
-- gives IEF a second opinion / alternative reasoning style
-- maps well to the same session-oriented escalation concept
+- gives IEF a more scriptable and predictable fallback
+- avoids browser/UI drift when reliability matters more than subscription reuse
 
 Expected extra work:
 
-- new selectors and response extraction logic
-- attachment handling may differ from ChatGPT
-- rate limits / product UI changes may be less documented
-- reattach behavior will need fresh experimentation
+- secret handling must be intentional
+- session metadata should clearly record browser vs API execution
+- API-mode usage should not leak keys into repo artifacts
 
 ## Recommended implementation stance
 
@@ -224,7 +223,7 @@ Practical recommendation:
 1. Reuse Oracle's design ideas directly.
 2. Borrow code selectively only where licensing and maintenance make sense.
 3. Keep the IEF version smaller and repo-local.
-4. Add Claude only after ChatGPT session durability works well.
+4. Keep broader provider support out of v1 unless it becomes clearly necessary.
 
 This minimizes scope while preserving the main unlock.
 
@@ -256,5 +255,5 @@ That is the smallest version that meaningfully improves the IEF loop.
 
 1. Should IEF keep oracle sessions per repo or in one shared workspace location?
 2. Should the main agent write escalation requests automatically, or only when explicitly prompted?
-3. Is Claude Pro a required provider for v1, or is ChatGPT Plus enough for the first usable version?
+3. Is browser mode enough for the first usable version, or should API mode become a first-class fallback immediately?
 4. Do you want the eventual implementation to live inside this repo as a reference spec, or inside a separate tool repo?

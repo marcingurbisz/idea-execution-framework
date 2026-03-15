@@ -10,7 +10,7 @@
 
 ## [DONE 2026-03-15] Add to AGENTS.MD instruction that agent should report problems with invoking tools e.g. wanted to use rg in terminal but it was not available with information about the impact of this missing tool.
 
-## [IN PROGRESS 2026-03-15] Work on feedback for Oracle
+## [DONE 2026-03-15] Work on feedback for Oracle
 * "Reuse the architecture, not the whole product surface" - why not use steipete/oracle as it is? Or other option ife-oracle calls steipete/oracle? What are pros and cons of each 3 approaches? Wait I see in SKILL.md that actually steipete/oracle is in use so you've changed the mind and decided to use steipete/oracle?
 * If there is no provider for Claude.ai browser approach then let's keep it out of scope for now. Probably I will never got into it. More probable is is that we will switch to API calls.
 * AnAnswer to open questions from md file:
@@ -26,7 +26,7 @@
 * Oracle request template and session layout comes from steipete/oracle or this is our idea?
 * How Oracle with API key works. Were do you put API key? Is it safe and not available to agent?
 
-## Work on TODO in idea-execution-framework/memory/AlwaysOnMemoryAgentReview.md
+## [IN PROGRESS 2026-03-15] Work on TODO in idea-execution-framework/memory/AlwaysOnMemoryAgentReview.md
 
 ## How OpenClaw instance could help/extend IFE?
 Do research and save the results in md file. Can OpenClaw run on ChatGPT Plus or Claude.ai Pro subscription?

@@ -1,6 +1,6 @@
 ---
 name: oracle-consult
-description: Escalate a hard task to Oracle with repo-local artifacts, preferring browser mode for ChatGPT Plus users and API mode only when the extra cost is justified.
+description: Escalate a hard task to Oracle with repo-local artifacts, using ChatGPT browser mode first and API mode when browser execution is not reliable enough.
 requires:
   bins: [node]
 ---
@@ -12,23 +12,27 @@ Use this skill when the current agent is stuck, needs a second opinion, needs st
 - a bug/design problem remains unresolved after meaningful local investigation
 - you want a second model pass on architecture, debugging, or review
 - you need wide-context analysis across multiple files
+- the task depends on high-quality web research or synthesis across many sources
 - you want a durable research/review artifact stored in the repo
 
 ## Do not use this skill when
 
 - the task is still cheap to solve with normal repo exploration
 - the problem is mostly a missing requirement that should be clarified with the human
-- the likely answer does not justify the time/cost of escalation
+- the likely answer does not justify the extra execution overhead of escalation
 
-## Cost-aware default
+## Current default
 
 Prefer this order unless there is a clear reason not to:
 
-1. **Browser mode** with ChatGPT Plus
-2. **API mode** with OpenAI key when you need higher reliability, automation, or follow-up lineage
-3. **Other providers** only when there is a concrete reason to switch
+1. **Browser mode** with ChatGPT via `@steipete/oracle`
+2. **API mode** with OpenAI key when browser mode is unreliable or a more scripted path is needed
 
-See `memory/OracleApiCostNotes.md` for the current cost trade-offs.
+Current v1 scope:
+
+- ChatGPT browser mode is in scope
+- Claude.ai browser mode is out of scope for now
+- future wrappers are optional; direct Oracle usage is the current default
 
 ## Required artifact layout
 
@@ -65,7 +69,7 @@ Use a browser-oriented flow like:
 
 ## API-mode command pattern
 
-Use API mode only when the paid trade-off is intentional, for example:
+Use API mode when browser mode is not reliable enough or when you need a more scripted path, for example:
 
 - `OPENAI_API_KEY=... npx -y @steipete/oracle --engine api --model gpt-5.4 -p "..." --file ...`
 
@@ -81,6 +85,6 @@ After Oracle returns:
 
 ## References
 
+- `memory/OracleCurrentDirection.md`
 - `memory/OracleBrowserAutomationPlan.md`
-- `memory/OracleApiCostNotes.md`
 - `memory/OracleIntegrationRoadmap.md`

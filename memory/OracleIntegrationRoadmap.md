@@ -18,8 +18,8 @@ This keeps IEF aligned with its repo-first philosophy and avoids overbuilding.
 ## Constraints
 
 - IEF is currently a framework/docs repo, not a mature runtime tool
-- the cheapest path for many users is still Oracle browser mode with ChatGPT Plus
-- API mode is useful, but should be treated as an explicit premium/reliability option
+- the simplest path for many users is still Oracle browser mode with ChatGPT Plus
+- API mode is useful, but should be treated as an explicit fallback when browser execution is not reliable enough
 - the integration should produce durable repo artifacts, not only hidden local state
 
 ## Target user journeys
@@ -126,8 +126,8 @@ Purpose: expand beyond the first ChatGPT-centric path only after the workflow is
 Deliverables:
 
 - explicit API-mode guidance
-- optional Claude/Gemini usage notes
-- selection heuristics by cost/reliability/task type
+- optional future-provider usage notes
+- selection heuristics by reliability/task type
 
 Acceptance criteria:
 
@@ -173,7 +173,7 @@ Why:
 These are valuable, but should wait until the above exists.
 
 - building a full standalone Oracle clone inside IEF
-- full Claude browser automation support
+- broader non-ChatGPT browser automation support
 - automatic skill registry/distribution
 - complex secret injection and per-skill config systems
 - silent auto-escalation without clear human/operator awareness
@@ -206,4 +206,4 @@ It should start by making Oracle a **first-class repo workflow**:
 - a documented escalation pattern
 - a reusable skill
 - a standard artifact layout
-- a browser-first recommendation with API-mode as an explicit paid option
+- a browser-first recommendation with API-mode as an explicit fallback
