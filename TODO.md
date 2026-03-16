@@ -1,3 +1,14 @@
+## Review last commit
+* especially review how I allow for not having TODO.md but having all todo items under todo/<topic>.md files. In such case loop will usually be executed for given topic file and not whole repo. But one can also ask for execution of all todos over all topics. What do you think about this change?
+* improvements if you find something worth changing
+
+## Easier start with IFE
+I received following feedback from colleague:
+> Przydałby się jakiś boilerplate maker :D strasznie się namęczyłem z simlinkami i kontenerem 😛
+Jakiś npx ief init-project "nazwa"
+
+Think how we can improve starting with IFE. Maybe npx but maybe README is not clear enough? He went for workspace level setup which is a little bit more complex.
+
 ## [DONE 2026-03-15] Switch IEF to TODO-local logging
 Decision: keep execution notes under the relevant TODO item, either inline in `TODO.md` or in a linked `todo/.../*.md` file.
 
