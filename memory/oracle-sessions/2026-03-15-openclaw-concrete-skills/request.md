@@ -32,4 +32,4 @@ This task benefits from a second opinion with stronger cross-source synthesis ac
 A concise ranked recommendation that can be turned into an IEF memory note.
 
 ## Notes for follow-up
-Persist the result under `memory/`, update `LOG.md`, and mark the matching TODO complete if the result is actionable.
+Persist the result under `memory/` and mark the matching TODO complete if the result is actionable.

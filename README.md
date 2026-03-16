@@ -21,6 +21,8 @@ See [AGENTS.md](AGENTS.md) for the authoritative description of the repo control
 
 In short: `README.md` stays at repo root; the queue can live either in `TODO.md` or in `todo/<topic>.md` files; each item keeps its own execution log inline in that queue surface; supporting artifacts live under `memory/`.
 
+There is no separate repo-level `LOG.md` in the preferred IEF workflow.
+
 ## Quick start
 
 Start with a single repo first:

@@ -29,18 +29,32 @@ Keep supporting memory artifacts either under:
 - existing topic file under /TODO folder you are working on, or
 - `memory/` - plans, research notes, session artifacts, and other extended memory files
 
+Default logging rule in `TODO.md` mode:
+- Treat the TODO item itself as the primary per-item execution log.
+- Keep completed work notes under the TODO item itself instead of in a separate repo-level log file.
+
 Recommended todo item shape:
 
 ```markdown
 ## [IN PROGRESS 2026-03-15] Example task
 Task description.
 
-### Log
-- Outcome: [What changed]. Learning: [What was discovered].
+Discussion / review notes (optional):
+> Human or agent comments that shape the implementation.
+
+Completed changes:
+- [What changed]
+
+Validation:
+- [How it was checked]
+
+Learning (optional):
+- [What was discovered and is worth preserving]
 ```
 
 ### Iteration rhythm
 - Work in cycles and update repo memory after meaningful progress.
+- Keep the per-item execution log in the TODO entry itself; use `memory/` only for supporting notes that stay useful beyond that one item.
 - Escalate to the human only when constraints/requirements are unclear or when scope boundaries change.
 - Continue to the next actionable item from the given TODO list - do not stop the loop.
 - Hard gate between TODO items: after finishing one TODO, do these in order before starting the next TODO: 1) update the execution log under that TODO item, 2) mark item as done, 3) commit whole work

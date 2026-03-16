@@ -1,3 +1,12 @@
+## [DONE 2026-03-16] Remove separate LOG.md from IEF workflow
+Completed changes:
+- Updated the shared IEF guidance in `AGENTS.md` to make TODO-local logging the only documented per-item logging model and standardized the section label as `Completed changes:`.
+- Updated `README.md`, `memory/TodoAndLogWorkflow.md`, and the Oracle request template so they no longer instruct agents to maintain a separate repo-level `LOG.md`.
+- Deleted the legacy root `LOG.md` file from the IEF repo.
+
+Validation:
+- `git diff --check` → no issues.
+
 ## [DONE 2026-03-16] Review last commit
 * especially review how I allow for not having TODO.md but having all todo items under todo/<topic>.md files. In such case loop will usually be executed for given topic file and not whole repo. But one can also ask for execution of all todos over all topics. What do you think about this change?
 * improvements if you find something worth changing
@@ -24,7 +33,7 @@ Decision: keep execution notes under the relevant TODO item, either inline in `T
 
 ### Log
 - 2026-03-15 - Updated `AGENTS.md`, `README.md`, `skills/README.md`, and the Oracle session guidance so new work logs live with the task rather than in a separate required `LOG.md`.
-- 2026-03-15 - Reworked `memory/TodoAndLogWorkflow.md` to make TODO-local logs the default model and kept `LOG.md` only as a historical archive.
+- 2026-03-15 - Reworked `memory/TodoAndLogWorkflow.md` to make TODO-local logs the default model.
 
 ## [DONE 2026-03-15] Suggest alternative names for IEF
 See `memory/IefNamingIdeas.md`.

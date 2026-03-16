@@ -8,13 +8,13 @@ Specific subquestions:
 
 1. should logs live under the TODO item by default?
 2. should IEF support richer task layouts such as one markdown file per todo/topic under a `todo/` directory?
-3. what, if any, role should `LOG.md` still have?
+3. whether IEF still needs a separate repo-level log file?
 
 ## Short answer
 
 - **Yes**: logs should live under the relevant TODO item by default.
 - **Yes**: support an optional richer `todo/` directory.
-- **Keep `LOG.md` only as a legacy archive**, not as the default place for new progress notes.
+- **No**: IEF does not need a separate repo-level `LOG.md`.
 
 ## Decision
 
@@ -26,7 +26,7 @@ The default IEF model should now be:
 - each item keeps its own execution log in whichever queue surface is used
 - in `TODO.md` mode, a larger task can move into `todo/.../*.md`, and the root TODO item points there
 - `memory/` holds supporting research, plans, and session artifacts
-- `LOG.md` is optional historical baggage only, for repos that already used it
+- there is no separate repo-level `LOG.md`
 
 This matches the human review preference better and keeps the task story in one place.
 
@@ -62,9 +62,9 @@ Example inline item:
 ## [DONE 2026-03-15] Refine memory layout
 Decided to move progress logging under the task itself.
 
-### Log
-- 2026-03-15 - Compared separate `LOG.md` against task-local logging.
-- 2026-03-15 - Updated the framework docs to make TODO-local logging the default.
+Completed changes:
+- Compared a separate repo-level log against task-local logging.
+- Updated the framework docs to make TODO-local logging the default.
 ```
 
 ## Level 2 — `todo/` mode
@@ -126,13 +126,16 @@ Recommended loop semantics in `todo/` mode:
 - "Execute the IEF loop for `todo/.../topic.md`" means work only from that topic file
 - "Execute the IEF loop for the repo" means process actionable topic files in priority order
 
-## What `LOG.md` should mean now
+## What replaces `LOG.md`
 
-If a repo already has a `LOG.md`, keep it only as:
+Keep the completed-work narrative under the TODO item itself.
 
-- a historical archive
-- a migration aid while moving to TODO-local logs
-- an optional index file if a project has a very specific need for one
+Use `memory/` only for:
+
+- supporting research
+- plans and design notes
+- session artifacts
+- reusable reference material that matters beyond one TODO item
 
 ## Why this fits IEF well
 
