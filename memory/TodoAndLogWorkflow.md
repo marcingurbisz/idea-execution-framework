@@ -20,9 +20,11 @@ Specific subquestions:
 
 The default IEF model should now be:
 
-- `TODO.md` is the top-level queue and dashboard
-- each TODO item keeps its own execution log
-- a larger task can move into `todo/.../*.md`, and the root TODO item points there
+- support two queue modes:
+  - `TODO.md` mode: one root queue/dashboard
+  - `todo/` mode: one markdown file per topic/task as the queue surface
+- each item keeps its own execution log in whichever queue surface is used
+- in `TODO.md` mode, a larger task can move into `todo/.../*.md`, and the root TODO item points there
 - `memory/` holds supporting research, plans, and session artifacts
 - `LOG.md` is optional historical baggage only, for repos that already used it
 
@@ -34,8 +36,8 @@ This matches the human review preference better and keeps the task story in one 
 
 - easier human review because status and history stay together
 - each task keeps its own context, decisions, and outcomes together
-- small tasks stay simple in `TODO.md`
-- larger tasks can grow into a dedicated task file without changing the overall model
+- small tasks stay simple in one place
+- larger tasks can grow into a dedicated task/topic file without changing the logging model
 - less duplication between queue state and history
 
 ### Cons and trade-offs
@@ -46,7 +48,7 @@ This matches the human review preference better and keeps the task story in one 
 
 ## Recommended structure
 
-## Level 1 — simple/default mode
+## Level 1 — `TODO.md` mode
 
 Use this for small repos and lightweight work:
 
@@ -65,7 +67,7 @@ Decided to move progress logging under the task itself.
 - 2026-03-15 - Updated the framework docs to make TODO-local logging the default.
 ```
 
-## Level 2 — extended task mode
+## Level 2 — `todo/` mode
 
 When tasks become larger, allow an optional `todo/` directory:
 
@@ -91,9 +93,22 @@ Each task file can contain:
 - embedded task log
 - links to commits or related artifacts
 
-## Recommended relationship between root TODO and task files
+In this mode, the actionable queue lives directly in topic files, for example:
 
-Use `TODO.md` as the top-level dashboard and pointer list.
+```text
+repo/
+  README.md
+  todo/
+    doing-now/
+      2026-03-16-onboarding.md
+    doing-today/
+      2026-03-16-review-last-commit.md
+  memory/
+```
+
+## Relationship between root TODO and task files
+
+If the repo uses `TODO.md` mode, use `TODO.md` as the top-level dashboard and pointer list.
 
 Example:
 
@@ -103,6 +118,13 @@ See `todo/doing-now/2026-03-15-refine-memory-layout.md`
 ```
 
 This keeps the root queue short while allowing richer task detail elsewhere.
+
+If the repo uses `todo/` mode, there is no requirement to keep a root `TODO.md` at all.
+
+Recommended loop semantics in `todo/` mode:
+
+- "Execute the IEF loop for `todo/.../topic.md`" means work only from that topic file
+- "Execute the IEF loop for the repo" means process actionable topic files in priority order
 
 ## What `LOG.md` should mean now
 

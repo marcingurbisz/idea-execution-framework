@@ -11,8 +11,7 @@ In practice, the human provides the idea, priorities, constraints, and reviews; 
 - the core principles of IEF
 - the human and agent roles
 - the execution loop and TODO/commit rhythm
-- the required repo control files: `README.md` and `TODO.md`
-- optional richer task files under `todo/`
+- the required repo control files: `README.md` plus either `TODO.md` or `todo/` topic files
 - optional reusable capability instructions via `skills/`
 - when the agent should continue, stop, escalate, and hand off
 
@@ -24,14 +23,14 @@ Note: I currently use GitHub Copilot in agent mode with GPT-5.4 (March 7, 2026)
 
 ## How to use
 1. Put [AGENTS.md](AGENTS.md) in the workspace so the agent always receives the operating instructions.
-2. Ask the agent to prepare or refresh the repo control files defined by [AGENTS.md](AGENTS.md): `README.md`, `TODO.md`, and optional `todo/` task files when useful. Add the idea, constraints, todos, refer to existing sources (if exists).
+2. Ask the agent to prepare or refresh the repo control files defined by [AGENTS.md](AGENTS.md): `README.md`, plus either `TODO.md` or `todo/` topic files. Add the idea, constraints, todos, refer to existing sources (if exists).
 3. Prompt "Execute the IEF loop" to have the agent work through the TODO items.
 
 ### Memory layout
 
 See [AGENTS.md](AGENTS.md) for the authoritative description of the repo control plane and memory layout.
 
-In short: `README.md` and `TODO.md` stay at repo root; each TODO item keeps its own execution log inline or via a linked file under `todo/`; supporting artifacts live under `memory/`; and an older `LOG.md` can remain only as a historical archive when needed.
+In short: `README.md` stays at repo root; the queue can live either in `TODO.md` or in `todo/<topic>.md` files; each item keeps its own execution log inline in that queue surface; supporting artifacts live under `memory/`; and an older `LOG.md` can remain only as a historical archive when needed.
 
 Example prompts:
 - New project:
@@ -42,6 +41,8 @@ Example prompts:
 	- "Based on this idea: ... analyze the current project, update the README if needed, and generate a prioritized TODO list."
 - Execution:
 	- "Execute the IEF loop"
+	- "Execute the IEF loop for todo/doing-now/my-topic.md"
+	- "Execute the IEF loop across all topic files"
 
 ## Typical collaboration rhythm
 

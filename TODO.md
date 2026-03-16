@@ -1,6 +1,11 @@
-## Review last commit
+## [DONE 2026-03-16] Review last commit
 * especially review how I allow for not having TODO.md but having all todo items under todo/<topic>.md files. In such case loop will usually be executed for given topic file and not whole repo. But one can also ask for execution of all todos over all topics. What do you think about this change?
 * improvements if you find something worth changing
+
+### Log
+- 2026-03-16 - Review finding: the previous docs version was internally inconsistent because it described `TODO.md` as required while also implying that topic files under `todo/` could replace it.
+- 2026-03-16 - Updated `AGENTS.md`, `README.md`, and `memory/TodoAndLogWorkflow.md` to define two explicit queue modes: `TODO.md` mode and `todo/` mode.
+- 2026-03-16 - Documented loop semantics for both cases: a specific topic-file run works only from that file, while a repo-wide run in `todo/` mode processes actionable topic files in priority order.
 
 ## Easier start with IFE
 I received following feedback from colleague:

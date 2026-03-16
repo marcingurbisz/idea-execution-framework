@@ -19,7 +19,11 @@ Control files are located the root of workspace or under concrete repo:
 - `TODO.md` - prioritized next actions plus the execution log for each item, or
 - `todo/<topic>.md` - one markdown file per larger task or topic, optionally grouped into subfolders such as `doing-now/`, or parked buckets
 
-Repo should either use one TODO.md file or `TODO/` folder but not both.
+Queue mode should be chosen explicitly:
+- `TODO.md` mode: keep one root `TODO.md` as the main queue; optional `todo/` files may exist only as linked detail for larger items
+- `todo/` mode: keep the actionable queue in `todo/<topic>.md` files; `TODO.md` is not required
+
+Do not maintain two independent queues at once.
 
 Keep supporting memory artifacts either under:
 - existing topic file under /TODO folder you are working on, or
@@ -39,6 +43,8 @@ Task description.
 - Work in cycles and update repo memory after meaningful progress.
 - Escalate to the human only when constraints/requirements are unclear or when scope boundaries change.
 - Continue to the next actionable item from the given TODO list - do not stop the loop.
+- If the repo uses `todo/` mode and the human asks to execute the loop for a specific topic file, work only from that file.
+- If the repo uses `todo/` mode and the human asks to execute the loop for the whole repo, work across actionable topic files in priority order.
 - Hard gate between TODO items: after finishing one TODO, do these in order before starting the next TODO: 1) update the execution log under that TODO item, 2) mark item as done, 3) commit whole work
 - In this workspace, hereby you have explicit approval to create the required commit(s) at TODO boundaries. Do not ask again whether to commit unless the user explicitly says not to commit, the commit would include changes outside your work, or there is genuine uncertainty about which repo should receive the commit.
 - Ask the human before continuing only when requirements are ambiguous, risk is high, or scope/priority trade-offs are required.
@@ -62,6 +68,7 @@ flowchart TD
 
 Multiple agents may work in the same filesystem at the same time, so:
 - Mark the TODO item you picked in from the list so others know.
+- In `todo/` mode, mark the picked topic file or item there so others know.
 - Keep commit granularity aligned to TODO completion (one commit per completed TODO whenever feasible).
 - In multi-repo workspaces, commit in each affected repo separately and stage only files created or changed for the completed TODO item.
 - Commit only your own work.
