@@ -7,12 +7,17 @@
 - 2026-03-16 - Updated `AGENTS.md`, `README.md`, and `memory/TodoAndLogWorkflow.md` to define two explicit queue modes: `TODO.md` mode and `todo/` mode.
 - 2026-03-16 - Documented loop semantics for both cases: a specific topic-file run works only from that file, while a repo-wide run in `todo/` mode processes actionable topic files in priority order.
 
-## Easier start with IFE
+## [DONE 2026-03-16] Easier start with IFE
 I received following feedback from colleague:
 > Przydałby się jakiś boilerplate maker :D strasznie się namęczyłem z simlinkami i kontenerem 😛
 Jakiś npx ief init-project "nazwa"
 
 Think how we can improve starting with IFE. Maybe npx but maybe README is not clear enough? He went for workspace level setup which is a little bit more complex.
+
+### Log
+- 2026-03-16 - Diagnosis: the main problem is default-path clarity, not only missing tooling; the README exposed the advanced workspace setup too prominently.
+- 2026-03-16 - Updated `README.md` to add a simple single-repo quick start and renamed the multi-repo container setup section to an explicitly advanced path.
+- 2026-03-16 - Added `memory/StarterExperiencePlan.md` with a staged plan: improve docs first, then if still useful add two explicit bootstrap commands, `npx ief init-project` and `npx ief init-workspace`.
 
 ## [DONE 2026-03-15] Switch IEF to TODO-local logging
 Decision: keep execution notes under the relevant TODO item, either inline in `TODO.md` or in a linked `todo/.../*.md` file.
