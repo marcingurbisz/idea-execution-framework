@@ -1,3 +1,8 @@
+## Rename memory to docs under ife and flowlite
+
+## Move TODO.md under docs
+... for ife and flowlite
+
 ## [DONE 2026-03-16] Remove separate LOG.md from IEF workflow
 Completed changes:
 - Updated the shared IEF guidance in `AGENTS.md` to make TODO-local logging the only documented per-item logging model and standardized the section label as `Completed changes:`.
