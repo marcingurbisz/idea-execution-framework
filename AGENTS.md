@@ -1,8 +1,4 @@
-# Agent Instructions (Shared)
-
-This file is intended to be shared across projects that use IEF.
-
-## Idea Execution Framework (IEF)
+# Idea Execution Framework (IEF)
 
 ### Core principles
 
@@ -47,6 +43,7 @@ flowchart TD
 
 - Work in cycles and update repo TODO items and docs after meaningful progress.
 - Keep the per-item execution log in the TODO entry itself; use separate documents under `docs/` only for supporting notes that stay useful beyond that one item.
+- After a TODO item is done, the resulting knowledge may later need to be incorporated into long-term documentation under `README.md` and/or `docs/`. This is often initiated by the human through follow-up TODO items, but the agent may also do it proactively when it is clearly in scope and improves the repo as the source of truth.
 - Escalate to the human only when constraints/requirements are unclear or when scope boundaries change.
 - Continue to the next actionable item from the given TODO list - do not stop the loop.
 - Hard gate between TODO items: after finishing one TODO, do these in order before starting the next TODO: 1) update the execution log under that TODO item, 2) mark item as done, 3) commit whole work

@@ -1,6 +1,18 @@
-## AGENTS.md minor improvements
+## [DONE 2026-03-26] AGENTS.md minor improvements
 * Do keeping "Agent Instructions (Shared)" header with text "This file is intended to be shared across projects that use IEF." gives some benefit. What do you think about skipping this header and starting AGENTS.md directly with "Idea Execution Framework (IEF)" ?
+  > Agent:
+  > Response: The generic wrapper header adds little value here. Starting the file directly with `Idea Execution Framework (IEF)` is clearer and makes the real contract visible immediately.
+  > Changes: Removed the generic wrapper header from `AGENTS.md` so the file starts directly with the IEF heading.
+  > Validation: Re-read `AGENTS.md` and confirmed the file still reads clearly as the top-level contract.
 * Add to AGENTS.md that TODO items once done may be reworked into log term documentation under README.md and/or docs. For now it is mainly human role to make sure that things done in scope of given todo are later properly incorporated into docs/long term memory (usually by creating proper todo items for that) - or maybe this more belongs to README.md? By saying "mainly human role" I do not want to hold back Agent from doing it.
+  > Agent:
+  > Response: This belongs in both places, but with different emphasis. `AGENTS.md` should define the operational rule, while `README.md` should explain it as part of the collaboration rhythm.
+  > Changes: Added an explicit rule to `AGENTS.md` that finished TODO work may need to be folded into `README.md` and/or `docs/`, usually triggered by the human but not blocked for the agent. Added matching explanatory wording to `README.md`.
+  > Validation: Re-read both files and confirmed the distinction is now clear: `AGENTS.md` is the rule, `README.md` is the user-facing explanation.
+
+> Whole item agent notes:
+> Changes: Updated `AGENTS.md` and `README.md` to make the long-term documentation fold-in step explicit and removed the redundant AGENTS wrapper header.
+> Validation: Checked the edited files after the patch; the intent is clearer and consistent with the current TODO-local logging model.
 
 ## [FOR HUMAN] Prepare todo items
 * Define next TODO items for
