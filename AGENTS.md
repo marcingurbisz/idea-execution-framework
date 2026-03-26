@@ -35,11 +35,10 @@ Keep supporting documentation/memory artifacts either under:
 
 ```mermaid
 flowchart TD
-    A@{ shape: circle, label: "Start" } --> B[Pick task from TODO]
-    B --> C[Work on next task from TODO]
+    A@{ shape: circle, label: "Start" } --> B[Pick item from TODO]
+    B --> C[Work on item]
     C -->|Finished| E[Update TODO item and docs]
     C -->|Needs clarification| H[Ask Human]
-    B -->|Needs clarification| H
     E --> Z["Commit"]
     Z --> G{More work?}
     G -->|Yes| B
@@ -72,11 +71,10 @@ Recommended todo item shape:
 ## [IN PROGRESS 2026-03-15] Example task
 Description.
 
-> Agent:
-> - Response (optional): [Short answer to the human's sub-question]
-> - Changes (optional): [What changed for this subitem]
-> - Validation (optional): [How it was checked]
-> - Learning (optional): [What is worth preserving]
+> Agent: [Answer to the human's question]
+> Changes (optional): [What changed for this item]
+> Validation (optional): [How it was checked]
+> Learning (optional): [What is worth preserving]
 ```
 
 Recommended shape when an item has subitems:
@@ -85,19 +83,19 @@ Recommended shape when an item has subitems:
 ## [DONE 2026-03-15] Example task
 * Subitem 1
   > Agent:
-  > - Response (optional): [Short answer to the human's sub-question]
-  > - Changes (optional): [What changed for this subitem]
-  > - Validation (optional): [How it was checked]
-  > - Learning (optional): [What is worth preserving]
+  > Response (optional): [Short answer to the human's sub-question]
+  > Changes (optional): [What changed for this subitem]
+  > Validation (optional): [How it was checked]
+  > Learning (optional): [What is worth preserving]
 * Subitem 2
   > Agent:
-  > - Response (optional): [Short answer to the human's sub-question]
-  > - Changes (optional): [What changed for this subitem]
-  > - Validation (optional): [How it was checked]
-  > - Learning (optional): [What is worth preserving]
+  > Response (optional): [Short answer to the human's sub-question]
+  > Changes (optional): [What changed for this subitem]
+  > Validation (optional): [How it was checked]
+  > Learning (optional): [What is worth preserving]
  
 > Whole item agent notes (optional):
-> - Changes: [Summary across the whole item]
-> - Validation: [Cross-item validation]
-> - Learning (optional): [Broader lesson]
+> Changes: [Summary across the whole item]
+> Validation: [Cross-item validation]
+> Learning (optional): [Broader lesson]
 ```

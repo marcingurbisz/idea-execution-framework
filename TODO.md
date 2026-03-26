@@ -1,62 +1,24 @@
-## Rename memory to docs under ife and flowlite
+## AGENTS.md minor improvements
+* Do keeping "Agent Instructions (Shared)" header with text "This file is intended to be shared across projects that use IEF." gives some benefit. What do you think about skipping this header and starting AGENTS.md directly with "Idea Execution Framework (IEF)" ?
+* Add to AGENTS.md that TODO items once done may be reworked into log term documentation under README.md and/or docs. For now it is mainly human role to make sure that things done in scope of given todo are later properly incorporated into docs/long term memory (usually by creating proper todo items for that) - or maybe this more belongs to README.md? By saying "mainly human role" I do not want to hold back Agent from doing it.
 
-## Move TODO.md under docs
-... for ife and flowlite
-
-## [DONE 2026-03-16] Remove separate LOG.md from IEF workflow
-Completed changes:
-- Updated the shared IEF guidance in `AGENTS.md` to make TODO-local logging the only documented per-item logging model and standardized the section label as `Completed changes:`.
-- Updated `README.md`, `memory/TodoAndLogWorkflow.md`, and the Oracle request template so they no longer instruct agents to maintain a separate repo-level `LOG.md`.
-- Deleted the legacy root `LOG.md` file from the IEF repo.
-
-Validation:
-- `git diff --check` → no issues.
-
-## [DONE 2026-03-16] Review last commit
-* especially review how I allow for not having TODO.md but having all todo items under todo/<topic>.md files. In such case loop will usually be executed for given topic file and not whole repo. But one can also ask for execution of all todos over all topics. What do you think about this change?
-* improvements if you find something worth changing
-
-### Log
-- 2026-03-16 - Review finding: the previous docs version was internally inconsistent because it described `TODO.md` as required while also implying that topic files under `todo/` could replace it.
-- 2026-03-16 - Updated `AGENTS.md`, `README.md`, and `memory/TodoAndLogWorkflow.md` to define two explicit queue modes: `TODO.md` mode and `todo/` mode.
-- 2026-03-16 - Documented loop semantics for both cases: a specific topic-file run works only from that file, while a repo-wide run in `todo/` mode processes actionable topic files in priority order.
-
-## [DONE 2026-03-16] Easier start with IFE
-I received following feedback from colleague:
-> Przydałby się jakiś boilerplate maker :D strasznie się namęczyłem z simlinkami i kontenerem 😛
-Jakiś npx ief init-project "nazwa"
-
-Think how we can improve starting with IFE. Maybe npx but maybe README is not clear enough? He went for workspace level setup which is a little bit more complex.
-
-### Log
-- 2026-03-16 - Diagnosis: the main problem is default-path clarity, not only missing tooling; the README exposed the advanced workspace setup too prominently.
-- 2026-03-16 - Updated `README.md` to add a simple single-repo quick start and renamed the multi-repo container setup section to an explicitly advanced path.
-- 2026-03-16 - Added `memory/StarterExperiencePlan.md` with a staged plan: improve docs first, then if still useful add two explicit bootstrap commands, `npx ief init-project` and `npx ief init-workspace`.
-
-## [DONE 2026-03-15] Switch IEF to TODO-local logging
-Decision: keep execution notes under the relevant TODO item, either inline in `TODO.md` or in a linked `todo/.../*.md` file.
-
-### Log
-- 2026-03-15 - Updated `AGENTS.md`, `README.md`, `skills/README.md`, and the Oracle session guidance so new work logs live with the task rather than in a separate required `LOG.md`.
-- 2026-03-15 - Reworked `memory/TodoAndLogWorkflow.md` to make TODO-local logs the default model.
-
-## [DONE 2026-03-15] Suggest alternative names for IEF
-See `memory/IefNamingIdeas.md`.
-
-### Log
-- 2026-03-15 - Added both explicit names and more product-style names closer to the naming style used in Peter Steinberger projects.
-
-## [DONE 2026-03-15] Add MIT licensing information to IEF repo
-
-## [DONE 2026-03-15] TODOs and LOGs
-* Combine TODO with LOGS? - I think it makes sense to have logs under TODO items. Especially for Human this is easier to review than two separate files.
-* I opt for supporting also alternative style of TODOs - each todo in separate md file under todo directory. IFE todos I would keep as they are now but at work I ended up with todo items as md files which contains quite some text and are also structured in subfolders like "doing now", "doing today", "near-term parked", "mid-term parked". What do you think? Maybe also allow for mix?
-
-## [DONE 2026-03-15] ife/skill/README.md and ife/README.md improvements
-  * "Relationship to other repo files" / "Memory layout" - I think we should have description of control-plane files/memory layout in once place. I think best in AGENTS.md and ife/skill/README.md and ife/README.md should just refer to it.
-  * "Optional skills" as chapter in README.md is to much. I think it is enough that we've mentioned them in Vision chapter.
-
-## [DONE 2026-03-15] Add to AGENTS.MD instruction that agent should report problems with invoking tools e.g. wanted to use rg in terminal but it was not available with information about the impact of this missing tool.
+## [FOR HUMAN] Prepare todo items
+* Define next TODO items for
+  * skills
+  * oracle skill
+  * AlwaysOnMemoryAgentReview
+  * always-on-agents-lab
+* Hermes Agent research
+* Test Opus 4.6
+* Research https://www.infoq.com/articles/enterprise-spec-driven-development/
+* Should I move TODO.md under docs? For now I'd rather not do it
+* What do I need to fully delegate project execution (I'm only PO without looking at code)
+  * depend on project for sure but let's focus on flowlite
+  * what agents still need to have to be able continuously run the loops, generate new todo items, respond to events (prs, bugs, incidents on test env)
+  * Agent activities:
+    * writing reports for me
+  * Make a test that will let the Agent free? :)
+  * What feedback from me is still crucial?
 
 ## [DONE 2026-03-15] Work on feedback for Oracle
 * "Reuse the architecture, not the whole product surface" - why not use steipete/oracle as it is? Or other option ife-oracle calls steipete/oracle? What are pros and cons of each 3 approaches? Wait I see in SKILL.md that actually steipete/oracle is in use so you've changed the mind and decided to use steipete/oracle?
@@ -83,10 +45,6 @@ Do research and save the results in md file. Can OpenClaw run on ChatGPT Plus or
 
 ## [DONE 2026-03-15] Is there some standard for loading SKILLS by IDE/CLI agents? Maybe this is a good task for Oracle?
 
-## [FOR HUMAN] Review workplace/always-on-agents-lab
-
-## [FOR HUMAN] Test Opus 4.6 in this repo
-
 ## [DONE 2026-03-09] Check Oracle API cost vs ChatGPT Plus
 research what additional cost API-mode Oracle introduces beyond a ChatGPT Plus subscription and document the practical cost trade-offs.
 
@@ -98,9 +56,6 @@ apply the roadmap in-repo, starting with the smallest useful integration artifac
 
 ## [DONE 2026-03-09] Check https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/agents/always-on-memory-agent
 How we could use it in IEF? Can it or the idea be used without API keys but with agent doing Ingestion and Consolidation? How this is different from summarization process that most chats and agent platforms do?
-
-## [DONE 2026-03-09] TODO and LOG location - part2
-I'm still not convince that keeping them under memory is the best place. Readme is also memory. Maybe put it close to readme and reserve memory/ for other things like researches and memory based on concepts like "always-on-memory-agent".
 
 ## [DONE 2026-03-09] New project
 Create a new project under workspace for finding best setup for having agents always on. E.g. I can run graphical session from my laptop "localy" where I have my agents running. But I want also be able to connect to it from other computer when I'm not at home. Best it would be if I can connect using web browser without installing anything. I tried RustDesk from webbroser but it was a little bit lagish.
