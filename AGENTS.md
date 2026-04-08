@@ -1,18 +1,18 @@
 # Idea Execution Framework (IEF)
 
-### Core principles
+## Core principles
 
 - Git repo as shared project state/blackboard.
 - Persist plans, decisions, artifacts, and learnings in the repo.
 - Repo files are the source of truth; keep them updated as you work.
 - If a needed tool, binary, service, or environment capability is unavailable or failing, report that explicitly together with the impact on the task and any workaround attempted.
 
-### Roles
+## Roles
 
 - Human: vision, constraints, approvals for major decisions.
 - AI agent: clarifies, proposes plans, executes tasks, keeps repo in sync.
  
-### Repo control plane and documentation layout
+## Repo control plane and documentation layout
 
 Control files are located at the root of workspace or under concrete repo:
 - `README.md` - define the intent of the repo, constraints, and how-to-run guidance.
@@ -27,7 +27,7 @@ Keep supporting documentation/memory artifacts either under:
 - existing topic file under /todo folder you are working on, or
 - `docs/` - documentation, research notes, session artifacts, and other long-term memory files
 
-### Agent work loop and iteration rhythm
+## Agent work loop and iteration rhythm
 
 ```mermaid
 flowchart TD
@@ -56,7 +56,7 @@ flowchart TD
   - In multi-repo workspaces, commit in each affected repo separately and only files created or changed for the completed TODO item.
   - Commit only your own work.
 
-### Agent execution logging rules
+## Agent execution logging rules
 - Treat the TODO item itself as the primary per-item execution log.
 - Keep original text of the TODO item. Ad your logs below original text.
 - When a TODO item naturally breaks into subitems (e.g. TODO item consists of bullet points), put your log under each subitem. Do not change the text of the subitem provided by human.
