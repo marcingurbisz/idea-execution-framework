@@ -61,6 +61,8 @@ flowchart TD
 - Keep original text of the TODO item. Ad your logs below original text.
 - When a TODO item naturally breaks into subitems (e.g. TODO item consists of bullet points), put your log under each subitem. Do not change the text of the subitem provided by human.
 - When responding to an inline human comment or question inside a TODO/topic file, preserve the original human comment verbatim and add a separate `> Agent:` block below it.
+- Within one continuous block from the same speaker, prefix only the first line with `> Agent:` or `>> Human:` and keep the following lines in the same quote level until the speaker changes.
+- Longer inline discussions are allowed when they stay useful for the item. Preserve the existing quote nesting and continue it explicitly, for example `> Agent:`, `>> Human:`, `>>> Agent:`.
 
 Recommended todo item shape:
 
@@ -68,10 +70,21 @@ Recommended todo item shape:
 ## [IN PROGRESS 2026-03-15] Example task
 Description.
 
-> Agent: [Answer to the human's question]
+> Agent: [Answer to the human's question] (optional)
 > Changes (optional): [What changed for this item]
 > Validation (optional): [How it was checked]
 > Learning (optional): [What is worth preserving]
+```
+
+Recommended shape for longer inline discussion:
+
+```markdown
+> Agent: [Initial answer]
+> Continuation of the same agent block.
+>> Human: [Follow-up, correction, or question]
+>> Continuation of the same human block.
+>>> Agent: [Refined answer after the follow-up]
+>>> Continuation of the refined agent block.
 ```
 
 Recommended shape when an item has subitems:
@@ -79,14 +92,12 @@ Recommended shape when an item has subitems:
 ```markdown
 ## [DONE 2026-03-15] Example task
 * Subitem 1
-  > Agent:
-  > Response (optional): [Short answer to the human's sub-question]
+  > Agent: [Answer to the human's question] (optional)
   > Changes (optional): [What changed for this subitem]
   > Validation (optional): [How it was checked]
   > Learning (optional): [What is worth preserving]
 * Subitem 2
-  > Agent:
-  > Response (optional): [Short answer to the human's sub-question]
+  > Agent: [Answer to the human's question] (optional)
   > Changes (optional): [What changed for this subitem]
   > Validation (optional): [How it was checked]
   > Learning (optional): [What is worth preserving]
