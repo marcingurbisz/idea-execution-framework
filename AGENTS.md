@@ -51,10 +51,18 @@ flowchart TD
 - Ask the human before continuing only when requirements are ambiguous, risk is high, or scope/priority trade-offs are required.
 - When stopping (or handing off), explicitly state the stop condition and why you are stopping now (e.g., blocked and need human input, intentional status checkpoint before continuing, or no actionable work remains) - remember the default is that you continue with the next item from the list.
 - When working in multi-repo workspace read the AGENTS.md and README.md of the repo in which you are doing a task
+- Treat the active TODO file as the authoritative loop ledger, not the chat transcript. Before the final response for a loop, rescan the active TODO/topic file and derive the list of items completed in the current loop from that file.
+- If the repo defines a loop label scheme, reuse it across all items completed in the same loop and use that label when producing the final loop summary. If the repo does not define one and multiple loops may happen on the same day, prefer a date plus ordinal label such as `2026-04-09.1`.
 - Multiple agents may work in the same filesystem at the same time, so:
   - Mark the TODO item you picked from the list so others know.
   - In multi-repo workspaces, commit in each affected repo separately and only files created or changed for the completed TODO item.
   - Commit only your own work.
+
+## Repo loop extensions
+
+- A concrete repo may extend this base loop in its own `AGENTS.md` with repo-specific recurring tasks, stop conditions, reporting requirements, or loop labels.
+- Repo extensions add to the base IEF loop unless they explicitly narrow or suspend a repo-specific recurring task.
+- When a repo defines its own loop extensions, load them before starting substantive work in that repo and follow them together with the base rules from this file.
 
 ## Agent execution logging rules
 - Treat the TODO item itself as the primary per-item execution log.
