@@ -51,8 +51,8 @@ flowchart TD
 - Ask the human before continuing only when requirements are ambiguous, risk is high, or scope/priority trade-offs are required.
 - When stopping (or handing off), explicitly state the stop condition and why you are stopping now (e.g., blocked and need human input, intentional status checkpoint before continuing, or no actionable work remains) - remember the default is that you continue with the next item from the list.
 - When working in multi-repo workspace read the AGENTS.md and README.md of the repo in which you are doing a task
-- Treat the active TODO file as the authoritative loop ledger, not the chat transcript. Before the final response for a loop, rescan the active TODO/topic file and derive the list of items completed in the current loop from that file.
-- If the repo defines a loop label scheme, reuse it across all items completed in the same loop and use that label when producing the final loop summary. If the repo does not define one and multiple loops may happen on the same day, prefer a date plus ordinal label such as `2026-04-09.1`.
+- Treat the active TODO file as the authoritative loop ledger, not the chat transcript. Before the final response for a loop, rescan the TODO/topic file and derive the list of items completed in the current loop from that file.
+- If the repo defines a loop label scheme, reuse it across all items completed in the same loop and use that label when producing the final loop summary. If the repo does not define loop label scheme that is unique per loop execution use a date plus ordinal label such as `2026-04-09.1`.
 - Multiple agents may work in the same filesystem at the same time, so:
   - Mark the TODO item you picked from the list so others know.
   - In multi-repo workspaces, commit in each affected repo separately and only files created or changed for the completed TODO item.
@@ -75,7 +75,7 @@ flowchart TD
 Recommended todo item shape:
 
 ```markdown
-## [IN PROGRESS 2026-03-15] Example task
+## [IN PROGRESS 2026-03-15.1] Example task
 Description.
 
 > Agent: [Answer to the human's question] (optional)
@@ -98,7 +98,7 @@ Recommended shape for longer inline discussion:
 Recommended shape when an item has subitems:
 
 ```markdown
-## [DONE 2026-03-15] Example task
+## [DONE 2026-03-15.1] Example task
 * Subitem 1
   > Agent: [Answer to the human's question] (optional)
   > Changes (optional): [What changed for this subitem]
