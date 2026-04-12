@@ -61,8 +61,9 @@ flowchart TD
 ## Repo loop extensions
 
 - A concrete repo may extend this base loop in its own `AGENTS.md` with repo-specific recurring tasks, stop conditions, reporting requirements, or loop labels.
+- If repo-specific extensions live in a separate file, `AGENTS.md` must explicitly point to that file and the agent must load it before starting substantive work in that repo.
 - Repo extensions add to the base IEF loop unless they explicitly narrow or suspend a repo-specific recurring task.
-- When a repo defines its own loop extensions, load them before starting substantive work in that repo and follow them together with the base rules from this file.
+- When a repo defines its own loop extensions, load them from the location declared by the repo and follow them together with the base rules from this file.
 
 ## Agent execution logging rules
 - Treat the TODO item itself as the primary per-item execution log.
