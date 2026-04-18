@@ -17,14 +17,14 @@
 Control files are located at the root of workspace or under concrete repo:
 - `README.md` - define the intent of the repo, constraints, and how-to-run guidance.
 - `TODO.md` - prioritized next actions plus the execution log for each item, or
-- `todo/<topic>.md` - one Markdown file per larger task or topic, optionally grouped into subfolders
+- `<same-folder>/<topic>.md` - one Markdown file per larger task or topic, optionally grouped into subfolders
 
 TODO modes:
 - `TODO.md` mode: keep one root `TODO.md` as the main TODO queue
-- `todo/<topic>.md` mode: keep the actionable queue in `todo/<topic>.md` files
+- `<topic>.md` mode: keep the actionable queue in `<topic>.md` files
 
 Keep supporting documentation/memory artifacts either under:
-- existing topic file under /todo folder you are working on, or
+- existing topic file you are working on, or
 - `docs/` - documentation, research notes, session artifacts, and other long-term memory files
 
 ## Agent work loop and iteration rhythm
