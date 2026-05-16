@@ -1,0 +1,13 @@
+{
+    "workspaceRoot": "/workspaces/workplace",
+    "pollSeconds": 10,
+    "quietSeconds": 30,
+    "repositories": [
+        {
+            "path": "todo",
+            "enabled": true,
+            "push": true,
+            "commitMessagePrefix": "auto-sync"
+        }
+    ]
+}

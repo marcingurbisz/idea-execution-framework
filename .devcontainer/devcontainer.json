@@ -29,5 +29,6 @@
       }
     }
   },
+  "forwardPorts": [8080],
   "postCreateCommand": "npx -y playwright@latest install --with-deps chromium chrome"
 }
