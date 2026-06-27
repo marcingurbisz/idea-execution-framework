@@ -6,7 +6,7 @@
       "version": "latest"
     },
     "ghcr.io/devcontainers/features/java:1": {
-      "version": "25.0.2",
+      "version": "25.0.3-zulu",
       "jdkDistro": "zulu"
     },
     "ghcr.io/devcontainers/features/python:1": {
@@ -19,7 +19,7 @@
       "extensions": [
         "GitHub.copilot",
         "GitHub.copilot-chat",
-        "GitHub.vscode-pull-request-github",
+        // "GitHub.vscode-pull-request-github",
         "bierner.markdown-mermaid"
       ],
       "settings": {

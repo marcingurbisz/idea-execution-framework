@@ -1,7 +1,7 @@
 {
     "workspaceRoot": "/workspaces/workplace",
     "pollSeconds": 10,
-    "quietSeconds": 30,
+    "quietSeconds": 60,
     "repositories": [
         {
             "path": "todo",
