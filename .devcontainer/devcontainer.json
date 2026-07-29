@@ -1,24 +1,20 @@
 {
   "name": "workspace",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "latest"
-    },
-    "ghcr.io/devcontainers/features/java:1": {
-      "version": "25.0.3-zulu",
-      "jdkDistro": "zulu"
-    },
-    "ghcr.io/devcontainers/features/python:1": {
-      "version": "latest"
-    },
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    }
   },
   "customizations": {
     "vscode": {
       "extensions": [
         "GitHub.copilot",
         "GitHub.copilot-chat",
+        "openai.chatgpt",
         // "GitHub.vscode-pull-request-github",
         "bierner.markdown-mermaid"
       ],
@@ -29,6 +25,16 @@
       }
     }
   },
+  "runArgs": [
+    "--sysctl",
+    "net.ipv6.conf.all.disable_ipv6=1",
+    "--sysctl",
+    "net.ipv6.conf.default.disable_ipv6=1"
+  ],
   "forwardPorts": [8080],
-  "postCreateCommand": "npx -y playwright@latest install --with-deps chromium chrome"
+  "postCreateCommand": "curl -fsSL https://chatgpt.com/codex/install.sh | sh && npx -y playwright@latest install --with-deps chromium chrome",
+  "mounts": [
+    "source=${localEnv:HOME}/.codex,target=/home/vscode/.codex,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,readonly"
+  ]
 }
