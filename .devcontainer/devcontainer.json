@@ -12,10 +12,6 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "GitHub.copilot",
-        "GitHub.copilot-chat",
-        "openai.chatgpt",
-        // "GitHub.vscode-pull-request-github",
         "bierner.markdown-mermaid"
       ],
       "settings": {
@@ -32,9 +28,10 @@
     "net.ipv6.conf.default.disable_ipv6=1"
   ],
   "forwardPorts": [8080],
-  "postCreateCommand": "curl -fsSL https://chatgpt.com/codex/install.sh | sh && npx -y playwright@latest install --with-deps chromium chrome",
+  "postCreateCommand": "curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh && npx -y playwright@latest install --with-deps chromium chrome",
   "mounts": [
     "source=${localEnv:HOME}/.codex,target=/home/vscode/.codex,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,readonly"
+    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,readonly",
+    "source=${localEnv:HOME}/.android,target=/home/vscode/.android,type=bind,consistency=cached"
   ]
 }
