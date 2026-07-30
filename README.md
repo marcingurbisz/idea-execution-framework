@@ -12,7 +12,6 @@ In practice, the human provides the idea, priorities, constraints, and reviews; 
 - the human and agent roles
 - the execution loop and TODO/commit rhythm
 - the required repo control files: `README.md` plus either `TODO.md` or `todo/` topic files
-- optional reusable capability instructions via `skills/`
 - when the agent should continue, stop, escalate, and hand off
 
 ## Documentation (memory) layout

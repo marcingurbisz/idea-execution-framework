@@ -15,15 +15,7 @@
 > Validation: Checked the edited files after the patch; the intent is clearer and consistent with the current TODO-local logging model.
 
 ## [FOR HUMAN] Prepare todo items
-* Define next TODO items for
-  * skills
-  * oracle skill
-  * AlwaysOnMemoryAgentReview
-  * always-on-agents-lab
-* Hermes Agent research
-* Test Opus 4.6
-* Research https://www.infoq.com/articles/enterprise-spec-driven-development/
-* Should I move TODO.md under docs? For now I'd rather not do it
+* Review and cleanup documents under /docs
 * What do I need to fully delegate project execution (I'm only PO without looking at code)
   * depend on project for sure but let's focus on flowlite
   * what agents still need to have to be able continuously run the loops, generate new todo items, respond to events (prs, bugs, incidents on test env)
