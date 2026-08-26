@@ -21,11 +21,8 @@ The main agent may execute work directly. Delegation is a tool, not a goal: pref
 
 Delegate when most of these are true:
 
-- the outcome and acceptance criteria can be stated without ongoing main-agent judgment;
-- the worker can own a disjoint path, component, or worktree;
 - the work benefits from specialized context or lengthy research;
 - the result can be checked from committed artifacts and a concise handoff;
-- parallel progress is worth the coordination and integration cost.
 
 Do not delegate merely to reduce the main agent's visible token usage. Every delegation duplicates some context, adds merge/acceptance work, and can lose decisions that were never persisted. The main agent should normally keep task triage, architecture across workstreams, changes to shared contracts, final validation, deployment, and ledger reconciliation.
 
@@ -49,24 +46,6 @@ Use a separate CLI session such as `codex exec` when the worker must outlive the
 
 Choose the backend per workstream. IEF does not require one agent vendor or one session mechanism.
 
-### Parallel filesystem safety
-
-Prefer a separate Git worktree for workers that may touch overlapping paths or commit concurrently. If agents share one checkout:
-
-- assign disjoint file ownership before starting;
-- treat every unrecognized modification as another worker's work;
-- stage explicit paths, never all changes indiscriminately;
-- do not rewrite, revert, or format files owned by another active worker;
-- expect another worker's commit to advance the shared branch;
-- wait for the owning worker's commit before cross-cutting integration or deployment;
-- run final tests from a clean integrated state.
-
-If ownership cannot be made disjoint, serialize the work or create separate worktrees.
-
-### Context and compaction resilience
-
-Agent context is a working cache, not project memory. Long sessions may compact or otherwise transform earlier context, and different runtimes expose different persistence and inspection capabilities. Make the workflow resilient by writing objectives, decisions, unresolved questions, exact commands, validation results, and handoffs into the repo at meaningful milestones. After a compaction or resumed session, reread the active ledger and relevant docs rather than trusting conversational recall. Never make correctness depend on being able to inspect an internal compacted representation.
- 
 ## Repo control plane and documentation layout
 
 Control files are located at the root of workspace or under concrete repo:
