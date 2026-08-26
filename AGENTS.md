@@ -17,6 +17,24 @@ The main agent may execute work directly. Delegation is a tool, not a goal: pref
 
 ## Multi-agent coordination
 
+### Persistent roles and disposable sessions
+
+A durable worker identity is a repository role, not a chat process or a claim that a model instance is a person. Define a stable `role_id`, remit, owned paths, standing constraints, ledger, accepted commits, useful learnings, and last handoff. A session is one temporary execution of that role and may use a different model or backend next time.
+
+Keep a role roster in the main ledger or a linked `docs/agents.md`. On startup, a returning worker reads the repo instructions, role charter, current ledger, relevant long-term docs, and last handoff. Do not depend on raw chat history or pretend that an unavailable session preserved memory.
+
+Prefer a small stable set of domain roles over creating a new persona for every task. Add a persistent role only when repeated work benefits from accumulated domain context and a reasonably stable ownership boundary. Archive or merge roles that no longer have recurring work.
+
+Close each session cleanly:
+
+1. finish or checkpoint the current bounded item;
+2. update the ledger with decisions, validation, limitations, and the next concrete action;
+3. commit owned work when the item is complete;
+4. return a concise handoff to the main agent;
+5. record downstream acceptance or useful user feedback in the role history when it improves future work, without turning recognition into priority or a reward target.
+
+Use bounded sessions and hand off after meaningful milestones, before context quality degrades. Move passive polling, build waiting, and recurring monitoring to dedicated automation or monitoring mechanisms so a worker is not occupied by idle waiting. When agents can conflict, give each role a separate worktree or serialize the shared paths; a stable role should have a stable, uncontended working home.
+
 ### Delegation decision
 
 Delegate when most of these are true:
@@ -35,6 +53,15 @@ For each durable workstream:
 3. Before starting the worker, record the objective, acceptance criteria, owned files, forbidden files, validation, and whether it may commit or deploy.
 4. The worker marks its item, logs meaningful progress in its ledger, commits only its work, and returns the commit plus validation, decisions, limitations, and follow-ups.
 5. The main agent independently inspects the handoff, resolves integration issues, updates the main ledger, and owns final cross-workstream tests and release actions.
+
+The normal worker instruction is outcome-oriented and explicit about the control plane, for example:
+
+```text
+Execute the IEF loop on todo/<topic>.md within the delegation contract recorded there.
+Continue through all actionable items, committing at item boundaries, then hand off.
+```
+
+This means the worker runs the same pick → execute → log → mark done → commit → continue loop against its dedicated ledger. It does not mean the worker may change the main ledger, integrate other workstreams, deploy, or broaden its scope unless the delegation contract grants that authority. The main agent, not the worker, closes the corresponding main-ledger item after acceptance.
 
 The ledger and Git commits are the durable identity of the workstream. An agent/session identifier is optional execution metadata and must not be the only place where context or decisions exist.
 

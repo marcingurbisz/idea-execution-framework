@@ -65,7 +65,9 @@ Prepare or refine the TODO list and prompt "Execute the IEF loop". After the loo
 
 Finished TODO items do not automatically become good long-term documentation. Part of the ongoing loop is to fold durable outcomes back into `README.md` and/or `docs/` when they should become part of the stable project memory. In practice this is often triggered by the human via follow-up TODO items, but the agent should also do it when it is clearly within scope.
 
-For larger projects, use a coordinator/worker model: the main agent owns decomposition, shared contracts, acceptance and integration, while workers own bounded, independently verifiable workstreams recorded in dedicated topic ledgers. Do not delegate every change automatically. Small tasks and shared hotspots usually cost less to execute centrally; context-heavy research and disjoint components are stronger delegation candidates. Git and ledgers remain the durable memory regardless of whether workers run as native subagents or resumable CLI sessions.
+For larger projects, use a coordinator/worker model: the main agent owns decomposition, shared contracts, acceptance and integration, while workers own bounded, independently verifiable workstreams recorded in dedicated topic ledgers. A recurring specialist can have a stable repository role (`role_id`, charter, owned paths, history and last handoff) even though each model session is disposable. Start the worker with `Execute the IEF loop on todo/<topic>.md within the delegation contract recorded there`, then let main independently accept and integrate the result.
+
+Do not delegate every change automatically. Small tasks and shared hotspots usually cost less to execute centrally; context-heavy research and disjoint components are stronger delegation candidates. Use bounded sessions, clean handoffs and automation for passive waiting. Git and ledgers remain the durable memory regardless of whether workers run as native subagents or resumable CLI sessions.
 
 ### Personal note
 
