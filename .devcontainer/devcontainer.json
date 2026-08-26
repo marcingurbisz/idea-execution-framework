@@ -22,14 +22,12 @@
     }
   },
   "runArgs": [
+    "--env-file",
+    "${localEnv:HOME}/.secrets",
     "--sysctl",
     "net.ipv6.conf.all.disable_ipv6=1",
     "--sysctl",
-    "net.ipv6.conf.default.disable_ipv6=1",
-    "--dns",
-    "1.1.1.1",
-    "--dns",
-    "8.8.8.8"
+    "net.ipv6.conf.default.disable_ipv6=1"
   ],
   "forwardPorts": [8080],
   "postCreateCommand": "sudo chown vscode:vscode /home/vscode/.cache/ms-playwright && curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh",
