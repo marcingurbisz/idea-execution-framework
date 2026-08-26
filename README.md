@@ -10,6 +10,8 @@ In practice, the human provides the idea, priorities, constraints, and reviews; 
 `AGENTS.md` is the operational contract for this way of working. In short, it defines:
 - the core principles of IEF
 - the human and agent roles
+- when and how a main agent delegates bounded workstreams to worker agents
+- native subagents versus resumable CLI sessions and safe parallel Git ownership
 - the execution loop and TODO/commit rhythm
 - the required repo control files: `README.md` plus either `TODO.md` or `todo/` topic files
 - when the agent should continue, stop, escalate, and hand off
@@ -62,6 +64,8 @@ Start with a single repo first:
 Prepare or refine the TODO list and prompt "Execute the IEF loop". After the loop is executed, review the results, define the next TODO items + feedback for agent, and start the loop again.
 
 Finished TODO items do not automatically become good long-term documentation. Part of the ongoing loop is to fold durable outcomes back into `README.md` and/or `docs/` when they should become part of the stable project memory. In practice this is often triggered by the human via follow-up TODO items, but the agent should also do it when it is clearly within scope.
+
+For larger projects, use a coordinator/worker model: the main agent owns decomposition, shared contracts, acceptance and integration, while workers own bounded, independently verifiable workstreams recorded in dedicated topic ledgers. Do not delegate every change automatically. Small tasks and shared hotspots usually cost less to execute centrally; context-heavy research and disjoint components are stronger delegation candidates. Git and ledgers remain the durable memory regardless of whether workers run as native subagents or resumable CLI sessions.
 
 ### Personal note
 

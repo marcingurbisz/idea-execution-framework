@@ -10,7 +10,62 @@
 ## Roles
 
 - Human: vision, constraints, approvals for major decisions.
-- AI agent: clarifies, proposes plans, executes tasks, keeps repo in sync.
+- Main AI agent: owns the big picture, decomposition, shared interfaces, ledger state, acceptance, integration, and human communication.
+- Worker agent: owns a concrete bounded workstream, its scoped files, validation, execution log, and handoff.
+
+The main agent may execute work directly. Delegation is a tool, not a goal: prefer it when a task is context-heavy, independently verifiable, or can progress in parallel without competing for the same files. Keep small tasks, shared-interface changes, integration, and high-conflict hotspots with the main agent unless a separate worktree removes the conflict.
+
+## Multi-agent coordination
+
+### Delegation decision
+
+Delegate when most of these are true:
+
+- the outcome and acceptance criteria can be stated without ongoing main-agent judgment;
+- the worker can own a disjoint path, component, or worktree;
+- the work benefits from specialized context or lengthy research;
+- the result can be checked from committed artifacts and a concise handoff;
+- parallel progress is worth the coordination and integration cost.
+
+Do not delegate merely to reduce the main agent's visible token usage. Every delegation duplicates some context, adds merge/acceptance work, and can lose decisions that were never persisted. The main agent should normally keep task triage, architecture across workstreams, changes to shared contracts, final validation, deployment, and ledger reconciliation.
+
+### Worker control plane
+
+For each durable workstream:
+
+1. Create or reuse a dedicated `todo-<topic>.md` or `todo/<topic>.md` ledger.
+2. Register its owner, status, scope, and return condition in the main ledger.
+3. Before starting the worker, record the objective, acceptance criteria, owned files, forbidden files, validation, and whether it may commit or deploy.
+4. The worker marks its item, logs meaningful progress in its ledger, commits only its work, and returns the commit plus validation, decisions, limitations, and follow-ups.
+5. The main agent independently inspects the handoff, resolves integration issues, updates the main ledger, and owns final cross-workstream tests and release actions.
+
+The ledger and Git commits are the durable identity of the workstream. An agent/session identifier is optional execution metadata and must not be the only place where context or decisions exist.
+
+### Native workers versus separate CLI sessions
+
+Use a native worker/subagent when the current orchestrator exposes structured spawn, message, wait, follow-up, and status operations. It has low startup overhead, can receive a controlled context fork, and lets the main agent coordinate without parsing another process's terminal output. A finished native worker can be reused only while the orchestrator still exposes its handle; do not assume that handle survives a new root session, application restart, or another product.
+
+Use a separate CLI session such as `codex exec` when the worker must outlive the current orchestrator thread, run under separate automation, use a separate checkout/worktree, or be resumed explicitly by a persisted session id/name. CLI sessions add process, authentication, environment, output-capture, and approval-policy overhead. `codex exec resume` can restore that session's model context, but the repo ledger remains required because session retention and tool availability are external runtime properties.
+
+Choose the backend per workstream. IEF does not require one agent vendor or one session mechanism.
+
+### Parallel filesystem safety
+
+Prefer a separate Git worktree for workers that may touch overlapping paths or commit concurrently. If agents share one checkout:
+
+- assign disjoint file ownership before starting;
+- treat every unrecognized modification as another worker's work;
+- stage explicit paths, never all changes indiscriminately;
+- do not rewrite, revert, or format files owned by another active worker;
+- expect another worker's commit to advance the shared branch;
+- wait for the owning worker's commit before cross-cutting integration or deployment;
+- run final tests from a clean integrated state.
+
+If ownership cannot be made disjoint, serialize the work or create separate worktrees.
+
+### Context and compaction resilience
+
+Agent context is a working cache, not project memory. Long sessions may compact or otherwise transform earlier context, and different runtimes expose different persistence and inspection capabilities. Make the workflow resilient by writing objectives, decisions, unresolved questions, exact commands, validation results, and handoffs into the repo at meaningful milestones. After a compaction or resumed session, reread the active ledger and relevant docs rather than trusting conversational recall. Never make correctness depend on being able to inspect an internal compacted representation.
  
 ## Repo control plane and documentation layout
 
