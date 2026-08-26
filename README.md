@@ -20,7 +20,7 @@ In practice, the human provides the idea, priorities, constraints, and reviews; 
 
 See [AGENTS.md](AGENTS.md) for the definitive description of the repo control plane and documentation (memory) layout.
 
-In short: `README.md` stays at repo root; the queue can live either in `TODO.md` or in `todo/<topic>.md` files; each item keeps its own execution log inline in that queue surface; supporting artifacts live under `docs/`.
+In short: `README.md` stays at repo root; the queue can live either in `TODO.md` or in topic/role ledgers; each item keeps its own execution log inline in that queue surface; supporting artifacts live under `docs/`. Use `todo-<role_id>.md` for recurring specialists and topic names for one-off workstreams.
 
 ## Quick start
 

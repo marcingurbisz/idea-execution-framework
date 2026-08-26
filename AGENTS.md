@@ -48,8 +48,8 @@ Do not delegate merely to reduce the main agent's visible token usage. Every del
 
 For each durable workstream:
 
-1. Create or reuse a dedicated `todo-<topic>.md` or `todo/<topic>.md` ledger.
-2. Register its owner, status, scope, and return condition in the main ledger.
+1. Create or reuse a dedicated ledger. Prefer `todo-<role_id>.md` for a recurring persistent role and `todo-<topic>.md` or `todo/<topic>.md` for a one-off workstream. Archive completed topic ledgers rather than presenting them as additional active roles.
+2. Register its owner, status, scope, and return condition in the main ledger or in the canonical role roster linked from it.
 3. Before starting the worker, record the objective, acceptance criteria, owned files, forbidden files, validation, and whether it may commit or deploy.
 4. The worker marks its item, logs meaningful progress in its ledger, commits only its work, and returns the commit plus validation, decisions, limitations, and follow-ups.
 5. The main agent independently inspects the handoff, resolves integration issues, updates the main ledger, and owns final cross-workstream tests and release actions.
@@ -64,6 +64,8 @@ Continue through all actionable items, committing at item boundaries, then hand 
 This means the worker runs the same pick → execute → log → mark done → commit → continue loop against its dedicated ledger. It does not mean the worker may change the main ledger, integrate other workstreams, deploy, or broaden its scope unless the delegation contract grants that authority. The main agent, not the worker, closes the corresponding main-ledger item after acceptance.
 
 The ledger and Git commits are the durable identity of the workstream. An agent/session identifier is optional execution metadata and must not be the only place where context or decisions exist.
+
+Keep the role roster and current workstream registration on one canonical surface, such as `docs/agents.md` or a root `agents.md` next to the ledgers. The main TODO may link to that surface instead of duplicating a status table; do not maintain two competing registries.
 
 ### Native workers versus separate CLI sessions
 
@@ -83,6 +85,16 @@ Control files are located at the root of workspace or under concrete repo:
 TODO modes:
 - `TODO.md` mode: keep one root `TODO.md` as the main TODO queue
 - `<topic>.md` mode: keep the actionable queue in `<topic>.md` files
+
+Recommended status vocabulary:
+
+- `NEW` — not started;
+- `IN PROGRESS <loop>` — currently owned and being executed;
+- `DELEGATED <loop>` — main-ledger item assigned through a recorded worker contract;
+- `BLOCKED <loop>` — cannot progress without a named external change or human decision;
+- `DONE <loop>` — result logged, validated, and committed.
+
+A repository may add statuses, but should define them once and use them consistently across its ledgers.
 
 Keep supporting documentation/memory artifacts either under:
 - existing topic file you are working on, or
