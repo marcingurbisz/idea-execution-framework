@@ -3,18 +3,20 @@
 ## Vision
 IEF is a way of working where the Git repository becomes a shared documentation (memory) between the human and the AI agent or agents.
 
-The goal is to make idea execution efficient, transparent, restartable, and auditable: plans, decisions, artifacts, progress, and learnings are all kept in the repo instead of being scattered across chat history and short-lived context.
+The goal is to make idea execution efficient, transparent, restartable, and auditable: plans, decisions, artifacts, progress, and learnings are all kept in the repo instead of being scattered across chat history or a context that can be compacted, lost, or available only on one machine.
 >MG: maybe not necessary short-lived but context may lose information by compaction and may be lost if kept only localy on one machine.
+>> Agent: Zgoda. „Short-lived” było zbyt kategoryczne; opis wskazuje teraz konkretne ryzyka bez założenia, że każda sesja jest krótka.
 
 In practice, the human provides the idea, priorities, constraints, and reviews; the agent helps to turn that into concrete plans, TODO items, implementation steps, repo updates, and commits.
 
 `AGENTS.md` is the operational contract for this way of working. In short, it defines:
 - the core principles of IEF
 - the human and agent roles
-- when and how a main agent delegates bounded workstreams to worker agents
+- when and how a main agent introduces persistent roles and delegates bounded workstreams to worker sessions
 > MG: isn't it more about roles then workstreems?
+>> Agent: Potrzebne są oba pojęcia: rola jest trwałą specjalizacją w repo, a workstream konkretnym, ograniczonym zakresem pracy wykonywanym przez jedną z jej sesji. Zmieniono skrót tak, aby zaczynał od ról.
 - the execution loop and TODO/commit rhythm
-- the required repo control files: `README.md` plus either `TODO.md` or `todo/` topic files
+- the required repo control surfaces: `README.md` plus one discoverable main queue and any linked role/topic ledgers
 - when the agent should continue, stop, escalate, and hand off
 
 ## Documentation (memory) layout
@@ -66,8 +68,9 @@ Prepare or refine the TODO list and prompt "Execute the IEF loop". After the loo
 
 Finished TODO items do not automatically become good long-term documentation. Part of the ongoing loop is to fold durable outcomes back into `README.md` and/or `docs/` when they should become part of the stable project memory. In practice this is often triggered by the human via follow-up TODO items, but the agent should also do it when it is clearly within scope.
 
-For larger projects, use a coordinator/worker model: the main agent owns decomposition, shared contracts, acceptance and integration, while workers own bounded, independently verifiable workstreams recorded in dedicated topic ledgers. A recurring specialist can have a stable repository role (`role_id`, charter, owned paths, history and last handoff) even though each model session is disposable. Start the worker with `Execute the IEF loop on todo/<topic>.md within the delegation contract recorded there`, then let main independently accept and integrate the result.
+For larger projects with recurring, context-heavy types of work, introduce a small set of persistent roles. The main agent owns decomposition, shared contracts, acceptance and integration; a temporary worker session executes a bounded workstream for one role. The role remains in the repository (`role_id`, charter, owned paths, ledger, history and last handoff), while sessions may be replaced. Start a worker with `Execute the IEF loop on todo/<topic>.md within the delegation contract recorded there`, then let main independently accept and integrate the result.
 > MG: Maybe it's better to talk about roles instead workers here? What do you think? 
+>> Agent: Tak — dla użytkownika podstawowym pojęciem powinna być rola. „Worker” pozostaje nazwą tymczasowej sesji wykonawczej, ponieważ ta sama rola może być później uruchomiona w innym modelu lub backendzie.
 
 ## Workspace-level setup
 Keep `idea-execution-framework` as one folder inside a larger multi-project workspace and open the whole workspace as a single VS Code devcontainer.
