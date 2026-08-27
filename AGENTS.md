@@ -11,19 +11,20 @@
 
 - Human: vision, constraints, approvals for major decisions.
 - Main AI agent: owns the big picture, decomposition, shared interfaces, ledger state, acceptance, integration, and human communication.
-- Worker agent: owns a concrete bounded workstream, its scoped files, validation, execution log, and handoff.
+- Worker agent: owns a concrete bounded workstream, its scoped files, validation, execution log, and handoff. 
+> MG: Add info that worker/role agents are optional and should be considered for introducing when there are different types of task/roles in the project that all consume a lot of context 
 
-The main agent may execute work directly. Delegation is a tool, not a goal: prefer it when a task is context-heavy, independently verifiable, or can progress in parallel without competing for the same files. Keep small tasks, shared-interface changes, integration, and high-conflict hotspots with the main agent unless a separate worktree removes the conflict.
+The main agent may execute work directly. Delegation is a tool, not a goal: prefer it when a task is context-heavy. Small tasks, shared-interface changes, integration, and high-conflict hotspots should be keep with the main agent.
 
 ## Multi-agent coordination
 
 ### Persistent roles and disposable sessions
 
-A durable worker identity is a repository role, not a chat process or a claim that a model instance is a person. Define a stable `role_id`, remit, owned paths, standing constraints, ledger, accepted commits, useful learnings, and last handoff. A session is one temporary execution of that role and may use a different model or backend next time.
+A durable worker identity is a repository role. Define a stable `role_id`, remit, owned paths, standing constraints, ledger, accepted commits, useful learnings, and last handoff. A session is one temporary execution of that role and may use a different model or backend next time.
 
-Keep a role roster in the main ledger or a linked `docs/agents.md`. On startup, a returning worker reads the repo instructions, role charter, current ledger, relevant long-term docs, and last handoff. Do not depend on raw chat history or pretend that an unavailable session preserved memory.
+Keep a role roster in the main ledger or a linked `agent-roles.md`. On startup, a returning worker reads the repo instructions, role charter, current ledger, relevant long-term docs, and last handoff. Do not depend on raw chat history or pretend that an unavailable session preserved memory.
 
-Prefer a small stable set of domain roles over creating a new persona for every task. Add a persistent role only when repeated work benefits from accumulated domain context and a reasonably stable ownership boundary. Archive or merge roles that no longer have recurring work.
+Prefer a small stable set of domain roles over creating a new persona for every task. Add a persistent role only when repeated work benefits from accumulated domain context and a reasonably stable ownership boundary.
 
 Close each session cleanly:
 
@@ -31,24 +32,13 @@ Close each session cleanly:
 2. update the ledger with decisions, validation, limitations, and the next concrete action;
 3. commit owned work when the item is complete;
 4. return a concise handoff to the main agent;
-5. record downstream acceptance or useful user feedback in the role history when it improves future work, without turning recognition into priority or a reward target.
-
-Use bounded sessions and hand off after meaningful milestones, before context quality degrades. Move passive polling, build waiting, and recurring monitoring to dedicated automation or monitoring mechanisms so a worker is not occupied by idle waiting. When agents can conflict, give each role a separate worktree or serialize the shared paths; a stable role should have a stable, uncontended working home.
-
-### Delegation decision
-
-Delegate when most of these are true:
-
-- the work benefits from specialized context or lengthy research;
-- the result can be checked from committed artifacts and a concise handoff;
-
-Do not delegate merely to reduce the main agent's visible token usage. Every delegation duplicates some context, adds merge/acceptance work, and can lose decisions that were never persisted. The main agent should normally keep task triage, architecture across workstreams, changes to shared contracts, final validation, deployment, and ledger reconciliation.
+5. record downstream acceptance or useful user feedback in the role history when it improves future work.
 
 ### Worker control plane
 
 For each durable workstream:
 
-1. Create or reuse a dedicated ledger. Prefer `todo-<role_id>.md` for a recurring persistent role and `todo-<topic>.md` or `todo/<topic>.md` for a one-off workstream. Archive completed topic ledgers rather than presenting them as additional active roles.
+1. Create or reuse a dedicated ledger. Prefer `todo-<role_id>.md` for a recurring persistent role and `todo-<topic>.md` or `todo/<topic>.md` for a one-off workstream.
 2. Register its owner, status, scope, and return condition in the main ledger or in the canonical role roster linked from it.
 3. Before starting the worker, record the objective, acceptance criteria, owned files, forbidden files, validation, and whether it may commit or deploy.
 4. The worker marks its item, logs meaningful progress in its ledger, commits only its work, and returns the commit plus validation, decisions, limitations, and follow-ups.
@@ -65,15 +55,7 @@ This means the worker runs the same pick → execute → log → mark done → c
 
 The ledger and Git commits are the durable identity of the workstream. An agent/session identifier is optional execution metadata and must not be the only place where context or decisions exist.
 
-Keep the role roster and current workstream registration on one canonical surface, such as `docs/agents.md` or a root `agents.md` next to the ledgers. The main TODO may link to that surface instead of duplicating a status table; do not maintain two competing registries.
-
-### Native workers versus separate CLI sessions
-
-Use a native worker/subagent when the current orchestrator exposes structured spawn, message, wait, follow-up, and status operations. It has low startup overhead, can receive a controlled context fork, and lets the main agent coordinate without parsing another process's terminal output. A finished native worker can be reused only while the orchestrator still exposes its handle; do not assume that handle survives a new root session, application restart, or another product.
-
-Use a separate CLI session such as `codex exec` when the worker must outlive the current orchestrator thread, run under separate automation, use a separate checkout/worktree, or be resumed explicitly by a persisted session id/name. CLI sessions add process, authentication, environment, output-capture, and approval-policy overhead. `codex exec resume` can restore that session's model context, but the repo ledger remains required because session retention and tool availability are external runtime properties.
-
-Choose the backend per workstream. IEF does not require one agent vendor or one session mechanism.
+Keep the role roster and current workstream registration on one canonical surface, such as `agent-roles.md` next to the ledgers.
 
 ## Repo control plane and documentation layout
 
@@ -85,6 +67,7 @@ Control files are located at the root of workspace or under concrete repo:
 TODO modes:
 - `TODO.md` mode: keep one root `TODO.md` as the main TODO queue
 - `<topic>.md` mode: keep the actionable queue in `<topic>.md` files
+> MG: Update regarding file names and locations. Not sure if we need to introduce concept of modes
 
 Recommended status vocabulary:
 
@@ -93,8 +76,6 @@ Recommended status vocabulary:
 - `DELEGATED <loop>` — main-ledger item assigned through a recorded worker contract;
 - `BLOCKED <loop>` — cannot progress without a named external change or human decision;
 - `DONE <loop>` — result logged, validated, and committed.
-
-A repository may add statuses, but should define them once and use them consistently across its ledgers.
 
 Keep supporting documentation/memory artifacts either under:
 - existing topic file you are working on, or
@@ -126,10 +107,6 @@ flowchart TD
 - When working in multi-repo workspace read the AGENTS.md and README.md of the repo in which you are doing a task
 - Treat the active TODO file as the authoritative loop ledger, not the chat transcript. Before the final response for a loop, rescan the TODO/topic file and derive the list of items completed in the current loop from that file.
 - If the repo defines a loop label scheme, reuse it across all items completed in the same loop and use that label when producing the final loop summary. If the repo does not define loop label scheme that is unique per loop execution use a date plus ordinal label such as `2026-04-09.1`.
-- Multiple agents may work in the same filesystem at the same time, so:
-  - Mark the TODO item you picked from the list so others know.
-  - In multi-repo workspaces, commit in each affected repo separately and only files created or changed for the completed TODO item.
-  - Commit only your own work.
 
 ## Repo loop extensions
 
