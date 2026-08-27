@@ -1,9 +1,10 @@
 # Idea Execution Framework
 
 ## Vision
-IEF is a way of working where the Git repository becomes a shared documentation (memory) between the human and the AI agent.
+IEF is a way of working where the Git repository becomes a shared documentation (memory) between the human and the AI agent or agents.
 
 The goal is to make idea execution efficient, transparent, restartable, and auditable: plans, decisions, artifacts, progress, and learnings are all kept in the repo instead of being scattered across chat history and short-lived context.
+>MG: maybe not necessary short-lived but context may lose information by compaction and may be lost if kept only localy on one machine.
 
 In practice, the human provides the idea, priorities, constraints, and reviews; the agent helps to turn that into concrete plans, TODO items, implementation steps, repo updates, and commits.
 
@@ -11,7 +12,7 @@ In practice, the human provides the idea, priorities, constraints, and reviews; 
 - the core principles of IEF
 - the human and agent roles
 - when and how a main agent delegates bounded workstreams to worker agents
-- native subagents versus resumable CLI sessions and safe parallel Git ownership
+> MG: isn't it more about roles then workstreems?
 - the execution loop and TODO/commit rhythm
 - the required repo control files: `README.md` plus either `TODO.md` or `todo/` topic files
 - when the agent should continue, stop, escalate, and hand off
@@ -28,8 +29,8 @@ Start with a single repo first:
 1. Put [AGENTS.md](AGENTS.md) in the repo root.
 2. Put [devcontainer](.devcontainer/devcontainer.json) in repo root (optionally)
 3. Start your agent from your normal IDE or CLI.
-4. Ask agent to create `README.md`, `TODO.md` (or `todo/<topic>.md` files if you prefer topic-based execution) seeding it with ideas, constraints, and existing sources (or do it manually if you prefer):
-5. Prompt `Execute the IEF loop` or `Execute the IEF loop for todo/<topic>.md`.
+4. Ask agent to create `README.md`, `TODO.md` seeding it with ideas, constraints, and existing sources (or do it manually if you prefer):
+5. Prompt `Execute the IEF loop for TODO.md`.
 
 ### Example prompts
   - New project: 
@@ -54,9 +55,9 @@ Start with a single repo first:
     ```
 
 ### Additional notes
-* All IDE extension (e.g. GitHub Copilot) or a CLI (e.g. Codex, Claude Code, GitHub) should work fine.
-* The provided [devcontainer](.devcontainer/devcontainer.json) is optional but recommended when you want a reproducible toolchain, editor setup, and safer automation defaults when working with agents from VS Code.
-* I currently use GitHub Copilot in VS Code in agent mode with GPT-5.4 (March 22, 2026)
+* All CLIs and IDE extension (e.g. Codex, Claude Code, GitHub, Opencode, GitHub Copilot) will work fine.
+* The provided [devcontainer](.devcontainer/devcontainer.json) is optional.
+* I currently use Codex CLI with GPT-5.6 Sol (August 27, 2026)
 * Move to the [Workspace-level setup](#Workspace-level-setup) when you specifically want one shared agent environment across multiple repos.
 
 ## Typical collaboration rhythm
@@ -66,13 +67,7 @@ Prepare or refine the TODO list and prompt "Execute the IEF loop". After the loo
 Finished TODO items do not automatically become good long-term documentation. Part of the ongoing loop is to fold durable outcomes back into `README.md` and/or `docs/` when they should become part of the stable project memory. In practice this is often triggered by the human via follow-up TODO items, but the agent should also do it when it is clearly within scope.
 
 For larger projects, use a coordinator/worker model: the main agent owns decomposition, shared contracts, acceptance and integration, while workers own bounded, independently verifiable workstreams recorded in dedicated topic ledgers. A recurring specialist can have a stable repository role (`role_id`, charter, owned paths, history and last handoff) even though each model session is disposable. Start the worker with `Execute the IEF loop on todo/<topic>.md within the delegation contract recorded there`, then let main independently accept and integrate the result.
-
-Do not delegate every change automatically. Small tasks and shared hotspots usually cost less to execute centrally; context-heavy research and disjoint components are stronger delegation candidates. Use bounded sessions, clean handoffs and automation for passive waiting. Git and ledgers remain the durable memory regardless of whether workers run as native subagents or resumable CLI sessions.
-
-### Personal note
-
-I use IFE for both side projects and client work.
-During a normal workday, for side projects like this one 🙂, I review the overnight loop results in the morning, plan new TODOs, and kick off the next loop — then do the same again in the evening.
+> MG: Maybe it's better to talk about roles instead workers here? What do you think? 
 
 ## Workspace-level setup
 Keep `idea-execution-framework` as one folder inside a larger multi-project workspace and open the whole workspace as a single VS Code devcontainer.
@@ -90,9 +85,9 @@ workspace/
 ```
 
 Usage:
-- Open `workspace/` in VS Code.
+- Open `workspace/` in VS Code and/or Agentic CLIs.
 - Reopen in container from the workspace root (the root `.devcontainer` symlink points to this repository's devcontainer config).
-- Because `AGENTS.md` is at workspace root (symlink), Copilot includes these instructions in every prompt across all projects in that workspace.
+- Because `AGENTS.md` is at workspace root (symlink), Agentic CLIs/IDEs includes these instructions in every prompt across all projects in that workspace.
 - Prompt "Execute the IEF loop in projectA repo" to have IEF loop executed on specific project.
 
 ## License
