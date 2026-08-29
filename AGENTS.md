@@ -12,24 +12,22 @@
 - Human: vision, constraints, approvals for major decisions.
 - Main AI agent: owns the big picture, decomposition, shared interfaces, ledger state, acceptance, integration, and human communication.
 - Worker agent: owns a concrete bounded workstream, its scoped files, validation, execution log, and handoff. 
-> MG: Add info that worker/role agents are optional and should be considered for introducing when there are different types of task/roles in the project that all consume a lot of context 
->> Agent: Doprecyzowano poniżej: projekt zaczyna z `main`, a trwałe role powstają dopiero dla powtarzalnych, kontekstochłonnych specjalizacji ze stabilną granicą odpowiedzialności.
 
 Worker sessions and persistent specialist roles are optional. Start with the main agent alone. Introduce a role when the project repeatedly produces a distinct, context-heavy type of work that benefits from accumulated domain knowledge and a stable ownership boundary.
 
-The main agent may execute work directly. Delegation is a tool, not a goal: prefer it when work is independently verifiable and benefits from specialized context. Keep small tasks, shared-interface changes, integration, and high-conflict hotspots with the main agent unless isolation removes the conflict.
+The main agent may execute work directly. Delegation is a tool, not a goal: prefer it when work benefits from specialized context. Keep small tasks, shared-interface changes, integration, and high-conflict hotspots with the main agent unless isolation removes the conflict.
 
 ## Multi-agent coordination
 
 ### Persistent roles and disposable sessions
 
-A durable worker identity is a repository role. Define a stable `role_id`, remit, owned paths, standing constraints, ledger, accepted commits, useful learnings, and last handoff. A session is one temporary execution of that role and may use a different model or backend next time.
+A durable worker identity is a repository role. Define a stable `role_id`, remit, owned paths, standing constraints, ledger, accepted commits, useful learnings, and last handoff.
 
-Keep a role roster in the main ledger or a linked `agent-roles.md`. On startup, a returning worker reads the repo instructions, role charter, current ledger, relevant long-term docs, and last handoff. Do not depend on raw chat history or pretend that an unavailable session preserved memory.
+Keep a role roster in the main ledger or a linked `agent-roles.md`. On startup, a returning worker reads the repo instructions, role charter, current ledger, relevant long-term docs, and last handoff. Do not depend on raw chat history.
 
 Prefer a small stable set of domain roles over creating a new persona for every task. Add a persistent role only when repeated work benefits from accumulated domain context and a reasonably stable ownership boundary.
 
-The main agent may create, merge, or archive a role without separate human approval when those criteria are met and the change stays within the approved project scope. Before starting its first session, main records the role charter, ledger, ownership, standing constraints, and return condition on the canonical control surface. Ask the human first if the role would expand project scope, priorities, external authority, deployment permissions, cost, or another material constraint.
+The main agent may create, merge, or archive a role without separate human approval. Before starting its first session, main records the role charter, ledger, ownership, standing constraints, and return condition on the canonical control surface. Ask the human first if the role would expand project scope, priorities, external authority, deployment permissions, cost, or another material constraint.
 
 Close each session cleanly:
 
@@ -45,7 +43,7 @@ For each durable workstream:
 
 1. Create or reuse a dedicated ledger. Prefer `todo-<role_id>.md` for a recurring persistent role and `todo-<topic>.md` or `todo/<topic>.md` for a one-off workstream.
 2. Register its owner, status, scope, and return condition in the main ledger or in the canonical role roster linked from it.
-3. Before starting the worker, record the objective, acceptance criteria, owned files, forbidden files, validation, and whether it may commit or deploy.
+3. Before starting the worker, record the objective, acceptance criteria.
 4. The worker marks its item, logs meaningful progress in its ledger, commits only its work, and returns the commit plus validation, decisions, limitations, and follow-ups.
 5. The main agent independently inspects the handoff, resolves integration issues, updates the main ledger, and owns final cross-workstream tests and release actions.
 
@@ -60,15 +58,7 @@ This means the worker runs the same pick → execute → log → mark done → c
 
 The ledger and Git commits are the durable identity of the workstream. An agent/session identifier is optional execution metadata and must not be the only place where context or decisions exist.
 
-Keep the launch prompt short when the ledger already contains the contract. Describe outcomes, boundaries, authority, and required acceptance evidence, but let the worker choose implementation details and relevant validation commands. Prescribe an exact command only when it is a repository gate, is needed for reproducibility, or addresses a specific risk.
-
 Keep the role roster and current workstream registration on one canonical surface, such as `agent-roles.md` next to the ledgers.
-
-### Native workers versus separate CLI sessions
-
-Use a native worker when the current orchestrator exposes structured spawn, message, wait, follow-up, and status operations. A returning role normally starts a fresh worker from the relevant current context and reconstructs durable state from its charter, ledger, documentation, and last handoff; do not treat a native agent handle as persistent storage.
-
-Use a separate CLI session such as `codex exec` when execution must outlive the current orchestrator thread, run under separate automation or checkout, or be resumed explicitly from a persisted session identifier. Even when the backend can resume model context, the repository ledger remains authoritative.
 
 ## Repo control plane and documentation layout
 
@@ -79,10 +69,8 @@ Every concrete repository keeps a `README.md` at its root to define intent, cons
 - `todo/<topic>.md` or another consistently named topic file for larger one-off workstreams.
 
 The exact naming convention is a repository decision, not a framework mode. Document it in the repository README and link all secondary ledgers from one canonical main ledger or role roster.
-> MG: Update regarding file names and locations. Not sure if we need to introduce concept of modes
->> Agent: Nie potrzebujemy formalnych „modes”. Zastąpiono je jedną zasadą odkrywalności i przykładami konwencji nazw.
 
-Recommended status vocabulary:
+Recommended todo item status vocabulary:
 
 - `NEW` — not started;
 - `IN PROGRESS <loop>` — currently owned and being executed;
