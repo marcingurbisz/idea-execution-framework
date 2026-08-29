@@ -41,7 +41,7 @@ Close each session cleanly:
 4. return a concise handoff to the main agent;
 5. record downstream acceptance or useful user feedback in the role history when it improves future work.
 
-Use bounded sessions and hand off after meaningful milestones, before context quality degrades. Move passive polling, build waiting, and recurring monitoring to automation or a monitoring mechanism so a specialist is not occupied by idle waiting.
+Move passive polling, build waiting, and recurring monitoring to automation or a monitoring mechanism so a specialist is not occupied by idle waiting.
 
 ### Worker control plane
 
@@ -49,7 +49,7 @@ For each delegated workstream:
 
 1. Create or reuse a dedicated ledger. Prefer `todo-<role_id>.md` for a recurring persistent role and `todo-<topic>.md` or `todo/<topic>.md` for a one-off workstream.
 2. Register its owner, status, scope, and return condition in the main ledger or in the canonical role roster linked from it.
-3. Before starting the worker, record the outcome, acceptance criteria, owned and forbidden scope, authority to commit or deploy, and required acceptance evidence. Leave implementation choices and exact validation commands to the worker unless the repository defines a mandatory gate or a specific risk requires one.
+3. Before starting the worker, record todo items in worker leader.
 4. The worker marks its item, logs meaningful progress in its ledger, commits only its work, and returns the commit plus validation, decisions, limitations, and follow-ups.
 5. The main agent independently inspects the handoff, resolves integration issues, updates the main ledger, and owns final cross-workstream tests and release actions.
 
@@ -58,8 +58,7 @@ Commit the delegation contract and workstream registration before launching the 
 The normal worker instruction is outcome-oriented and explicit about the control plane, for example:
 
 ```text
-Execute the IEF loop on <ledger> within the delegation contract recorded there.
-Continue through all actionable items, committing at item boundaries, then hand off.
+Execute the IEF loop on <ledger>
 ```
 
 This means the worker runs the same pick → execute → log → mark done → commit → continue loop against its dedicated ledger. It does not mean the worker may change the main ledger, integrate other workstreams, deploy, or broaden its scope unless the delegation contract grants that authority. The main agent, not the worker, closes the corresponding main-ledger item after acceptance.
@@ -137,19 +136,11 @@ flowchart TD
 - Treat the active TODO file as the authoritative loop ledger, not the chat transcript. Before the final response for a loop, rescan the TODO/topic file and derive the list of items completed in the current loop from that file.
 - If the repo defines a loop label scheme, reuse it across all items completed in the same loop and use that label when producing the final loop summary. If the repo does not define loop label scheme that is unique per loop execution use a date plus ordinal label such as `2026-04-09.1`.
 
-### Concurrent work safety
-
-- Assume another agent or the human may edit the same checkout. Mark an item when you pick it and inspect Git state again before editing and committing.
-- Preserve unrelated changes. Never include another participant's files in your commit merely to obtain a clean worktree.
-- Give write-heavy parallel workers separate worktrees when practical. Otherwise assign uncontended owned paths or serialize work touching shared interfaces and ledgers.
-- The owner of a shared contract coordinates its changes; workers do not independently redefine it during implementation.
-
 ### Backlog discovery
 
-- When execution reveals worthwhile, actionable work that is absent from the ledgers, add a concise `NEW` item to the appropriate queue instead of relying on chat memory.
+- When execution reveals worthwhile, actionable work that is absent from the ledgers, add a concise `NEW` item to the appropriate queue instead of relying on session memory.
 - Record the observation, expected outcome, and why it matters sufficiently for later triage. Link evidence or the originating item when useful.
 - Do not broaden the current item's scope merely because a related improvement was discovered. Finish the current contract first unless the discovery is required for acceptance or is an urgent safety/security issue.
-- Avoid duplicate, speculative, or low-value TODO noise. Human-defined priorities remain authoritative; newly discovered work enters the queue for normal prioritization rather than jumping ahead automatically.
 - A worker adds discoveries only to its owned ledger unless its contract authorizes another surface. `main` accepts, moves, merges, or rejects them during handoff.
 
 ## Repo loop extensions

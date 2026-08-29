@@ -34,7 +34,7 @@ Start with a single repo first:
 1. Put [AGENTS.md](AGENTS.md) in the repo root.
 2. Optionally, add the provided [devcontainer](.devcontainer/devcontainer.json).
 3. Start your agent from your normal IDE or CLI.
-4. Create `README.md` and a discoverable TODO ledger, or ask the agent to seed them with the idea, constraints, and existing sources.
+4. Create `README.md` and a discoverable TODO ledger, or ask the agent to do that seed it with the idea, constraints, and existing sources.
 5. Prompt `Execute the IEF loop for <ledger>`.
 
 ### Example prompts
@@ -61,9 +61,10 @@ Start with a single repo first:
 
 ### Additional notes
 
-* IEF is tool-agnostic, but each CLI or IDE must support loading repository instructions and the file/tool operations required by the project. Verify those capabilities instead of assuming identical behavior.
+* All CLIs and IDE extension (e.g. Codex, Claude Code, GitHub, Opencode, GitHub Copilot) should work fine.
 * The provided [devcontainer](.devcontainer/devcontainer.json) is optional.
 * Move to the [Workspace-level setup](#workspace-level-setup) when you specifically want one shared agent environment across multiple repos.
+* I currently use Codex CLI with GPT-5.6 Sol (August 27, 2026)
 
 ## Typical collaboration rhythm
 
