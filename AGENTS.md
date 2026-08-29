@@ -55,8 +55,6 @@ For each delegated workstream:
 
 Commit the delegation contract and workstream registration before launching the worker so every participant sees the same durable assignment.
 
-When workers share a checkout, each edits and commits only its owned paths. Use separate worktrees or serialize work when ownership would overlap.
-
 The normal worker instruction is outcome-oriented and explicit about the control plane, for example:
 
 ```text
