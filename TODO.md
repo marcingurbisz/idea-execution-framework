@@ -8,5 +8,8 @@
 * Review and cleanup documents under /docs
 
 
-## [NEW] Feedback 3
+## [DONE 2026-08-29.3] Feedback 3
 * Is it clear for you from AGENTS.md that main should do other items when task is delegated (should not wait for worker to finish unless no other items left in main leadger)? If not try to show that without complicating diagrams to much.
+  > Agent: Nie było to dość jasne: bezpośrednia strzałka od uruchomienia workera do odbioru handoffu sugerowała synchroniczne czekanie. Diagram `main` ma teraz mały wybór „Other actionable main work?”: po delegacji lub odesłaniu reworku wraca do głównej kolejki, a przechodzi do oczekiwania tylko bez innej pracy. Końcowy wybór rozróżnia gotowy handoff, nadal działających workerów, własne zadania i całkowity brak pracy. Pod diagramem dodano jedną normatywną regułę: delegacja/rework są asynchroniczne, a `main` czeka na handoff lub zdarzenie zewnętrzne dopiero po wyczerpaniu innych wykonalnych elementów głównego ledgera.
+
+> Validation: `git diff --check`; ręczne przejście diagramu dla trzech scenariuszy: worker działa równolegle z kolejnymi elementami `main`, handoff jest już gotowy do odbioru oraz worker jest jedynym pozostałym oczekiwaniem.

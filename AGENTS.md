@@ -106,19 +106,24 @@ flowchart TD
     B --> C{Delegate?}
     C -->|No| D[Main executes and validates]
     C -->|Yes| E[Commit delegation and start or reuse worker]
-    E --> F[Receive worker handoff]
+    E --> O{Other actionable main work?}
+    O -->|Yes| B
+    O -->|No| W[Wait for next event]
+    W --> F[Inspect worker handoff]
     F --> G{Accepted?}
     G -->|No| H[Return bounded feedback and rerun worker loop]
-    H --> F
+    H --> O
     G -->|Yes| I[Main integrates, validates, and handles release]
     D --> J[Update ledger and durable docs]
     I --> J
     D -->|Needs human decision| K[Ask Human]
     F -->|Blocked beyond contract| K
     J --> L[Mark done and commit]
-    L --> M{More actionable work?}
-    M -->|Yes| B
-    M -->|No| N[Human review]
+    L --> M{Next state?}
+    M -->|Actionable main work| B
+    M -->|Ready handoff| F
+    M -->|Only running workers| W
+    M -->|Nothing pending| N[Human review]
 ```
 
 A worker executes the bounded loop recorded in its own ledger:
@@ -141,6 +146,7 @@ flowchart TD
 - After a TODO item is done, the resulting knowledge may later need to be incorporated into long-term documentation under `README.md` and/or `docs/`. This is often initiated by the human through follow-up TODO items, but the agent may also do it proactively when it is clearly in scope and improves the repo as the source of truth.
 - `main` escalates to the human only when constraints or requirements are unclear, risk is high, or scope/priority boundaries change. A worker normally returns such a blocker to `main` unless its contract explicitly grants direct coordination.
 - Continue to the next actionable item from the given TODO list - do not stop the loop.
+- Delegation and rework are asynchronous. After starting a worker or returning feedback, `main` continues with other actionable main-ledger items and waits for a handoff or external event only when no such work remains.
 - Hard gate between TODO items: after finishing one TODO, do these in order before starting the next TODO: 1) update the execution log under that TODO item, 2) mark the item as done, 3) commit only the files belonging to that completed item.
 - In this workspace, hereby you have explicit approval to create the required commit(s) at TODO boundaries. Do not ask again whether to commit unless the user explicitly says not to commit, the commit would include changes outside your work, or there is genuine uncertainty about which repo should receive the commit.
 - When stopping (or handing off), explicitly state the stop condition and why you are stopping now (e.g., blocked and need human input, intentional status checkpoint before continuing, or no actionable work remains) - remember the default is that you continue with the next item from the list.
