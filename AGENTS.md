@@ -49,11 +49,13 @@ For each delegated workstream:
 
 1. Create or reuse a dedicated ledger. Prefer `todo-<role_id>.md` for a recurring persistent role and `todo-<topic>.md` or `todo/<topic>.md` for a one-off workstream.
 2. Register its owner, status, scope, and return condition in the main ledger or in the canonical role roster linked from it.
-3. Before starting the worker, record todo items in worker leader.
+3. Before starting the worker, record actionable items and the delegation boundaries needed to execute them safely in the worker ledger.
 4. The worker marks its item, logs meaningful progress in its ledger, commits only its work, and returns the commit plus validation, decisions, limitations, and follow-ups.
 5. The main agent independently inspects the handoff, resolves integration issues, updates the main ledger, and owns final cross-workstream tests and release actions.
 
 Commit the delegation contract and workstream registration before launching the worker so every participant sees the same durable assignment.
+
+When workers share a checkout, each edits and commits only its owned paths. Use separate worktrees or serialize work when ownership would overlap.
 
 The normal worker instruction is outcome-oriented and explicit about the control plane, for example:
 
@@ -98,30 +100,42 @@ Keep supporting documentation/memory artifacts either under:
 
 ## Agent work loop and iteration rhythm
 
+Main coordinates the project-level loop:
+
 ```mermaid
 flowchart TD
     A@{ shape: circle, label: "Start" } --> B[Main picks item from main ledger]
     B --> C{Delegate?}
     C -->|No| D[Main executes and validates]
-    C -->|Yes| E[Record role contract and delegation]
-    E --> F[Worker runs its ledger loop]
-    F --> G[Worker logs, marks done, commits, hands off]
-    G --> H[Main inspects and validates handoff]
-    H --> O{Accepted?}
-    O -->|No| P[Record feedback and return bounded work]
-    P --> F
-    O -->|Yes| Q[Main integrates and handles release]
-    D --> I[Main updates item and durable docs]
-    Q --> I
-    D -->|Needs clarification| J[Ask Human]
-    F -->|Blocked| N[Worker checkpoints and hands blocker to main]
-    N --> R{Can main resolve within contract?}
-    R -->|Yes| F
-    R -->|No| J
-    I --> K[Main marks done and commits]
-    K --> L{More actionable work?}
-    L -->|Yes| B
-    L -->|No| M[Human review]
+    C -->|Yes| E[Commit delegation and start or reuse worker]
+    E --> F[Receive worker handoff]
+    F --> G{Accepted?}
+    G -->|No| H[Return bounded feedback and rerun worker loop]
+    H --> F
+    G -->|Yes| I[Main integrates, validates, and handles release]
+    D --> J[Update ledger and durable docs]
+    I --> J
+    D -->|Needs human decision| K[Ask Human]
+    F -->|Blocked beyond contract| K
+    J --> L[Mark done and commit]
+    L --> M{More actionable work?}
+    M -->|Yes| B
+    M -->|No| N[Human review]
+```
+
+A worker executes the bounded loop recorded in its own ledger:
+
+```mermaid
+flowchart TD
+    A@{ shape: circle, label: "Start from committed worker ledger" } --> B[Pick and mark owned item]
+    B --> C[Execute and validate]
+    C -->|Blocked| D[Checkpoint evidence and blocker]
+    D --> E[Hand blocker to main and stop session]
+    C -->|Finished| F[Log result and mark done]
+    F --> G[Commit owned work]
+    G --> H{More actionable items?}
+    H -->|Yes| B
+    H -->|No| I[Return final handoff to main]
 ```
 
 - Work in cycles and update repo TODO items and docs after meaningful progress.
@@ -142,6 +156,12 @@ flowchart TD
 - Record the observation, expected outcome, and why it matters sufficiently for later triage. Link evidence or the originating item when useful.
 - Do not broaden the current item's scope merely because a related improvement was discovered. Finish the current contract first unless the discovery is required for acceptance or is an urgent safety/security issue.
 - A worker adds discoveries only to its owned ledger unless its contract authorizes another surface. `main` accepts, moves, merges, or rejects them during handoff.
+
+### Framework improvement feedback
+
+- Treat a concrete idea that could improve IEF itself as a useful work result: report it to `main` or the human with the observation, impact, and suggested change.
+- If the agent owns the IEF ledger, add a focused `NEW` item. Otherwise record the idea in its project handoff; do not silently edit the shared framework from an unrelated worker scope.
+- Keep framework feedback distinct from the current project's backlog so it can be evaluated once and reused across projects.
 
 ## Repo loop extensions
 
