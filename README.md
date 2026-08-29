@@ -15,6 +15,12 @@ In practice, the human provides the idea, priorities, constraints, and reviews; 
 - the required repo control surfaces: `README.md` plus one discoverable main queue and any linked role/topic ledgers
 - when the agent should continue, stop, escalate, and hand off
 
+IEF separates three related concepts:
+
+- a **persistent role** is a repository-defined specialization with a charter, ownership, ledger, history, and handoffs;
+- a **worker session** is one temporary model/runtime execution acting for a role or a one-off workstream;
+- a **workstream** is the bounded outcome being delivered. A recurring role may execute many workstreams through successive sessions, while a one-off workstream does not require creating a persistent role.
+
 ## Documentation (memory) layout
 
 See [AGENTS.md](AGENTS.md) for the definitive description of the repo control plane and documentation (memory) layout.
@@ -56,9 +62,13 @@ Start with a single repo first:
 
 Prepare or refine the TODO list and prompt "Execute the IEF loop". After the loop is executed, review the results, define the next TODO items + feedback for agent, and start the loop again.
 
+The queue is not limited to tasks written by the human. During execution, the agent adds a focused `NEW` item when it discovers worthwhile, actionable work that is not already represented. Discovery does not silently expand the item currently in progress: the new item records why it matters and returns to normal prioritization.
+
 Finished TODO items do not automatically become good long-term documentation. Part of the ongoing loop is to fold durable outcomes back into `README.md` and/or `docs/` when they should become part of the stable project memory. In practice this is often triggered by the human via follow-up TODO items, but the agent should also do it when it is clearly within scope.
 
-For larger projects with recurring, context-heavy types of work, introduce a small set of persistent roles. The main agent owns decomposition, shared contracts, acceptance and integration; a temporary worker session executes a bounded workstream for one role. The role remains in the repository (`role_id`, charter, owned paths, ledger, history and last handoff), while sessions may be replaced. Start a worker with `Execute the IEF loop on todo/<topic>.md within the delegation contract recorded there`, then let main independently accept and integrate the result.
+For larger projects with recurring, context-heavy types of work, introduce a small set of persistent roles. The main agent owns decomposition, shared contracts, acceptance and integration; a temporary worker session executes a bounded workstream for one role. The role remains in the repository (`role_id`, charter, owned paths, ledger, history and last handoff), while sessions may be reused or replaced. Start a worker with `Execute the IEF loop on todo/<topic>.md within the delegation contract recorded there`, then let main independently accept and integrate the result.
+
+The current reference setup uses the native subagent mechanism exposed by an agentic CLI or IDE because it offers structured spawning, steering, waiting, and handoff with low startup overhead (for the current Codex example, see [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents)). This is an implementation choice, not an IEF requirement. Roles may later run as separate CLI processes, CI jobs, services, or another agent backend when they need independent lifetime, automation, or isolation; the repository control plane stays the same. A backend may also support explicit session continuity, such as [`codex exec resume`](https://learn.chatgpt.com/docs/non-interactive-mode#resume-a-non-interactive-session).
 
 ## Workspace-level setup
 Keep `idea-execution-framework` as one folder inside a larger multi-project workspace and open the whole workspace as a single VS Code devcontainer.

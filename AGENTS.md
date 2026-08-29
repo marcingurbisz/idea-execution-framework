@@ -11,7 +11,9 @@
 
 - Human: vision, constraints, approvals for major decisions.
 - Main AI agent: owns the big picture, decomposition, shared interfaces, ledger state, acceptance, integration, and human communication.
-- Worker agent: owns a concrete bounded workstream, its scoped files, validation, execution log, and handoff. 
+- Persistent role: a repository-defined specialization with a stable `role_id`, charter, ownership, ledger, history, and return condition. It is durable project memory, not a running model.
+- Worker session: one temporary model/runtime execution acting for a persistent role or a one-off workstream. It owns its bounded files, validation, execution log, and handoff for that run.
+- Workstream: the concrete bounded outcome assigned to `main` or a worker session. A role may execute many workstreams over time; a one-off workstream does not require a new persistent role.
 
 Worker sessions and persistent specialist roles are optional. Start with the main agent alone. Introduce a role when the project repeatedly produces a distinct, context-heavy type of work that benefits from accumulated domain knowledge and a stable ownership boundary.
 
@@ -21,9 +23,11 @@ The main agent may execute work directly. Delegation is a tool, not a goal: pref
 
 ### Persistent roles and disposable sessions
 
-A durable worker identity is a repository role. Define a stable `role_id`, remit, owned paths, standing constraints, ledger, accepted commits, useful learnings, and last handoff.
+A durable worker identity is a repository role. Define a stable `role_id`, remit, owned paths, standing constraints, ledger, accepted commits, useful learnings, and last handoff. Model context belongs to a session; durable role context belongs to the repository.
 
 Keep a role roster in the main ledger or a linked `agent-roles.md`. On startup, a returning worker reads the repo instructions, role charter, current ledger, relevant long-term docs, and last handoff. Do not depend on raw chat history.
+
+If the orchestrator still exposes an existing session for the role, prefer reusing it when the context is relevant, uncontended, and still reliable. Start a fresh session with a controlled fork of current `main` context when the old handle is unavailable, stale or noisy, currently busy with conflicting work, or when the new work depends more on recent cross-project decisions than on the role's previous thread. Do not assume a native subagent handle survives a client restart. If continuity across processes is required and the backend supports an explicit persisted session identifier, resume that session deliberately; in every case, reconstruct and verify state from the role ledger before acting.
 
 Prefer a small stable set of domain roles over creating a new persona for every task. Add a persistent role only when repeated work benefits from accumulated domain context and a reasonably stable ownership boundary.
 
@@ -60,6 +64,12 @@ The ledger and Git commits are the durable identity of the workstream. An agent/
 
 Keep the role roster and current workstream registration on one canonical surface, such as `agent-roles.md` next to the ledgers.
 
+### Worker backend
+
+Use a native subagent when the current orchestrator exposes structured spawn, steering, wait, and handoff operations. It is the default reference implementation today, especially for interactive work and reuse of an available role thread.
+
+Use a separate CLI process, CI job, service, worktree, or other backend when the worker must outlive the current orchestrator, run through automation, or have stronger execution isolation. Backend capabilities determine whether model context itself can be resumed. IEF requires only that the role, contract, progress, evidence, and handoff remain reconstructable from the repository.
+
 ## Repo control plane and documentation layout
 
 Every concrete repository keeps a `README.md` at its root to define intent, constraints, and how-to-run guidance. Keep the actionable queue on one or more clearly linked Markdown control surfaces:
@@ -86,14 +96,22 @@ Keep supporting documentation/memory artifacts either under:
 
 ```mermaid
 flowchart TD
-    A@{ shape: circle, label: "Start" } --> B[Pick item from TODO]
-    B --> C[Work on item]
-    C -->|Finished| E[Update TODO item and docs]
-    C -->|Needs clarification| H[Ask Human]
-    E --> Z["Commit"]
-    Z --> G{More work?}
-    G -->|Yes| B
-    G -->|No| I[Human review]
+    A@{ shape: circle, label: "Start" } --> B[Main picks item from main ledger]
+    B --> C{Delegate?}
+    C -->|No| D[Main executes and validates]
+    C -->|Yes| E[Record role contract and delegation]
+    E --> F[Worker runs its ledger loop]
+    F --> G[Worker logs, marks done, commits, hands off]
+    G --> H[Main inspects, validates, and integrates]
+    D --> I[Main updates item and durable docs]
+    H --> I
+    D -->|Needs clarification| J[Ask Human]
+    F -->|Blocked| N[Worker checkpoints and hands blocker to main]
+    N --> J
+    I --> K[Main marks done and commits]
+    K --> L{More actionable work?}
+    L -->|Yes| B
+    L -->|No| M[Human review]
 ```
 
 - Work in cycles and update repo TODO items and docs after meaningful progress.
@@ -108,6 +126,14 @@ flowchart TD
 - When working in multi-repo workspace read the AGENTS.md and README.md of the repo in which you are doing a task
 - Treat the active TODO file as the authoritative loop ledger, not the chat transcript. Before the final response for a loop, rescan the TODO/topic file and derive the list of items completed in the current loop from that file.
 - If the repo defines a loop label scheme, reuse it across all items completed in the same loop and use that label when producing the final loop summary. If the repo does not define loop label scheme that is unique per loop execution use a date plus ordinal label such as `2026-04-09.1`.
+
+### Backlog discovery
+
+- When execution reveals worthwhile, actionable work that is absent from the ledgers, add a concise `NEW` item to the appropriate queue instead of relying on chat memory.
+- Record the observation, expected outcome, and why it matters sufficiently for later triage. Link evidence or the originating item when useful.
+- Do not broaden the current item's scope merely because a related improvement was discovered. Finish the current contract first unless the discovery is required for acceptance or is an urgent safety/security issue.
+- Avoid duplicate, speculative, or low-value TODO noise. Human-defined priorities remain authoritative; newly discovered work enters the queue for normal prioritization rather than jumping ahead automatically.
+- A worker adds discoveries only to its owned ledger unless its contract authorizes another surface. `main` accepts, moves, merges, or rejects them during handoff.
 
 ## Repo loop extensions
 
