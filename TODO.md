@@ -20,5 +20,8 @@
 
 > Validation: `git diff --check`; ręczna kontrola spójności terminów i wszystkich pięciu uwag między README, sekcjami Roles/Multi-agent coordination/Agent work loop w AGENTS.md oraz oficjalną dokumentacją OpenAI Subagents i Non-interactive mode.
 
-## [NEW] Review
+## [DONE 2026-08-29.1] Review
 * Review whole README and AGENTS.md for things that may require improvements
+  > Agent: Przejrzano oba dokumenty od początku do końca po zmianach z poprzedniego elementu. README ma teraz prostszy opis pamięci projektu, poprawiony quick start i przykładowe prompty, ostrożne wymagania wobec kompatybilnych CLI/IDE zamiast obietnicy, że każde narzędzie zachowa się identycznie, poprawne linki/formatowanie oraz bez datowanego wpisu o prywatnie używanym modelu.
+  > Changes: AGENTS.md wymaga teraz outcome-based kontraktu z ownershipem, zakazanym zakresem, uprawnieniami i evidence, zacommitowanego przed startem workera. Diagram obsługuje odrzucony handoff, poprawki workera, odbiór, release i routing blokady przez `main`. Dodano bezpieczeństwo równoległej pracy, rozdzielenie monitoringu od sesji specjalisty, precyzyjny commit tylko plików danego elementu, routing eskalacji i poprawki językowe/formatujące.
+  > Validation: `git diff --check`; wszystkie lokalne cele linków istnieją; oba odnośniki do oficjalnej dokumentacji OpenAI zwracają HTTP 200; ręczne przejście całych README i AGENTS.md pod kątem sprzeczności między quick startem, control plane, delegacją, diagramem, hard gate i logowaniem. Nie dodano nowego TODO: jedyne pozostałe zagadnienie (`[FOR HUMAN]`) już istnieje w ledgerze i nie powinno być duplikowane.

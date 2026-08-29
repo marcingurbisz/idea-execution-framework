@@ -1,7 +1,7 @@
 # Idea Execution Framework
 
 ## Vision
-IEF is a way of working where the Git repository becomes a shared documentation (memory) between the human and the AI agent or agents.
+IEF is a way of working where a Git repository becomes shared project memory for the human and one or more AI agents.
 
 The goal is to make idea execution efficient, transparent, restartable, and auditable: plans, decisions, artifacts, progress, and learnings are all kept in the repo instead of being scattered across chat history or a context that can be compacted, lost, or available only on one machine.
 
@@ -30,33 +30,40 @@ In short: `README.md` stays at repo root; the queue can live either in `TODO.md`
 ## Quick start
 
 Start with a single repo first:
+
 1. Put [AGENTS.md](AGENTS.md) in the repo root.
-2. Put [devcontainer](.devcontainer/devcontainer.json) in repo root (optionally)
+2. Optionally, add the provided [devcontainer](.devcontainer/devcontainer.json).
 3. Start your agent from your normal IDE or CLI.
-4. Ask agent to create `README.md`, `TODO.md` seeding it with ideas, constraints, and existing sources (or do it manually if you prefer):
-5. Prompt `Execute the IEF loop for TODO.md`.
+4. Create `README.md` and a discoverable TODO ledger, or ask the agent to seed them with the idea, constraints, and existing sources.
+5. Prompt `Execute the IEF loop for <ledger>`.
 
 ### Example prompts
-  - New project: 
-    ```
-    Here is the initial idea:
-    <idea here>  
-    Prepare memory according to AGENTS.md, draft the README, and create the initial TODO items.
-    ```
-  - Existing project without README:
-    ```
-    Analyze this project, update the README if needed, then create initial TODO items.
-    ```
-  - Execution: 
-    ```
-    Execute the IEF loop for TODO.md
-    ```
+
+- New project:
+
+  ```text
+  Here is the initial idea:
+  <idea here>
+  Prepare memory according to AGENTS.md, draft the README, and create the initial TODO items.
+  ```
+
+- Existing project without README:
+
+  ```text
+  Analyze this project, update the README if needed, then create initial TODO items.
+  ```
+
+- Execution:
+
+  ```text
+  Execute the IEF loop for TODO.md
+  ```
 
 ### Additional notes
-* All CLIs and IDE extension (e.g. Codex, Claude Code, GitHub, Opencode, GitHub Copilot) will work fine.
+
+* IEF is tool-agnostic, but each CLI or IDE must support loading repository instructions and the file/tool operations required by the project. Verify those capabilities instead of assuming identical behavior.
 * The provided [devcontainer](.devcontainer/devcontainer.json) is optional.
-* I currently use Codex CLI with GPT-5.6 Sol (August 27, 2026)
-* Move to the [Workspace-level setup](#Workspace-level-setup) when you specifically want one shared agent environment across multiple repos.
+* Move to the [Workspace-level setup](#workspace-level-setup) when you specifically want one shared agent environment across multiple repos.
 
 ## Typical collaboration rhythm
 
@@ -71,6 +78,7 @@ For larger projects with recurring, context-heavy types of work, introduce a sma
 The current reference setup uses the native subagent mechanism exposed by an agentic CLI or IDE because it offers structured spawning, steering, waiting, and handoff with low startup overhead (for the current Codex example, see [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents)). This is an implementation choice, not an IEF requirement. Roles may later run as separate CLI processes, CI jobs, services, or another agent backend when they need independent lifetime, automation, or isolation; the repository control plane stays the same. A backend may also support explicit session continuity, such as [`codex exec resume`](https://learn.chatgpt.com/docs/non-interactive-mode#resume-a-non-interactive-session).
 
 ## Workspace-level setup
+
 Keep `idea-execution-framework` as one folder inside a larger multi-project workspace and open the whole workspace as a single VS Code devcontainer.
 
 Recommended layout:
@@ -86,9 +94,10 @@ workspace/
 ```
 
 Usage:
+
 - Open `workspace/` in VS Code and/or Agentic CLIs.
 - When in VS Code: Reopen in container from the workspace root (the root `.devcontainer` symlink points to this repository's devcontainer config).
-- Because `AGENTS.md` is at workspace root (symlink), Agentic CLIs/IDEs includes these instructions in every prompt across all projects in that workspace.
+- Because `AGENTS.md` is at the workspace root (via symlink), compatible agentic CLIs and IDEs can load the same instructions for every project in that workspace.
 - Prompt "Execute the IEF loop in projectA repo" to have IEF loop executed on specific project.
 
 ## License

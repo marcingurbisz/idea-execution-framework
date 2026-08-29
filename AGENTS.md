@@ -41,20 +41,24 @@ Close each session cleanly:
 4. return a concise handoff to the main agent;
 5. record downstream acceptance or useful user feedback in the role history when it improves future work.
 
+Use bounded sessions and hand off after meaningful milestones, before context quality degrades. Move passive polling, build waiting, and recurring monitoring to automation or a monitoring mechanism so a specialist is not occupied by idle waiting.
+
 ### Worker control plane
 
-For each durable workstream:
+For each delegated workstream:
 
 1. Create or reuse a dedicated ledger. Prefer `todo-<role_id>.md` for a recurring persistent role and `todo-<topic>.md` or `todo/<topic>.md` for a one-off workstream.
 2. Register its owner, status, scope, and return condition in the main ledger or in the canonical role roster linked from it.
-3. Before starting the worker, record the objective, acceptance criteria.
+3. Before starting the worker, record the outcome, acceptance criteria, owned and forbidden scope, authority to commit or deploy, and required acceptance evidence. Leave implementation choices and exact validation commands to the worker unless the repository defines a mandatory gate or a specific risk requires one.
 4. The worker marks its item, logs meaningful progress in its ledger, commits only its work, and returns the commit plus validation, decisions, limitations, and follow-ups.
 5. The main agent independently inspects the handoff, resolves integration issues, updates the main ledger, and owns final cross-workstream tests and release actions.
+
+Commit the delegation contract and workstream registration before launching the worker so every participant sees the same durable assignment.
 
 The normal worker instruction is outcome-oriented and explicit about the control plane, for example:
 
 ```text
-Execute the IEF loop on todo/<topic>.md within the delegation contract recorded there.
+Execute the IEF loop on <ledger> within the delegation contract recorded there.
 Continue through all actionable items, committing at item boundaries, then hand off.
 ```
 
@@ -89,6 +93,7 @@ Recommended todo item status vocabulary:
 - `DONE <loop>` — result logged, validated, and committed.
 
 Keep supporting documentation/memory artifacts either under:
+
 - existing topic file you are working on, or
 - `docs/` - documentation, research notes, session artifacts, and other long-term memory files
 
@@ -102,12 +107,18 @@ flowchart TD
     C -->|Yes| E[Record role contract and delegation]
     E --> F[Worker runs its ledger loop]
     F --> G[Worker logs, marks done, commits, hands off]
-    G --> H[Main inspects, validates, and integrates]
+    G --> H[Main inspects and validates handoff]
+    H --> O{Accepted?}
+    O -->|No| P[Record feedback and return bounded work]
+    P --> F
+    O -->|Yes| Q[Main integrates and handles release]
     D --> I[Main updates item and durable docs]
-    H --> I
+    Q --> I
     D -->|Needs clarification| J[Ask Human]
     F -->|Blocked| N[Worker checkpoints and hands blocker to main]
-    N --> J
+    N --> R{Can main resolve within contract?}
+    R -->|Yes| F
+    R -->|No| J
     I --> K[Main marks done and commits]
     K --> L{More actionable work?}
     L -->|Yes| B
@@ -117,15 +128,21 @@ flowchart TD
 - Work in cycles and update repo TODO items and docs after meaningful progress.
 - Keep the per-item execution log in the TODO entry itself; use separate documents under `docs/` only for supporting notes that stay useful beyond that one item.
 - After a TODO item is done, the resulting knowledge may later need to be incorporated into long-term documentation under `README.md` and/or `docs/`. This is often initiated by the human through follow-up TODO items, but the agent may also do it proactively when it is clearly in scope and improves the repo as the source of truth.
-- Escalate to the human only when constraints/requirements are unclear or when scope boundaries change.
+- `main` escalates to the human only when constraints or requirements are unclear, risk is high, or scope/priority boundaries change. A worker normally returns such a blocker to `main` unless its contract explicitly grants direct coordination.
 - Continue to the next actionable item from the given TODO list - do not stop the loop.
-- Hard gate between TODO items: after finishing one TODO, do these in order before starting the next TODO: 1) update the execution log under that TODO item, 2) mark item as done, 3) commit whole work
+- Hard gate between TODO items: after finishing one TODO, do these in order before starting the next TODO: 1) update the execution log under that TODO item, 2) mark the item as done, 3) commit only the files belonging to that completed item.
 - In this workspace, hereby you have explicit approval to create the required commit(s) at TODO boundaries. Do not ask again whether to commit unless the user explicitly says not to commit, the commit would include changes outside your work, or there is genuine uncertainty about which repo should receive the commit.
-- Ask the human before continuing only when requirements are ambiguous, risk is high, or scope/priority trade-offs are required.
 - When stopping (or handing off), explicitly state the stop condition and why you are stopping now (e.g., blocked and need human input, intentional status checkpoint before continuing, or no actionable work remains) - remember the default is that you continue with the next item from the list.
-- When working in multi-repo workspace read the AGENTS.md and README.md of the repo in which you are doing a task
+- When working in a multi-repo workspace, read the `AGENTS.md` and `README.md` of the repository in which you are doing a task.
 - Treat the active TODO file as the authoritative loop ledger, not the chat transcript. Before the final response for a loop, rescan the TODO/topic file and derive the list of items completed in the current loop from that file.
 - If the repo defines a loop label scheme, reuse it across all items completed in the same loop and use that label when producing the final loop summary. If the repo does not define loop label scheme that is unique per loop execution use a date plus ordinal label such as `2026-04-09.1`.
+
+### Concurrent work safety
+
+- Assume another agent or the human may edit the same checkout. Mark an item when you pick it and inspect Git state again before editing and committing.
+- Preserve unrelated changes. Never include another participant's files in your commit merely to obtain a clean worktree.
+- Give write-heavy parallel workers separate worktrees when practical. Otherwise assign uncontended owned paths or serialize work touching shared interfaces and ledgers.
+- The owner of a shared contract coordinates its changes; workers do not independently redefine it during implementation.
 
 ### Backlog discovery
 
@@ -142,7 +159,7 @@ flowchart TD
 
 ## Agent execution logging rules
 - Treat the TODO item itself as the primary per-item execution log.
-- Keep original text of the TODO item. Ad your logs below original text.
+- Keep original text of the TODO item. Add your logs below the original text.
 - When a TODO item naturally breaks into subitems (e.g. TODO item consists of bullet points), put your log under each subitem. Do not change the text of the subitem provided by human.
 - When responding to an inline human comment or question inside a TODO/topic file, preserve the original human comment verbatim and add a separate `> Agent:` block below it.
 - Within one continuous block from the same speaker, prefix only the first line with `> Agent:` or `>> Human:` and keep the following lines in the same quote level until the speaker changes.
