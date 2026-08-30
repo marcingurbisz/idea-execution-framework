@@ -1,3 +1,16 @@
+## [DONE 2026-08-30.1] Retencja zakończonych elementów ledgerów
+
+Jak zarzadzac wielkością ledgera? Ja bym usuwał całkowicie stare DONE todo items po jakimś czasie (historia jest w git). Po jakim?
+Przy usuwaniu agent sprawdza czy czegoś nie warto dodać do long term doc.
+Każda rola robi to dla swojego ledgera.
+Co myślisz o tym i jak to zaprojektować w IEF?
+
+> Agent: Projekt ma utrzymać ledger jako bieżący control plane, a Git jako pełną historię. Domyślna retencja będzie łączyć wiek i minimalne okno kontekstu, z obowiązkową destylacją trwałej wiedzy przed fizycznym usunięciem wpisu.
+> Decision: Wpis `DONE` można usunąć w całości, gdy ma co najmniej 30 dni i nie należy do 10 najnowszych zakończonych wpisów danego ledgera. Nigdy nie usuwa się pracy otwartej, zablokowanej, nadal referencjonowanej, z nierozliczonym feedbackiem ani niedostępnej w kanonicznej historii Git.
+> Changes: Dodano normatywną politykę retencji i destylacji do `AGENTS.md` oraz krótkie objaśnienie do README. Przed usunięciem właściciel przenosi trwałe instrukcje, decyzje, learnings i follow-upy do README, `docs/`, rosteru albo nowych elementów kolejki. Każda rola sprząta własny ledger po commicie pracy, przed handoffem; `main` sprząta swój. Cleanup jest osobnym commitem, bez tombstone'ów i bez mieszania ze zmianą produktu.
+> Validation: Sprawdzono kontrakt względem ledgerów głównego i ról, hard gate'u commitów, handoffów, otwartych komentarzy oraz historii Git. Reguła zachowuje co najmniej 30 dni i 10 ostatnich wyników, a jednocześnie pozwala rzeczywiście zmniejszać plik zamiast tworzyć drugi rosnący archiwum-ledger.
+> Stop: Element frameworkowy jest ukończony; pozostałe otwarte punkty `[FOR HUMAN]` nie są wykonywalnymi elementami ze statusem IEF i pozostają do decyzji człowieka.
+
 ## [FOR HUMAN]
 * What do I need to fully delegate project execution (I'm only PO without looking at code)
   * Additional communication channels and loop triggers in addition to adding todo items to the leadger + issuing a prompt to cli

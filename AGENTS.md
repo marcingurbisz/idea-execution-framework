@@ -96,6 +96,30 @@ Keep supporting documentation/memory artifacts either under:
 - existing topic file you are working on, or
 - `docs/` - documentation, research notes, session artifacts, and other long-term memory files
 
+### Ledger retention and distillation
+
+A ledger is an operational control surface, not the permanent archive of every completed run. Git keeps the exact historical record; the live ledger should preserve open work and enough recent context to make follow-up cheap.
+
+Use this default retention policy unless a repository documents a stricter rule:
+
+- never remove `NEW`, `IN PROGRESS`, `DELEGATED`, or `BLOCKED` items;
+- retain every `DONE` item for at least 30 days;
+- retain at least the 10 most recent `DONE` items in each ledger even when they are older than 30 days;
+- after both limits are satisfied, remove the whole old `DONE` item instead of moving it to another archive file;
+- do not prune an item while it has unresolved human feedback, is referenced by open work, is the current handoff or rollback reference, or its completion commit is not available in the canonical Git history.
+
+Before deleting an eligible item, its ledger owner performs a distillation pass:
+
+1. preserve stable intent, constraints, setup and operating instructions in `README.md`;
+2. preserve reusable decisions, interfaces, research conclusions and runbooks in the appropriate long-term document under `docs/`;
+3. preserve role charter changes, accepted learnings and the current handoff in the role roster or role memory;
+4. turn any unfinished or newly discovered action into an explicit open item;
+5. verify that references from live control surfaces do not depend only on the text being removed.
+
+The owner of each ledger performs and commits its own cleanup. `main` cleans the main ledger; a persistent role cleans its dedicated ledger at session close, after committing its bounded work and before its final handoff. Make pruning a separate maintenance commit whose message identifies the ledger and removed loop labels; do not mix it with product changes. The deletion commit is the audit trail, so do not leave tombstones in the live ledger.
+
+Check retention at most once per loop, normally after completing the current item and before the final handoff. A repository may trigger the check earlier when a ledger exceeds a documented size threshold, but size pressure does not bypass the distillation and safety checks above.
+
 ## Agent work loop and iteration rhythm
 
 Main coordinates the project-level loop:
